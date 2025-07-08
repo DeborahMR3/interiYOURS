@@ -2,8 +2,7 @@ import "./HomePage.css";
 import { useLocation } from "react-router-dom";
 import avatarImg from "./components/images/user-avatar-photo.webp";
 
-import AvatarDropdown from './components/AvatarDropdown';
-
+import AvatarDropdown from "./components/AvatarDropdown";
 
 const HomePage = () => {
   const location = useLocation();
@@ -12,40 +11,35 @@ const HomePage = () => {
   const message = location.state?.message;
 
   const rooms = [
-  { id: 1, name: "Room 1" },
-  { id: 2, name: "Room 2" },
-  { id: 3, name: "Room 3" }
-];
+    { id: 1, name: "Room 1" },
+    { id: 2, name: "Room 2" },
+    { id: 3, name: "Room 3" },
+  ];
 
-return (
-  <section className="home-page">
-    <div className="main-card">
-
-      {/* header - greeting message + avatar dropdown */}
-      <div className="header-section">
-        <div>
-          <h1>HOME PAGE!</h1>
-          {message && <p>{message}</p>}
+  return (
+    <section className="home-page">
+      <div className="main-card">
+        {/* header - greeting message + avatar dropdown */}
+        <div className="header-section">
+          <div>
+            <h1>HOME PAGE!</h1>
+            {message && <p>{message}</p>}
+          </div>
+          <AvatarDropdown />
         </div>
-        <AvatarDropdown />
+
+        {/* list of room buttons  */}
+        <div className="cards-container">
+          {rooms.map((room) => (
+            <button key={room.id} className="room-button secondary">
+              {room.name}
+            </button>
+          ))}
+          <button className="room-button primary">Create a new room</button>
+        </div>
       </div>
-
-      {/* list of room buttons  */}
-      <div className="cards-container">
-        {rooms.map((room) => (
-          <button key={room.id} className="room-button secondary">
-            {room.name}
-          </button>
-        ))}
-        <button className="room-button primary">
-          Create a new room
-        </button>
-      </div>
-
-    </div>
-  </section>
-);
-
+    </section>
+  );
 };
 
 export default HomePage;
