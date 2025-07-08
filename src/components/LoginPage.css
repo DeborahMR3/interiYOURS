@@ -3,7 +3,7 @@ section {
   max-width: 400px;
   margin: 0 auto;
   padding: 32px 10px 24px 10px;
-  background: #f6f7f9ee;
+  background: #edf1f8ee;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,8 +20,8 @@ section {
 }
 
 .login-avatar {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
   background: #2196e9;
   border-radius: 50%;
   margin-bottom: 24px;
@@ -52,11 +52,11 @@ input {
 
 button {
   width: 100%;
-  padding: 13px 0;
+  padding: 16px 0;
   font-size: 1.1rem;
   border: none;
   border-radius: 6px;
-  background: #eeeeee;
+  background: #b6d0e2;
   margin-bottom: 10px;
 }
 

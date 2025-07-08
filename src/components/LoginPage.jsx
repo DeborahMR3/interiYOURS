@@ -16,6 +16,7 @@ function LoginPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
+
     console.log("Login attempt:", { email, password });
   }
 
@@ -44,7 +45,7 @@ function LoginPage() {
 
         <button
           type="submit"
-          // disabled={email.trim() === "" || password.trim() === ""}
+          disabled={email.trim() === "" || password.trim() === ""}
         >
           Login
         </button>
