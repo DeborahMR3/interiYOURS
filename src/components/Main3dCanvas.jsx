@@ -10,6 +10,7 @@ import {
   HemisphericLight,
 } from "@babylonjs/core";
 import MainCamera from "./utils-3d/MainCamera";
+import Furniture from "./utils-3d/Items";
 
 const Main3dCanvas = () => {
   const canvasRef = useRef(null);
@@ -21,6 +22,8 @@ const Main3dCanvas = () => {
     const camera = new MainCamera(canvasRef, scene);
 
     /// /// /// TEST BOX /// /// ///
+    const testBox = new Furniture("", scene);
+
     const light = new HemisphericLight("light", new Vector3(1, 1, 0), scene);
     const material = new StandardMaterial("material", scene);
     material.diffuseColor = new Color3(1, 0, 0);

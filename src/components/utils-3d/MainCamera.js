@@ -14,6 +14,8 @@ class MainCamera {
     );
 
     this.camera.attachControl(canvas.current, true);
+    this.camera.lowerRadiusLimit = 5;
+    this.camera.upperRadiusLimit = 75;
   }
 }
 
