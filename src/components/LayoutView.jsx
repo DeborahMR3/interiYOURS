@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Main3dCanvas from "./Main3dCanvas";
 import Sidebar from "./Sidebar";
+import "./styling/layout-view.css";
 
 const LayoutView = () => {
   return (
