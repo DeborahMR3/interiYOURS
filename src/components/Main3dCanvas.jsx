@@ -9,6 +9,7 @@ import {
   Color3,
   HemisphericLight,
 } from "@babylonjs/core";
+import MainCamera from "./utils-3d/MainCamera";
 
 const Main3dCanvas = () => {
   const canvasRef = useRef(null);
@@ -17,15 +18,7 @@ const Main3dCanvas = () => {
     const engine = new Engine(canvasRef.current, true);
     const scene = new Scene(engine);
 
-    const camera = new ArcRotateCamera(
-      "camera",
-      0,
-      5,
-      10,
-      Vector3.Zero(),
-      scene
-    );
-    camera.attachControl(canvasRef.current, true);
+    const camera = new MainCamera(canvasRef, scene);
 
     /// /// /// TEST BOX /// /// ///
     const light = new HemisphericLight("light", new Vector3(1, 1, 0), scene);
