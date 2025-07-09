@@ -1,48 +1,149 @@
 import { Dropdown } from 'react-bootstrap';
 
 .home-page {
-  width: 98vw;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 32px;
-  background: #f6f7f9ee;
+  min-height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  background: #fff;         /* Fundo branco. */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  cursor: pointer;
-}
-@media (min-width: 900px) {
-  section {
-    max-width: 480px;
-    padding: 48px 36px;
-    box-shadow: 0 4px 16px #eff2f5cc;
-    border-radius: 16px;
-  }
 }
 
-.avatar-img {
+/* Se você tiver um .main-card, inclua este bloco, senão pode ignorar */
+.main-card {
+  flex: 1;
   display: flex;
-  width: 45px;
-  height: 45px;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 1.5rem 1rem 2rem 1rem;  /* Padding só nas bordas da tela */
+  box-sizing: border-box;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* AVATAR */
+.avatar-button {
+  width: 52px !important;
+  height: 52px !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 50% !important;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.avatar-button:hover,
+.avatar-button:focus {
+  background-color: #e6f0fd;
+}
+.avatar-img {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   display: block;
+  pointer-events: none;
+}
+
+/* REMOVE ARROW FROM DROPDOWN */
+.avatar-button.dropdown-toggle::after {
+  display: none !important;
+}
+
+/* CARDS/BUTTONS */
+.cards-container {
+  /* display: flex;
+  flex-direction: column; */
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+}
+
+.room-button {
+  padding: 0.85rem;
+  border: none;
+  border-radius: 0.5rem;
+  min-width: unset;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  color: #333;
+  transition: background 0.15s, color 0.15s;
+}
+
+.room-button.secondary:hover,
+.room-button.secondary:focus {
+  background-color: #e1e6ea;
+  color: #1976ff;
+}
+
+.room-button.primary {
+  background-color: #007bff;
+  color: white;
+  margin-top: 0.3rem;
+}
+
+.room-button.primary:hover,
+.room-button.primary:focus {
+  background-color: #0059c7;
+  color: #fff;
+}
+
+
+/* antes--------------------------------- */
+/* .home-page {
+  margin: 0;
+  padding: 0.5rem;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .avatar-button {
-  width: 50px;
-  height: 50px;
-  padding: 0;
-  border-radius: 50%;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
+  width: 52px !important;
+  height: 52px !important;
+  display: flex !important;
   align-items: center;
   justify-content: center;
-  background-color: #a1d0fc;
-  border: 3px solid #2196f3;
+  background: none;
+  border: none;
+  border-radius: 50% !important;
+  padding: 0;
+  cursor: pointer;
+
+}
+
+.avatar-button:hover {
+  background-color: #e6f0fd;
+}
+
+.avatar-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: block;
 
 }
 
@@ -50,36 +151,37 @@ import { Dropdown } from 'react-bootstrap';
   background-color: rgb(3, 103, 253);
 }
 
-.room-button {
-  width: 120px;
-  height: 80px;
+.cards-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.room-button {
+  padding: 0.85rem;
+  border: none;
+  border-radius: 0.5rem;
+  min-width: unset;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
   cursor: pointer;
 }
 
-.cards-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 26px 26px;
-  margin-top: 32px;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+
+
+.room-button.secondary {
+  background-color: #f0f0f0;
+  color: #333;
 }
 
-.room-button:hover {
-  background-color: #96bdf7;
+.room-button.primary {
+  background-color: #007bff;
+  color: white;
 }
 
-.home-page h1 {
-  width: 100%;
-  text-align: left;
-  margin: 12px 0 0 0;
-  padding-left: 0;
-  font-size: 2rem;
-  font-weight: 700;
-}
+
+.avatar-button.dropdown-toggle::after {
+  display: none !important;
+} */
