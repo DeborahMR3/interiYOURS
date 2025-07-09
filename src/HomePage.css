@@ -42,10 +42,10 @@ import { Dropdown } from 'react-bootstrap';
   border-radius: 50% !important;
   padding: 0;
   cursor: pointer;
-  /* transition: background 0.1s; */
+  transition: background 0.3s;
 }
 .avatar-button:hover {
-  background-color: #0cb845;
+  background-color: #e700d0;
 }
 .avatar-button:focus {
   background-color: #ff4400;
