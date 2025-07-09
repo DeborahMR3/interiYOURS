@@ -4,9 +4,10 @@ import {
   signInWithEmailAndPassword,
   signInAnonymously,
 } from "firebase/auth";
-import { auth } from "./firebaseAuth";
+import { auth } from "./firebase/firebaseAuth";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
+import { addUserToFirestore } from "./firebase/firebaseStore";
 const LoginForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -45,8 +46,14 @@ const LoginForm = () => {
     setError(null);
     try {
       if (isRegistering) {
-        await createUserWithEmailAndPassword(auth, email, password);
+        const userCredentials = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+        const user = userCredentials.user;
         console.log("Account created!");
+        await addUserToFirestore(user);
         setIsRegistering(false);
         setEmail("");
         setPassword("");
@@ -63,10 +70,8 @@ const LoginForm = () => {
         case "auth/invalid-email":
           setError("Please enter a valid email address");
           break;
-        case "auth/user-not-found":
-          setError("No account found with this email");
-          break;
         case "auth/wrong-password":
+        case "auth/user-not-found":
         case "auth/invalid-credential":
           setError("Incorrect password or email, Please try again");
           break;
