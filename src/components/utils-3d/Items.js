@@ -24,7 +24,7 @@ class Furniture {
   async setupMesh() {
     try {
       const result = await ImportMeshAsync(
-        `./models/${this.meshFile}`,
+        `../../public/models/${this.meshFile}`, //Check path! Sometimes works with relative path only?
         this.scene
       );
       this.mesh = result.meshes[0];

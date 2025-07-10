@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import HomePage from "./HomePage";
 import "./App.css";
-import LayoutView from "./components/LayoutView";
+import RoomPage from "./components/RoomPage";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />}></Route>
         <Route path="/home" element={<HomePage />}></Route>
-        <Route path="/layout-view" element={<LayoutView />}></Route>
+        <Route path="/room/:roomId" element={<RoomPage />}></Route>
       </Routes>
     </>
   );
