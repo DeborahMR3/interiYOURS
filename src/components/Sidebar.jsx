@@ -8,7 +8,7 @@ const Sidebar = ({ addFurniture }) => {
   };
 
   const testItem = {
-    model: "20-DYVLINGE swivel armchair - Kelinge black (00555090).glb",
+    model: "sofa-stockholm-brown.glb",
     position: new Vector3(-2, 0, -2),
   };
   const addTestItem = () => {

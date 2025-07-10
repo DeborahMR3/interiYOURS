@@ -29,7 +29,11 @@ const Main3dCanvas = ({ currentLayout }) => {
     floor = new Floor(new Vector2(2, 5), scene);
 
     /// /// /// TEST BOX /// /// ///
-    const testBox = new Furniture("1.glb", scene, new Vector3(1, 0, 1));
+    const testBox = new Furniture(
+      "bed-malm-white.glb",
+      scene,
+      new Vector3(1, 0, 1)
+    );
 
     const light = new HemisphericLight("light", new Vector3(1, 1, 0), scene);
     const material = new StandardMaterial("material", scene);
