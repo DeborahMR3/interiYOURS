@@ -45,14 +45,9 @@ import { Dropdown } from 'react-bootstrap';
 }
 /* .avatar-button:hover {
   background-color: #e700d0;
-}
-.avatar-button:focus {
-  background-color: #ff4400;
 } */
-
-.avatar-button:focus {
-  background-color: #ef02c8;
-  color: #084b03;
+.avatar-button:hover {
+  background-color: #74b4eb;
 }
 
 .avatar-img {
@@ -106,89 +101,7 @@ import { Dropdown } from 'react-bootstrap';
   margin-top: 0.3rem;
 }
 
-.room-button.primary:hover,
-.room-button.primary:focus {
+.room-button.primary:hover {
   background-color: #0059c7;
   color: #fff;
 }
-
-
-/* antes--------------------------------- */
-/* .home-page {
-  margin: 0;
-  padding: 0.5rem;
-}
-
-.header-section {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 1.2rem;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.avatar-button {
-  width: 52px !important;
-  height: 52px !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  border-radius: 50% !important;
-  padding: 0;
-  cursor: pointer;
-
-}
-
-.avatar-button:hover {
-  background-color: #e6f0fd;
-}
-
-.avatar-img {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: block;
-
-}
-
-.avatar-button:hover {
-  background-color: rgb(3, 103, 253);
-}
-
-.cards-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-.room-button {
-  padding: 0.85rem;
-  border: none;
-  border-radius: 0.5rem;
-  min-width: unset;
-  width: 100%;
-  font-weight: bold;
-  font-size: 1rem;
-  text-align: center;
-  cursor: pointer;
-}
-
-
-
-.room-button.secondary {
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-.room-button.primary {
-  background-color: #007bff;
-  color: white;
-}
-
-
-.avatar-button.dropdown-toggle::after {
-  display: none !important;
-} */

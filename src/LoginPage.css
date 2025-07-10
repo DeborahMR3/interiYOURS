@@ -47,10 +47,10 @@ label {
 input {
   padding: 12px;
   font-size: 1rem;
-  border: 1.5px solid #c5d4ea;
+  border: 1.5px solid #a7bcdd;
   border-radius: 8px;
   margin-top: 5px;
-  background: #f8fafc;
+  /* background: #f8fafc; */
   width: 100%;
   box-sizing: border-box;
 }

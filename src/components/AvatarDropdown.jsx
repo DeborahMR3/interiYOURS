@@ -4,7 +4,7 @@ import avatarImg from './images/user-avatar-photo.webp'; // caminho igual ao que
 
 function AvatarDropdown() {
   return (
-    <Dropdown align="end">
+    <Dropdown className='avatar-button' align="end">
       <Dropdown.Toggle variant="link" className="avatar-button p-0">
         <img src={avatarImg} className="avatar-img" alt="User avatar" />
       </Dropdown.Toggle>
