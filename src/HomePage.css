@@ -5,19 +5,19 @@ import { Dropdown } from 'react-bootstrap';
   width: 100vw;
   margin: 0;
   padding: 0;
-  background: #fff;         /* Fundo branco. */
+  background: #fff;         
   display: flex;
   flex-direction: column;
 }
 
-/* Se você tiver um .main-card, inclua este bloco, senão pode ignorar */
+
 .main-card {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  padding: 1.5rem 1rem 2rem 1rem;  /* Padding só nas bordas da tela */
+  padding: 1.5rem 1rem 2rem 1rem;  
   box-sizing: border-box;
 }
 
@@ -58,15 +58,13 @@ import { Dropdown } from 'react-bootstrap';
   pointer-events: none;
 }
 
-/* REMOVE ARROW FROM DROPDOWN */
+
 .avatar-button.dropdown-toggle::after {
   display: none !important;
 }
 
-/* CARDS/BUTTONS */
+
 .cards-container {
-  /* display: flex;
-  flex-direction: column; */
   gap: 1rem;
   width: 100%;
   height: 100%;
@@ -106,84 +104,3 @@ import { Dropdown } from 'react-bootstrap';
   background-color: #0059c7;
   color: #fff;
 }
-
-
-/* antes--------------------------------- */
-/* .home-page {
-  margin: 0;
-  padding: 0.5rem;
-}
-
-.header-section {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 1.2rem;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.avatar-button {
-  width: 52px !important;
-  height: 52px !important;
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  border-radius: 50% !important;
-  padding: 0;
-  cursor: pointer;
-
-}
-
-.avatar-button:hover {
-  background-color: #e6f0fd;
-}
-
-.avatar-img {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: block;
-
-}
-
-.avatar-button:hover {
-  background-color: rgb(3, 103, 253);
-}
-
-.cards-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-.room-button {
-  padding: 0.85rem;
-  border: none;
-  border-radius: 0.5rem;
-  min-width: unset;
-  width: 100%;
-  font-weight: bold;
-  font-size: 1rem;
-  text-align: center;
-  cursor: pointer;
-}
-
-
-
-.room-button.secondary {
-  background-color: #f0f0f0;
-  color: #333;
-}
-
-.room-button.primary {
-  background-color: #007bff;
-  color: white;
-}
-
-
-.avatar-button.dropdown-toggle::after {
-  display: none !important;
-} */
