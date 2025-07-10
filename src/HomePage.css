@@ -10,14 +10,13 @@ import { Dropdown } from 'react-bootstrap';
   flex-direction: column;
 }
 
-/* Se você tiver um .main-card, inclua este bloco, senão pode ignorar */
 .main-card {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  padding: 1.5rem 1rem 2rem 1rem;  /* Padding só nas bordas da tela */
+  padding: 1.5rem 1rem 2rem 1rem;
   box-sizing: border-box;
 }
 
@@ -44,12 +43,18 @@ import { Dropdown } from 'react-bootstrap';
   cursor: pointer;
   transition: background 0.3s;
 }
-.avatar-button:hover {
+/* .avatar-button:hover {
   background-color: #e700d0;
 }
 .avatar-button:focus {
   background-color: #ff4400;
+} */
+
+.avatar-button:focus {
+  background-color: #ef02c8;
+  color: #084b03;
 }
+
 .avatar-img {
   width: 48px;
   height: 48px;
