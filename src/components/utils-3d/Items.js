@@ -1,5 +1,6 @@
 import {
   Color3,
+  CreateGround,
   ImportMeshAsync,
   Mesh,
   MeshBuilder,
@@ -13,18 +14,22 @@ const pointerDragBehavior = new PointerDragBehavior({
 });
 
 class Furniture {
-  constructor(meshFile, scene) {
+  constructor(meshFile, scene, position) {
+    this.meshFile = meshFile;
     this.scene = scene;
+    this.position = position;
     this.setupMesh();
   }
 
   async setupMesh() {
     try {
-      this.mesh = await ImportMeshAsync("./models/1.glb", this.scene);
+      this.mesh = await ImportMeshAsync(
+        `./models/${this.meshFile}`,
+        this.scene
+      );
       console.log(this.mesh.meshes);
-      this.mesh.addBehavior(pointerDragBehavior);
+      this.mesh.meshes.addBehavior(pointerDragBehavior);
 
-      //   console.log(pointerDragBehavior);
       //this.mesh.moveWithCollisions(pointerDragBehavior);
       //   this.mesh.checkCollisions = true;
       //   this.mesh.ellipsoid = new Vector3(10, 1, 10);
@@ -40,4 +45,16 @@ class Furniture {
   }
 }
 
-export default Furniture;
+class Floor {
+  constructor(dimensions, scene) {
+    this.scene = scene;
+    this.floor = CreateGround(
+      "ground",
+      { width: dimensions.x, height: dimensions.y },
+      scene
+    );
+    this.floor.position = new Vector3(0, -0.01, 0);
+  }
+}
+
+export { Furniture, Floor };

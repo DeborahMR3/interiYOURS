@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Engine,
   Scene,
@@ -7,26 +7,29 @@ import {
   StandardMaterial,
   Color3,
   HemisphericLight,
+  CubeTexture,
+  Vector2,
 } from "@babylonjs/core";
 import MainCamera from "./utils-3d/MainCamera";
-import Furniture from "./utils-3d/Items";
+import { Furniture, Floor } from "./utils-3d/Items";
 
-const aiTestResponseStr =
-  '```json\n[\n  {\n    "itemName": "LACK Side Table",\n    "dimensions": {\n      "x": 50,\n      "y": 50,\n      "z": 45\n    },\n    "coordinates": {\n      "x": 0.25,\n      "y": 0.25\n    }\n  },\n  {\n    "itemName": "HEMNES Desk",\n    "dimensions": {\n      "x": 138,\n      "y": 66,\n      "z": 75\n    },\n    "coordinates": {\n      "x": 0.7,\n      "y": 0.2\n    }\n  },\n  {\n    "itemName": "KALLAX Storage Unit",\n    "dimensions": {\n      "x": 77,\n      "y": 77,\n      "z": 147\n    },\n    "coordinates": {\n      "x": 2.2,\n      "y": 0.2\n    }\n  },\n  {\n    "itemName": "OMET Light",\n    "dimensions": {\n      "x": 11,\n      "y": 11,\n      "z": 180\n    },\n    "coordinates": {\n      "x": 2.75,\n      "y": 1.2\n    }\n  }\n]\n```';
-
-const Main3dCanvas = () => {
+const Main3dCanvas = ({ currentLayout }) => {
   const canvasRef = useRef(null);
+
+  const [currentScene, setCurrentScene] = useState({});
 
   useEffect(() => {
     const engine = new Engine(canvasRef.current, true);
     const scene = new Scene(engine);
+    setCurrentScene(scene);
     scene.collisionsEnabled = true;
 
     const camera = new MainCamera(canvasRef, scene);
-    camera.topdownCamera();
+    let floor = new Floor(new Vector2(5, 5), scene);
+    floor = new Floor(new Vector2(2, 5), scene);
 
     /// /// /// TEST BOX /// /// ///
-    const testBox = new Furniture("", scene);
+    const testBox = new Furniture("1.glb", scene, new Vector3(1, 0, 1));
 
     const light = new HemisphericLight("light", new Vector3(1, 1, 0), scene);
     const material = new StandardMaterial("material", scene);
@@ -48,7 +51,17 @@ const Main3dCanvas = () => {
 
     window.addEventListener("resize", () => engine.resize());
     return () => engine.dispose();
-  });
+  }, []);
+
+  useEffect(() => {
+    currentLayout.forEach((furniture) => {
+      const newFurniture = new Furniture(
+        furniture.model,
+        currentScene,
+        furniture.position
+      );
+    });
+  }, [currentLayout]);
 
   return (
     <div className="main-3d-canvas">

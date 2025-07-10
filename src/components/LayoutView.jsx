@@ -4,10 +4,17 @@ import Sidebar from "./Sidebar";
 import "./styling/layout-view.css";
 
 const LayoutView = () => {
+  const [currentLayout, setCurrentLayout] = useState([]);
+
+  const addFurniture = (newItem) => {
+    console.log("addFurniture called, items:" + currentLayout);
+    setCurrentLayout([...currentLayout, newItem]);
+  };
+
   return (
     <div className="layout-view">
-      <Sidebar />
-      <Main3dCanvas />
+      <Sidebar addFurniture={addFurniture} />
+      <Main3dCanvas currentLayout={currentLayout} />
     </div>
   );
 };

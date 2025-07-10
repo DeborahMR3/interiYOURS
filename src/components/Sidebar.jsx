@@ -1,9 +1,18 @@
+import { Vector3 } from "@babylonjs/core";
 import { useState } from "react";
 
-const Sidebar = () => {
+const Sidebar = ({ addFurniture }) => {
   const [isVisible, setIsVisible] = useState();
   const toggleSidebar = () => {
     setIsVisible(!isVisible);
+  };
+
+  const testItem = {
+    model: "20-DYVLINGE swivel armchair - Kelinge black (00555090).glb",
+    position: new Vector3(-2, 0, -2),
+  };
+  const addTestItem = () => {
+    addFurniture(testItem);
   };
 
   return (
@@ -13,7 +22,7 @@ const Sidebar = () => {
       </button>
       <div className={"sidebar " + (isVisible ? "visible" : "hidden")}>
         <h2>Nav Bar</h2>
-        <button>Test1</button>
+        <button onClick={addTestItem}>Test1</button>
       </div>
     </>
   );
