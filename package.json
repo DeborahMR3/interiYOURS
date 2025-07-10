@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@babylonjs/core": "^8.15.1",
+    "@babylonjs/loaders": "^8.15.1",
     "@babylonjs/materials": "^8.15.1",
     "babylon": "^6.18.0",
     "bootstrap": "^5.3.7",
