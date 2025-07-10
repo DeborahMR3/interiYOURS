@@ -7,7 +7,7 @@ const LayoutView = () => {
   return (
     <div className="layout-view">
       <Sidebar />
-      <Main3dCanvas></Main3dCanvas>
+      <Main3dCanvas />
     </div>
   );
 };

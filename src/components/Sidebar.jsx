@@ -12,7 +12,8 @@ const Sidebar = () => {
         Nav
       </button>
       <div className={"sidebar " + (isVisible ? "visible" : "hidden")}>
-        sidebar
+        <h2>Nav Bar</h2>
+        <button>Test1</button>
       </div>
     </>
   );

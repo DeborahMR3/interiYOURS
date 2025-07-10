@@ -16,6 +16,13 @@ class MainCamera {
     this.camera.attachControl(canvas.current, true);
     this.camera.lowerRadiusLimit = 5;
     this.camera.upperRadiusLimit = 75;
+
+    this.camera.checkCollisions = true;
+    this.camera.collisionRadius = new Vector3(0.5, 0.5, 0.5);
+  }
+
+  topdownCamera() {
+    this.camera.setPosition(new Vector3(0, 10, 0));
   }
 }
 
