@@ -7,7 +7,8 @@ const LayoutView = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
 
   const addFurniture = (newItem) => {
-    console.log("addFurniture called, items:" + currentLayout);
+    console.log("addFurniture called");
+    console.log(currentLayout);
     setCurrentLayout([...currentLayout, newItem]);
   };
 

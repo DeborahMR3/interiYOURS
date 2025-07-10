@@ -23,12 +23,12 @@ class Furniture {
 
   async setupMesh() {
     try {
-      this.mesh = await ImportMeshAsync(
+      const result = await ImportMeshAsync(
         `./models/${this.meshFile}`,
         this.scene
       );
-      console.log(this.mesh.meshes);
-      this.mesh.meshes.addBehavior(pointerDragBehavior);
+      this.mesh = result.meshes[0];
+      this.mesh.addBehavior(pointerDragBehavior);
 
       //this.mesh.moveWithCollisions(pointerDragBehavior);
       //   this.mesh.checkCollisions = true;
