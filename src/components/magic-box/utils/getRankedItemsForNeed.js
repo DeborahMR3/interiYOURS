@@ -1,13 +1,7 @@
 // utils/getRankedItemsForNeed.js
 import { scoreItemForNeed } from "./scoreItemForNeed.js";
 
-export function getRankedItemsForNeed(
-  need,
-  catalog,
-  context,
-  { debug = false } = {}
-) {
-  if (debug) console.debug(`Scoring for need: ${need}`);
+export function getRankedItemsForNeed(need, catalog, context) {
   return catalog
     .map((item) => {
       const score = scoreItemForNeed(item, need, context);
