@@ -5,7 +5,10 @@ import {
   getDoc,
   serverTimestamp,
   collection,
-  addDoc
+  addDoc,
+  getDocs,
+  query,
+  where
 } from "firebase/firestore";
 import app from "./firebase.config";
 
@@ -38,4 +41,23 @@ export const addRoomToFireStore = async (userId, roomData) => {
   } catch (error) {
     throw new Error("Failed to add room, please try again")
   }
+}
+
+export const getRoomsData = async (uid) => {
+  try {
+  const roomQuery = query(
+    collection(db, "rooms"),
+    where("userId", "==", uid)
+  )
+  const querySnapshot = await getDocs(roomQuery)
+
+  const rooms = querySnapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+  }))
+  return rooms
+} catch (error) {
+  console.error("Failed to get user rooms", error)
+}
+return []
 }
