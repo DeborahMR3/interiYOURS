@@ -176,7 +176,7 @@ export const furnitureCatalog = [
     tags: ["study"],
     tier: "budget",
     multiRole: false,
-    modelRef: "deskchair-malskar-darkgrey.glb", // NOT CHANGED YET
+    modelRef: "deskchair-malskar-darkgrey.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
