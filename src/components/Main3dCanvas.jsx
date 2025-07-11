@@ -13,32 +13,46 @@ import {
 import MainCamera from "./utils-3d/MainCamera";
 import { Furniture, Floor } from "./utils-3d/Items";
 
-const Main3dCanvas = ({ currentLayout }) => {
+const Main3dCanvas = ({ currentLayout, setCurrentLayout }) => {
   const canvasRef = useRef(null);
 
   const [currentScene, setCurrentScene] = useState({});
+
+  const saveFurniturePosition = (furnitureId, meshFile, vector3) => {
+    let newItem = { id: furnitureId, model: meshFile, position: vector3 };
+    console.log(newItem);
+    let oldLayout = [...currentLayout];
+    let filterLayout = oldLayout.filter(({ id }) => id !== furnitureId);
+    let newLayout = [...filterLayout, newItem];
+    setCurrentLayout(newLayout);
+  };
 
   useEffect(() => {
     const engine = new Engine(canvasRef.current, true);
     const scene = new Scene(engine);
     setCurrentScene(scene);
     scene.collisionsEnabled = true;
+    scene.clearColor = new Color3(1, 1, 1);
 
     const camera = new MainCamera(canvasRef, scene);
-    let floor = new Floor(new Vector2(5, 5), scene);
+    let floor = new Floor(new Vector2(8, 5), scene);
     floor = new Floor(new Vector2(2, 5), scene);
 
     /// /// /// TEST BOX /// /// ///
     const testBed = new Furniture(
+      "id1",
       "bed-malm-white.glb",
       scene,
-      new Vector3(1, 0, 1)
+      new Vector3(1, 0, 1),
+      saveFurniturePosition
     );
 
     const testSeat = new Furniture(
+      "id2",
       "seat-stockholm-birch.glb",
       scene,
-      new Vector3(-1, 0, -1)
+      new Vector3(-1, 0, -1),
+      saveFurniturePosition
     );
 
     const light = new HemisphericLight("light", new Vector3(1, 1, 0), scene);
@@ -66,9 +80,11 @@ const Main3dCanvas = ({ currentLayout }) => {
   useEffect(() => {
     currentLayout.forEach((furniture) => {
       const newFurniture = new Furniture(
+        furniture.id,
         furniture.model,
         currentScene,
-        furniture.position
+        furniture.position,
+        saveFurniturePosition
       );
     });
   }, [currentLayout]);
