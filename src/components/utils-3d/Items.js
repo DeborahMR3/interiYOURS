@@ -28,10 +28,11 @@ class Furniture {
         this.scene
       );
       this.mesh = result.meshes[0];
+      this.mesh.position = this.position;
       this.mesh.addBehavior(pointerDragBehavior);
 
       //this.mesh.moveWithCollisions(pointerDragBehavior);
-      //   this.mesh.checkCollisions = true;
+      this.mesh.checkCollisions = true;
       //   this.mesh.ellipsoid = new Vector3(10, 1, 10);
       // this.mesh.renderOutline = true;
       // this.mesh.outlineColor = new Color3(0, 0, 1);

@@ -29,10 +29,16 @@ const Main3dCanvas = ({ currentLayout }) => {
     floor = new Floor(new Vector2(2, 5), scene);
 
     /// /// /// TEST BOX /// /// ///
-    const testBox = new Furniture(
+    const testBed = new Furniture(
       "bed-malm-white.glb",
       scene,
       new Vector3(1, 0, 1)
+    );
+
+    const testSeat = new Furniture(
+      "seat-stockholm-birch.glb",
+      scene,
+      new Vector3(-1, 0, -1)
     );
 
     const light = new HemisphericLight("light", new Vector3(1, 1, 0), scene);
@@ -69,7 +75,7 @@ const Main3dCanvas = ({ currentLayout }) => {
 
   return (
     <div className="main-3d-canvas">
-      <canvas ref={canvasRef} style={{ width: "100%", height: "110%" }} />
+      <canvas ref={canvasRef} style={{ width: "100%", height: "100vh" }} />
     </div>
   );
 };
