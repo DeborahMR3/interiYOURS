@@ -9,10 +9,6 @@ import {
 } from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-const pointerDragBehavior = new PointerDragBehavior({
-  dragPlaneNormal: new Vector3(0, 1, 0),
-});
-
 class Furniture {
   constructor(meshFile, scene, position) {
     this.meshFile = meshFile;
@@ -27,9 +23,14 @@ class Furniture {
         `../../public/models/${this.meshFile}`, //Check path! Sometimes works with relative path only?
         this.scene
       );
+
+      this.pointerDragBehavior = new PointerDragBehavior({
+        dragPlaneNormal: new Vector3(0, 1, 0),
+      });
+
       this.mesh = result.meshes[0];
       this.mesh.position = this.position;
-      this.mesh.addBehavior(pointerDragBehavior);
+      this.mesh.addBehavior(this.pointerDragBehavior);
 
       //this.mesh.moveWithCollisions(pointerDragBehavior);
       this.mesh.checkCollisions = true;
