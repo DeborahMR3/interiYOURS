@@ -4,6 +4,8 @@ import {
   setDoc,
   getDoc,
   serverTimestamp,
+  collection,
+  addDoc
 } from "firebase/firestore";
 import app from "./firebase.config";
 
@@ -24,3 +26,16 @@ export const getUserData = async (uid) => {
     return { error: "User not found" };
   }
 };
+
+export const addRoomToFireStore = async (userId, roomData) => {
+  try {
+    const docRef = await addDoc(collection(db, "rooms"), {
+      ...roomData,
+      userId,
+      createdAt: serverTimestamp(),
+    });
+    return docRef.id
+  } catch (error) {
+    throw new Error("Failed to add room, please try again")
+  }
+}

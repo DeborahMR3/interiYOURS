@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import avatarImg from "./components/images/user-avatar-photo.webp";
 import AvatarDropdown from "./components/AvatarDropdown";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 import { deleteDoc } from "firebase/firestore";
 import { auth } from "./firebase/firebaseAuth";
 import "./HomePage.css";
@@ -66,7 +66,7 @@ const HomePage = () => {
             <h1>HOME PAGE!</h1>
             {message && <p>{message}</p>}
             {loading && <p>Loading, please wait...</p>}
-            {error && {error}}
+            {error && <p>{error}</p>}
           </div>
           <AvatarDropdown
             user={user}
@@ -80,7 +80,7 @@ const HomePage = () => {
               {room.name}
             </button>
           ))}
-          <button className="room-button primary">Create a new room</button>
+          <button onClick={() => navigate("/create-room")} className="room-button primary">Create a new room</button>
         </div>
       </div>
     </section>
