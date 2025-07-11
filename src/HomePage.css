@@ -10,14 +10,13 @@ import { Dropdown } from 'react-bootstrap';
   flex-direction: column;
 }
 
-
 .main-card {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
-  padding: 1.5rem 1rem 2rem 1rem;  
+  padding: 1.5rem 1rem 2rem 1rem;
   box-sizing: border-box;
 }
 
@@ -44,12 +43,13 @@ import { Dropdown } from 'react-bootstrap';
   cursor: pointer;
   transition: background 0.3s;
 }
-.avatar-button:hover {
+/* .avatar-button:hover {
   background-color: #e700d0;
+} */
+.avatar-button:hover {
+  background-color: #74b4eb;
 }
-.avatar-button:focus {
-  background-color: #ff4400;
-}
+
 .avatar-img {
   width: 48px;
   height: 48px;
@@ -99,8 +99,7 @@ import { Dropdown } from 'react-bootstrap';
   margin-top: 0.3rem;
 }
 
-.room-button.primary:hover,
-.room-button.primary:focus {
+.room-button.primary:hover {
   background-color: #0059c7;
   color: #fff;
 }

@@ -92,11 +92,11 @@ const LoginForm = () => {
     }
   };
   return (
-    <section>
+    <section  className="login-page">
       <span className="login-avatar"></span>
       {loading && <p>Loading, please wait ...</p>}
       {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form className="login-form" onSubmit={handleSubmit}>
         <label htmlFor="email">
           Email
           <input
