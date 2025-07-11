@@ -3,10 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import avatarImg from "./components/images/user-avatar-photo.webp";
 import AvatarDropdown from "./components/AvatarDropdown";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
-import { deleteDoc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { auth } from "./firebase/firebaseAuth";
 // import "./HomePage.css";
 import "./components/styling/HomePage.css";
+import { getUserData, getRoomsData } from "./firebase/firebaseStore";
 
 const HomePage = () => {
   const location = useLocation();
@@ -16,6 +17,8 @@ const HomePage = () => {
   const [user, setUser] = useState(auth.currentUser);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [userData, setUserData] = useState(null)
+  const [rooms, setRooms] = useState([])
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -25,6 +28,29 @@ const HomePage = () => {
       unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      getUserData(user.uid).then(data => {
+        setUserData(data)
+      }).catch(() => {
+        setUserData(null)
+      })
+
+      getRoomsData(user.uid).then(data => {
+        setRooms(data)
+      }).catch(() => {
+        setRooms([])
+      })
+    } else {
+      setUserData(null)
+      setRooms([])
+    }
+  }, [user])
+
+  const handleRoomSelect = (roomId) => {
+    navigate(`/room/${roomId}`)
+  }
 
   const handleSignOut = async () => {
     setLoading(true);
@@ -53,12 +79,6 @@ const HomePage = () => {
     }
   };
 
-  const rooms = [
-    { id: 1, name: "Room 1" },
-    { id: 2, name: "Room 2" },
-    { id: 3, name: "Room 3" },
-  ];
-
   return (
     <section className="home-page">
       <div className="main-card">
@@ -77,8 +97,8 @@ const HomePage = () => {
         </div>
         <div className="cards-container">
           {rooms.map((room) => (
-            <button key={room.id} className="room-button secondary">
-              {room.name}
+            <button key={room.id} className="room-button secondary" onClick={() => handleRoomSelect(room.id)}>
+              {room.roomName}
             </button>
           ))}
           <button onClick={() => navigate("/create-room")} className="room-button primary">Create a new room</button>
