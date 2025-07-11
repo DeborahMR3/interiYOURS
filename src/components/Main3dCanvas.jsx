@@ -80,12 +80,14 @@ const Main3dCanvas = ({ currentLayout, setCurrentLayout }) => {
   useEffect(() => {
     currentLayout.forEach((furniture) => {
       const newFurniture = new Furniture(
+        furniture.id,
         furniture.model,
         currentScene,
-        furniture.position
+        furniture.position,
+        saveFurniturePosition
       );
     });
-  }, []);
+  }, [currentLayout]);
 
   return (
     <div className="main-3d-canvas">
