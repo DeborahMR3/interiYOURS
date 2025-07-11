@@ -1,8 +1,16 @@
+// import { Routes, Route } from "react-router-dom";
+// import LoginPage from "./LoginPage";
+// import HomePage from "./components/HomePage";
+// // import "./App.css";
+// import "./styling/App.css";
+// import RoomPage from "./RoomPage";
+// import RoomFormPage from "./RoomFormPage";
+
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import HomePage from "./HomePage";
-import "./App.css";
-import RoomPage from "./components/RoomPage";
+import "./components/styling/App.css";
+import RoomPage from "./RoomPage";
 import RoomFormPage from "./RoomFormPage";
 
 function App() {

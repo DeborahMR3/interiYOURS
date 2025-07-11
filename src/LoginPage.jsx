@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./components/styling/LoginPage.css";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -6,8 +7,9 @@ import {
 } from "firebase/auth";
 import { auth } from "./firebase/firebaseAuth";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css";
+// import "./LoginPage.css";
 import { addUserToFirestore } from "./firebase/firebaseStore";
+
 const LoginForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
