@@ -5,7 +5,8 @@ import AvatarDropdown from "./components/AvatarDropdown";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 import { deleteDoc } from "firebase/firestore";
 import { auth } from "./firebase/firebaseAuth";
-import "./HomePage.css";
+// import "./HomePage.css";
+import "./components/styling/HomePage.css";
 
 const HomePage = () => {
   const location = useLocation();

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Main3dCanvas from "./Main3dCanvas";
-import Sidebar from "./Sidebar";
-import "./styling/room-page.css";
+import Main3dCanvas from "./components/Main3dCanvas";
+import Sidebar from "./components/Sidebar";
+import "./components/styling/RoomPage.css";
 import { useParams } from "react-router-dom";
 
 const RoomPage = () => {
