@@ -10,15 +10,17 @@ const RoomPage = () => {
   const { roomId } = useParams();
 
   const addFurniture = (newItem) => {
-    console.log("addFurniture called");
-    console.log(currentLayout);
     setCurrentLayout([...currentLayout, newItem]);
   };
+  console.log(currentLayout);
 
   return (
     <div className="layout-view">
       <Sidebar addFurniture={addFurniture} />
-      <Main3dCanvas currentLayout={currentLayout} />
+      <Main3dCanvas
+        currentLayout={currentLayout}
+        setCurrentLayout={setCurrentLayout}
+      />
     </div>
   );
 };

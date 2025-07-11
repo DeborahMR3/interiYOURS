@@ -5,16 +5,27 @@ import {
   Mesh,
   MeshBuilder,
   PointerDragBehavior,
+  StandardMaterial,
   Vector3,
 } from "@babylonjs/core";
 import "@babylonjs/loaders";
 
 class Furniture {
-  constructor(meshFile, scene, position) {
+  constructor(id, meshFile, scene, position, saveFurniturePosition) {
     this.meshFile = meshFile;
+    this.id = id;
     this.scene = scene;
     this.position = position;
+    this.saveFurniturePosition = saveFurniturePosition;
     this.setupMesh();
+  }
+
+  updatePosition() {
+    this.saveFurniturePosition(
+      this.id,
+      this.meshFile,
+      new Vector3(this.mesh.position.x, 0, this.mesh.position.z)
+    );
   }
 
   async setupMesh() {
@@ -24,23 +35,34 @@ class Furniture {
         this.scene
       );
 
-      this.pointerDragBehavior = new PointerDragBehavior({
+      const pointerDragBehavior = new PointerDragBehavior({
         dragPlaneNormal: new Vector3(0, 1, 0),
+      });
+
+      pointerDragBehavior.onDragStartObservable.add((event) => {
+        console.log("dragStart");
+        //console.log(event);
+      });
+      pointerDragBehavior.onDragObservable.add((event) => {
+        console.log("drag");
+        this.mesh.overlayColor = new Color3(0, 0, 1);
+        this.mesh.overlayAlpha = 0.8;
+        this.mesh.renderOverlay = true;
+        //console.log(event);
+      });
+      pointerDragBehavior.onDragEndObservable.add((event) => {
+        console.log("dragEnd");
+        this.mesh.renderOverlay = false;
+
+        console.log(event);
+        this.updatePosition();
       });
 
       this.mesh = result.meshes[0];
       this.mesh.position = this.position;
-      this.mesh.addBehavior(this.pointerDragBehavior);
+      this.mesh.addBehavior(pointerDragBehavior);
 
-      //this.mesh.moveWithCollisions(pointerDragBehavior);
       this.mesh.checkCollisions = true;
-      //   this.mesh.ellipsoid = new Vector3(10, 1, 10);
-      // this.mesh.renderOutline = true;
-      // this.mesh.outlineColor = new Color3(0, 0, 1);
-      // this.mesh.overlayAlpha = 0.8;
-      // this.mesh.overlayColor = new Color3(0, 0, 1);
-      // this.mesh.renderOverlay = true;
-      // this.mesh.outlineWidth = 0.1;
     } catch (err) {
       console.log(err);
     }
@@ -56,6 +78,9 @@ class Floor {
       scene
     );
     this.floor.position = new Vector3(0, -0.01, 0);
+    const material = new StandardMaterial("floor", scene);
+    material.diffuseColor = new Color3(0.7, 0.6, 0.7);
+    this.floor.material = material;
   }
 }
 

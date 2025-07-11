@@ -8,6 +8,7 @@ const Sidebar = ({ addFurniture }) => {
   };
 
   const testItem = {
+    id: "testid",
     model: "sofa-stockholm-brown.glb",
     position: new Vector3(-2, 0, -2),
   };
