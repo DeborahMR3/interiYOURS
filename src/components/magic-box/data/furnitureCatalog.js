@@ -18,7 +18,7 @@ export const furnitureCatalog = [
     tags: ["sleep"],
     tier: "budget",
     multiRole: false,
-    modelRef: "vihals-bed.glb",
+    modelRef: "bed-vihals-white.glb",
     placementRules: [],
     needScores: {
       sleep: 1.0,
@@ -37,7 +37,7 @@ export const furnitureCatalog = [
     tags: ["sleep"],
     tier: "budget",
     multiRole: false,
-    modelRef: "neiden-bed.glb",
+    modelRef: "bed-neiden-pine.glb",
     placementRules: [],
     needScores: {
       sleep: 1.0,
@@ -56,7 +56,7 @@ export const furnitureCatalog = [
     tags: ["sleep"],
     tier: "premium",
     multiRole: false,
-    modelRef: "malm-bed.glb",
+    modelRef: "bed-malm-white.glb",
     placementRules: [],
     needScores: {
       sleep: 1.0,
@@ -75,7 +75,7 @@ export const furnitureCatalog = [
     tags: ["sleep", "relax"],
     tier: "mid",
     multiRole: true,
-    modelRef: "brimnes-daybed.glb",
+    modelRef: "bed-brimnes-white.glb",
     placementRules: [],
     needScores: {
       sleep: 0.8,
@@ -97,7 +97,7 @@ export const furnitureCatalog = [
     tags: ["study"],
     tier: "budget",
     multiRole: false,
-    modelRef: "micke-desk.glb",
+    modelRef: "desk-micke-black.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -116,7 +116,7 @@ export const furnitureCatalog = [
     tags: ["study"],
     tier: "budget",
     multiRole: false,
-    modelRef: "kallax-desk.glb",
+    modelRef: "desk-kallax-whiteoak.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -135,7 +135,7 @@ export const furnitureCatalog = [
     tags: ["study"],
     tier: "mid",
     multiRole: false,
-    modelRef: "lagkapten-alex-120.glb",
+    modelRef: "desk-lagkapten-Large-whiteoak.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -154,7 +154,7 @@ export const furnitureCatalog = [
     tags: ["study"],
     tier: "premium",
     multiRole: false,
-    modelRef: "lagkapten-alex-140.glb",
+    modelRef: "desk-lagkapten-Large-whiteoak.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -176,7 +176,7 @@ export const furnitureCatalog = [
     tags: ["study"],
     tier: "budget",
     multiRole: false,
-    modelRef: "eldberget-chair.glb",
+    modelRef: "deskchair-malskar-darkgrey.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -195,7 +195,7 @@ export const furnitureCatalog = [
     tags: ["study"],
     tier: "budget",
     multiRole: false,
-    modelRef: "renberget-chair.glb",
+    modelRef: "deskchair-renberget-black.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -214,7 +214,7 @@ export const furnitureCatalog = [
     tags: ["study"],
     tier: "mid",
     multiRole: false,
-    modelRef: "langfjall-chair.glb",
+    modelRef: "deskchair-langfjall-beige.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -233,7 +233,7 @@ export const furnitureCatalog = [
     tags: ["study"],
     tier: "premium",
     multiRole: false,
-    modelRef: "alefjall-chair.glb",
+    modelRef: "deskchair-alefjall-beige.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -255,7 +255,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "budget",
     multiRole: false,
-    modelRef: "klippan-sofa.glb",
+    modelRef: "sofa-klippan-grey.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -274,7 +274,7 @@ export const furnitureCatalog = [
     tags: ["relax", "sleep"],
     tier: "mid",
     multiRole: true,
-    modelRef: "friheten-sofabed.glb",
+    modelRef: "sofa-friheten-grey.glb",
     placementRules: [],
     needScores: {
       sleep: 0.6,
@@ -293,7 +293,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "mid",
     multiRole: false,
-    modelRef: "landskrona-sofa.glb",
+    modelRef: "sofa-landskrona-green.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -312,7 +312,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "mid",
     multiRole: false,
-    modelRef: "applaryd-sofa.glb",
+    modelRef: "sofa-applaryd-grey.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -331,7 +331,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "premium",
     multiRole: false,
-    modelRef: "stockholm-sofa.glb",
+    modelRef: "sofa-stockholm-brown.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -353,7 +353,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "budget",
     multiRole: false,
-    modelRef: "lack-side.glb",
+    modelRef: "sidetable-lack-oak.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -372,7 +372,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "budget",
     multiRole: false,
-    modelRef: "jarlasa-side.glb",
+    modelRef: "sidetable-jarlasa-red.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -390,7 +390,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "mid",
     multiRole: false,
-    modelRef: "baggboda-side.glb",
+    modelRef: "sidetable-baggboda-white.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -409,7 +409,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "mid",
     multiRole: false,
-    modelRef: "stockholm-side.glb",
+    modelRef: "sidetable-stockholm-pine.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -428,7 +428,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "premium",
     multiRole: false,
-    modelRef: "tonstad-side.glb",
+    modelRef: "sidetable-tonstad-oak.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -446,7 +446,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "mid",
     multiRole: true,
-    modelRef: "hol-side.glb",
+    modelRef: "sidetable-hol-acacia.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -468,7 +468,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "budget",
     multiRole: false,
-    modelRef: "skalboda-armchair.glb",
+    modelRef: "seat-skalboda-orange.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -487,7 +487,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "mid",
     multiRole: false,
-    modelRef: "froset-chair.glb",
+    modelRef: "seat-froset-whiteoak.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -506,7 +506,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "premium",
     multiRole: false,
-    modelRef: "dyvlinge-chair.glb",
+    modelRef: "seat-dyvlinge-black.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
@@ -525,7 +525,7 @@ export const furnitureCatalog = [
     tags: ["relax"],
     tier: "premium",
     multiRole: false,
-    modelRef: "stockholm-chair.glb",
+    modelRef: "seat-stockholm-birch.glb",
     placementRules: [],
     needScores: {
       sleep: 0.0,
