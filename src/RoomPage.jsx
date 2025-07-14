@@ -7,43 +7,56 @@ import { getRoomById } from "./firebase/firebaseStore";
 
 const RoomPage = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
-  const [roomData, setRoomData] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [isItemAdded, setIsItemAdded] = useState(false);
+  const [roomData, setRoomData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const { roomId } = useParams();
 
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-      setLoading(true)
-      setError(null)
-        const room = await getRoomById(roomId)
-        console.log(room)
-        setRoomData(room)
+        setLoading(true);
+        setError(null);
+        const room = await getRoomById(roomId);
+        console.log(room);
+        setRoomData(room);
       } catch (error) {
-        setError("Failed to load room")
-        setRoomData(null)
+        setError("Failed to load room");
+        setRoomData(null);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-      }
-      if (roomId) {
-        fetchRoom()
+    };
+    if (roomId) {
+      fetchRoom();
     }
-  }, [roomId])
-  
+  }, [roomId]);
+
   const addFurniture = (newItem) => {
+    setIsItemAdded(true);
     setCurrentLayout([...currentLayout, newItem]);
   };
-  console.log(currentLayout);
+
+  const updateFurniturePosition = (updatedItem) => {
+    setCurrentLayout((prev) => {
+      const oldLayout = [...prev];
+      const filterLayout = oldLayout.filter(({ id }) => id !== updatedItem.id);
+      let newLayout = [...filterLayout, updatedItem];
+      //console.log(newLayout);
+      return [...newLayout];
+    });
+  };
 
   return (
     <div className="layout-view">
       <Sidebar addFurniture={addFurniture} />
       <Main3dCanvas
         currentLayout={currentLayout}
-        setCurrentLayout={setCurrentLayout}
+        updateFurniturePosition={updateFurniturePosition}
+        isItemAdded={isItemAdded}
+        setIsItemAdded={setIsItemAdded}
       />
     </div>
   );

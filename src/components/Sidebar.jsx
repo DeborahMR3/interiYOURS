@@ -2,6 +2,7 @@ import { Vector3 } from "@babylonjs/core";
 import { useState } from "react";
 
 import { furnitureCatalog } from "./magic-box/data/furnitureCatalog";
+import "./styling/SideBar.css";
 
 const Sidebar = ({ addFurniture }) => {
   const [isVisible, setIsVisible] = useState();
@@ -13,6 +14,7 @@ const Sidebar = ({ addFurniture }) => {
     id: "testid",
     model: "sofa-stockholm-brown.glb",
     position: new Vector3(-2, 0, -2),
+    rotation: 0,
   };
   const addTestItem = () => {
     addFurniture(testItem);
@@ -23,41 +25,39 @@ const Sidebar = ({ addFurniture }) => {
       <button className="nav-button" onClick={toggleSidebar}>
         Furniture options:
       </button>
-      {/* <div className={"sidebar " + (isVisible ? "visible" : "hidden")}>
-        <h2>Nav Bar</h2>
-        <button onClick={addTestItem}>Test1</button>
-      </div> */}
+
       <section className={"sidebar " + (isVisible ? "visible" : "hidden")}>
-        <div className="sidebar-header">
-          <button className="close-btn" onClick={toggleSidebar}>
-            X
-          </button>
-          <span className="sidebar-title">Nav Bar</span>
-        </div>
+      <div className="sidebar-header-card">
+        <span className="sidebar-title">Furniture options</span>
+        <button className="close-btn" onClick={toggleSidebar}>X</button>
+      </div>
 
         <div className="furniture-list">
           {furnitureCatalog.map((item) => (
             <section key={item.id} className="furniture-item">
-              <span>{item.name}</span>
-              <button
-                className="add-btn"
-                onClick={() => {
+               {/* item IMG */}
+               <img className="furniture-img" src={item.imgUrl} alt={item.name} />
+               {/* name*/}
+               <span className="furniture-name">{item.name}</span>
+               {/* price */}
+              <span className="furniture-price">£{item.price}</span>
+              {/* dimensions */}
+               <span className="furniture-dimensions"> {item.dimensions.length} x {item.dimensions.width} </span>
+
+               {/* Button to add furniture*/}
+              <button className="add-btn" onClick={() => {
                   const furnitureToAdd = {
                     id: item.id,
                     model: item.modelRef, // fix to model instead of modelREf
                     position: new Vector3(0, 0, 0),
+                    rotation: 90,
                   };
                   addFurniture(furnitureToAdd);
                 }}
-              >
-                {" "}
-                Add to your project{" "}
-              </button>
+              >Add to your project</button>
             </section>
           ))}
         </div>
-
-        <button onClick={addTestItem}>Test1</button>
       </section>
     </>
   );

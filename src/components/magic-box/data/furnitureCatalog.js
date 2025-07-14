@@ -11,6 +11,7 @@ export const furnitureCatalog = [
   {
     id: 1,
     itemUrl: "https://www.ikea.com/gb/en/p/vihals-bed-frame-white-30602429/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/vihals-bed-frame-white__1446112_pe988552_s5.jpg?f=xl",
     name: "VIHALS Single Bed",
     category: "bed",
     price: 64,
@@ -30,6 +31,7 @@ export const furnitureCatalog = [
     id: 2,
     itemUrl:
       "https://www.ikea.com/gb/en/p/neiden-bed-frame-pine-luroey-s79248611/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/neiden-bed-frame-pine-luroey__0749131_pe745500_s5.jpg?f=xl",
     name: "NEIDEN Double Bed",
     category: "bed",
     price: 89,
@@ -49,6 +51,7 @@ export const furnitureCatalog = [
     id: 3,
     itemUrl:
       "https://www.ikea.com/gb/en/p/malm-bed-frame-high-white-luroey-s69006981/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/malm-bed-frame-high-white-luroey__0749130_pe745499_s5.jpg?f=xl",
     name: "MALM King Bed",
     category: "bed",
     price: 229,
@@ -68,6 +71,7 @@ export const furnitureCatalog = [
     id: 4,
     itemUrl:
       "https://www.ikea.com/gb/en/p/brimnes-day-bed-frame-with-2-drawers-white-00228705/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/brimnes-day-bed-frame-with-2-drawers-white__1161827_pe889528_s5.jpg?f=xl",
     name: "BRIMNES Daybed",
     category: "bed",
     price: 229,
@@ -90,6 +94,7 @@ export const furnitureCatalog = [
     id: 5,
     itemUrl:
       "https://www.ikea.com/gb/en/p/micke-desk-black-brown-20244747/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/micke-desk-black-brown__0736021_pe740348_s5.jpg?f=xl",
     name: "MICKE Desk",
     category: "desk",
     price: 45,
@@ -109,6 +114,7 @@ export const furnitureCatalog = [
     id: 6,
     itemUrl:
       "https://www.ikea.com/gb/en/p/kallax-desk-white-stained-oak-effect-90585101/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/kallax-desk-white-stained-oak-effect__1327542_pe944489_s5.jpg?f=xl",
     name: "KALLAX Desk",
     category: "desk",
     price: 55,
@@ -128,6 +134,7 @@ export const furnitureCatalog = [
     id: 7,
     itemUrl:
       "https://www.ikea.com/gb/en/p/lagkapten-alex-desk-white-s69416817/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/lagkapten-alex-desk-white__0977483_pe813612_s5.jpg?f=xl",
     name: "LAGKAPTEN/ALEX Desk",
     category: "desk",
     price: 95,
@@ -147,6 +154,7 @@ export const furnitureCatalog = [
     id: 8,
     itemUrl:
       "https://www.ikea.com/gb/en/p/lagkapten-alex-desk-white-stained-oak-effect-s59432040/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/lagkapten-alex-desk-white-stained-oak-effect__1022007_pe832397_s5.jpg?f=xl",
     name: "LAGKAPTEN/ALEX Desk (Large)",
     category: "desk",
     price: 115,
@@ -169,6 +177,7 @@ export const furnitureCatalog = [
     id: 9,
     itemUrl:
       "https://www.ikea.com/gb/en/p/eldberget-malskaer-swivel-chair-dark-grey-black-s59331847/",
+    imgUrl: "https://www.ikea.com/gb/en/p/eldberget-malskaer-swivel-chair-dark-grey-black-s59331847/",
     name: "ELDBERGET / MALSKÄR Chair",
     category: "desk-chair",
     price: 35,
@@ -188,6 +197,7 @@ export const furnitureCatalog = [
     id: 10,
     itemUrl:
       "https://www.ikea.com/gb/en/p/renberget-swivel-chair-bomstad-black-90503285/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/renberget-swivel-chair-bomstad-black__1074967_pe856358_s5.jpg?f=xl",
     name: "RENBERGET Swivel Chair",
     category: "desk-chair",
     price: 55,
@@ -207,6 +217,7 @@ export const furnitureCatalog = [
     id: 11,
     itemUrl:
       "https://www.ikea.com/gb/en/p/langfjaell-conference-chair-gunnared-beige-white-s69252482/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/langfjaell-conference-chair-gunnared-beige-white__0725408_pe734840_s5.jpg?f=xl",
     name: "LÅNGFJÄLL Conference Chair",
     category: "desk-chair",
     price: 135,
@@ -226,6 +237,7 @@ export const furnitureCatalog = [
     id: 12,
     itemUrl:
       "https://www.ikea.com/gb/en/p/alefjaell-office-chair-grann-beige-90320224/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/alefjaell-office-chair-grann-beige__0724710_pe734592_s5.jpg?f=xl",
     name: "ALEFJÄLL Office Chair",
     category: "desk-chair",
     price: 229,
@@ -248,6 +260,7 @@ export const furnitureCatalog = [
     id: 13,
     itemUrl:
       "https://www.ikea.com/gb/en/p/klippan-2-seat-sofa-flackarp-medium-grey-s89246862/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/klippan-2-seat-sofa-flackarp-medium-grey__0562980_pe663633_s5.jpg?f=xl",
     name: "KLIPPAN 2-Seat Sofa",
     category: "sofa",
     price: 279,
@@ -267,6 +280,7 @@ export const furnitureCatalog = [
     id: 14,
     itemUrl:
       "https://www.ikea.com/gb/en/p/friheten-three-seat-sofa-bed-skiftebo-dark-grey-10341150/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/friheten-three-seat-sofa-bed-skiftebo-dark-grey__0525504_pe644868_s5.jpg?f=xl",
     name: "FRIHETEN 3-Seat Sofa Bed",
     category: "sofa",
     price: 550,
@@ -286,6 +300,7 @@ export const furnitureCatalog = [
     id: 15,
     itemUrl:
       "https://www.ikea.com/gb/en/p/landskrona-2-seat-sofa-gunnared-light-green-wood-s99270291/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/landskrona-2-seat-sofa-gunnared-light-green-wood__0602106_pe680175_s5.jpg?f=xl",
     name: "LANDSKRONA 2-Seat Sofa",
     category: "sofa",
     price: 450,
@@ -305,6 +320,7 @@ export const furnitureCatalog = [
     id: 16,
     itemUrl:
       "https://www.ikea.com/gb/en/p/aepplaryd-3-seat-sofa-lejde-light-grey-10506235/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/aepplaryd-3-seat-sofa-lejde-light-grey__0992909_pe820327_s5.jpg?f=xl",
     name: "ÄPPLARYD 2-Seat Sofa",
     category: "sofa",
     price: 799,
@@ -324,6 +340,7 @@ export const furnitureCatalog = [
     id: 17,
     itemUrl:
       "https://www.ikea.com/gb/en/p/stockholm-three-seat-sofa-seglora-natural-00245050/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/stockholm-three-seat-sofa-seglora-natural__0183763_pe334809_s5.jpg?f=xl",
     name: "STOCKHOLM 3-Seat Leather Sofa",
     category: "sofa",
     price: 1699,
@@ -346,6 +363,7 @@ export const furnitureCatalog = [
     id: 18,
     itemUrl:
       "https://www.ikea.com/gb/en/p/lack-side-table-oak-effect-60111340/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/lack-side-table-oak-effect__64054_pe172512_s5.jpg?f=xl",
     name: "LACK Side Table",
     category: "side-table",
     price: 10,
@@ -365,6 +383,7 @@ export const furnitureCatalog = [
     id: 19,
     itemUrl:
       "https://www.ikea.com/gb/en/p/jaerlasa-side-table-on-castors-red-00555274/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/jaerlasa-side-table-on-castors-red__1197936_pe903824_s5.jpg?f=xl",
     name: "JÄRLÅSA Side Table on Castors",
     category: "side-table",
     price: 25,
@@ -383,6 +402,7 @@ export const furnitureCatalog = [
   {
     id: 20,
     itemUrl: "https://www.ikea.com/gb/en/p/baggboda-side-table-white-20556507/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/baggboda-side-table-white__1265558_pe927740_s5.jpg?f=xl",
     name: "BAGGBODA Side Table",
     category: "side-table",
     price: 70,
@@ -402,6 +422,7 @@ export const furnitureCatalog = [
     id: 21,
     itemUrl:
       "https://www.ikea.com/gb/en/p/stockholm-2025-side-table-pine-veneer-natural-90586563/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/stockholm-2025-side-table-pine-veneer-natural__1362703_pe955301_s5.jpg?f=xl",
     name: "STOCKHOLM 2025 Side Table",
     category: "side-table",
     price: 70,
@@ -421,6 +442,7 @@ export const furnitureCatalog = [
     id: 22,
     itemUrl:
       "https://www.ikea.com/gb/en/p/tonstad-side-table-oak-veneer-80528470/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/tonstad-side-table-oak-veneer__1319543_pe940960_s5.jpg?f=xl",
     name: "TONSTAD Side Table",
     category: "side-table",
     price: 115,
@@ -439,6 +461,7 @@ export const furnitureCatalog = [
   {
     id: 23,
     itemUrl: "https://www.ikea.com/gb/en/p/hol-side-table-acacia-70161320/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/hol-side-table-acacia__0108769_pe258448_s5.jpg?f=xl",
     name: "HOL Side Table",
     category: "side-table",
     price: 50,
@@ -461,6 +484,7 @@ export const furnitureCatalog = [
     id: 24,
     itemUrl:
       "https://www.ikea.com/gb/en/p/skalboda-armchair-orange-40555309/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/skalboda-armchair-orange__1180835_pe896475_s5.jpg?f=xl",
     name: "SKÅLBODA Armchair",
     category: "lounge-chair",
     price: 60,
@@ -480,6 +504,7 @@ export const furnitureCatalog = [
     id: 25,
     itemUrl:
       "https://www.ikea.com/gb/en/p/froeset-easy-chair-white-stained-oak-veneer-80425641/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/froeset-easy-chair-white-stained-oak-veneer__0824154_pe776005_s5.jpg?f=xl",
     name: "FRÖSET Easy Chair",
     category: "lounge-chair",
     price: 80,
@@ -499,6 +524,7 @@ export const furnitureCatalog = [
     id: 26,
     itemUrl:
       "https://www.ikea.com/gb/en/p/dyvlinge-swivel-easy-chair-kelinge-black-00570830/#content",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/dyvlinge-swivel-easy-chair-kelinge-black__1205899_pe907271_s5.jpg?f=xl",
     name: "DYVLINGE Swivel Armchair",
     category: "lounge-chair",
     price: 199,
@@ -518,6 +544,7 @@ export const furnitureCatalog = [
     id: 27,
     itemUrl:
       "https://www.ikea.com/gb/en/p/stockholm-2025-easy-chair-birch-veneer-80594785/",
+    imgUrl: "https://www.ikea.com/gb/en/images/products/stockholm-2025-easy-chair-birch-veneer__1362745_pe955317_s5.jpg?f=xl",
     name: "STOCKHOLM 2025 Easy Chair",
     category: "lounge-chair",
     price: 279,

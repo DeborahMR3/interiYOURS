@@ -12,6 +12,7 @@ class MainCamera {
       Vector3.Zero(),
       scene
     );
+    this.camera.wheelDeltaPercentage = 0.05;
 
     this.camera.attachControl(canvas.current, true);
     this.camera.lowerRadiusLimit = 5;
