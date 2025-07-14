@@ -21,14 +21,6 @@
   padding: 0;
 }
 
-.sidebar {
-  position: absolute;
-  left: 0;
-  background: #858482;
-  width: 380px;
-  height: 100%;
-}
-
 .visible {
   opacity: 1;
 }
