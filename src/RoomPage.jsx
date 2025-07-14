@@ -7,32 +7,32 @@ import { getRoomById } from "./firebase/firebaseStore";
 
 const RoomPage = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
-  const [roomData, setRoomData] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [roomData, setRoomData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const { roomId } = useParams();
 
   useEffect(() => {
     const fetchRoom = async () => {
       try {
-      setLoading(true)
-      setError(null)
-        const room = await getRoomById(roomId)
-        console.log(room)
-        setRoomData(room)
+        setLoading(true);
+        setError(null);
+        const room = await getRoomById(roomId);
+        console.log(room);
+        setRoomData(room);
       } catch (error) {
-        setError("Failed to load room")
-        setRoomData(null)
+        setError("Failed to load room");
+        setRoomData(null);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-      }
-      if (roomId) {
-        fetchRoom()
+    };
+    if (roomId) {
+      fetchRoom();
     }
-  }, [roomId])
-  
+  }, [roomId]);
+
   const addFurniture = (newItem) => {
     setCurrentLayout([...currentLayout, newItem]);
   };
