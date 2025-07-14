@@ -61,3 +61,19 @@ export const getRoomsData = async (uid) => {
 }
 return []
 }
+
+export const getRoomById = async (roomId) => {
+  try {
+    const docRef = doc(db,"rooms", roomId)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      return {id: docSnap.id, ...docSnap.data()}
+    } else {
+      throw new Error("Room not found")
+    }
+  } catch (error) {
+    console.error("Error whilst fetching Room", error)
+    throw error
+  }
+}
