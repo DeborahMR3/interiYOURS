@@ -44,7 +44,7 @@ const RoomPage = () => {
       const oldLayout = [...prev];
       const filterLayout = oldLayout.filter(({ id }) => id !== updatedItem.id);
       let newLayout = [...filterLayout, updatedItem];
-      console.log(newLayout);
+      //console.log(newLayout);
       return [...newLayout];
     });
   };

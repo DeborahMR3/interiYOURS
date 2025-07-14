@@ -23,8 +23,13 @@ const Main3dCanvas = ({
 
   const [currentScene, setCurrentScene] = useState({});
 
-  const saveFurniturePosition = (furnitureId, meshFile, vector3) => {
-    let newItem = { id: furnitureId, model: meshFile, position: vector3 };
+  const saveFurniturePosition = (furnitureId, meshFile, vector3, rotation) => {
+    let newItem = {
+      id: furnitureId,
+      model: meshFile,
+      position: vector3,
+      rotation,
+    };
     updateFurniturePosition(newItem);
   };
 
@@ -89,6 +94,7 @@ const Main3dCanvas = ({
         itemData.model,
         currentScene,
         itemData.position,
+        itemData.rotation,
         saveFurniturePosition
       );
     }

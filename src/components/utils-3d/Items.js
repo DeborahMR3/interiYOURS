@@ -38,7 +38,7 @@ class Furniture {
       );
 
       this.mesh = result.meshes[0];
-      console.log(result.meshes[0]);
+      //console.log(result.meshes[0]);
       this.mesh.position = this.position;
       //this.mesh.rotate(new Vector3(0, 1, 0), )
 
@@ -55,18 +55,18 @@ class Furniture {
       this.mesh.addBehavior(pointerDragBehavior);
 
       pointerDragBehavior.onDragStartObservable.add((event) => {
-        console.log("dragStart");
+        //console.log("dragStart");
         //console.log(event);
       });
       pointerDragBehavior.onDragObservable.add((event) => {
-        console.log("drag");
+        //console.log("drag");
         //console.log(event);
       });
       pointerDragBehavior.onDragEndObservable.add((event) => {
-        console.log("dragEnd");
+        //console.log("dragEnd");
         this.mesh.renderOverlay = false;
 
-        console.log(event);
+        //console.log(event);
         this.updatePosition();
       });
     } catch (err) {
