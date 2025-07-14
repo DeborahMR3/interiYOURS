@@ -11,11 +11,12 @@ import {
 import "@babylonjs/loaders";
 
 class Furniture {
-  constructor(id, meshFile, scene, position, saveFurniturePosition) {
+  constructor(id, meshFile, scene, position, rotation, saveFurniturePosition) {
     this.meshFile = meshFile;
     this.id = id;
     this.scene = scene;
     this.position = position;
+    this.rotation = rotation;
     this.saveFurniturePosition = saveFurniturePosition;
     this.setupMesh();
   }
@@ -24,7 +25,8 @@ class Furniture {
     this.saveFurniturePosition(
       this.id,
       this.meshFile,
-      new Vector3(this.mesh.position.x, 0, this.mesh.position.z)
+      new Vector3(this.mesh.position.x, 0, this.mesh.position.z),
+      this.mesh.rotation.y
     );
   }
 
@@ -35,9 +37,22 @@ class Furniture {
         this.scene
       );
 
+      this.mesh = result.meshes[0];
+      console.log(result.meshes[0]);
+      this.mesh.position = this.position;
+      //this.mesh.rotate(new Vector3(0, 1, 0), )
+
+      this.mesh.overlayColor = new Color3(0, 0, 1);
+      this.mesh.overlayAlpha = 0.8;
+      this.mesh.renderOverlay = true;
+
+      this.mesh.checkCollisions = true;
+
       const pointerDragBehavior = new PointerDragBehavior({
         dragPlaneNormal: new Vector3(0, 1, 0),
       });
+
+      this.mesh.addBehavior(pointerDragBehavior);
 
       pointerDragBehavior.onDragStartObservable.add((event) => {
         console.log("dragStart");
@@ -45,9 +60,6 @@ class Furniture {
       });
       pointerDragBehavior.onDragObservable.add((event) => {
         console.log("drag");
-        this.mesh.overlayColor = new Color3(0, 0, 1);
-        this.mesh.overlayAlpha = 0.8;
-        this.mesh.renderOverlay = true;
         //console.log(event);
       });
       pointerDragBehavior.onDragEndObservable.add((event) => {
@@ -57,12 +69,6 @@ class Furniture {
         console.log(event);
         this.updatePosition();
       });
-
-      this.mesh = result.meshes[0];
-      this.mesh.position = this.position;
-      this.mesh.addBehavior(pointerDragBehavior);
-
-      this.mesh.checkCollisions = true;
     } catch (err) {
       console.log(err);
     }

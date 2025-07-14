@@ -13,6 +13,7 @@ const Sidebar = ({ addFurniture }) => {
     id: "testid",
     model: "sofa-stockholm-brown.glb",
     position: new Vector3(-2, 0, -2),
+    rotation: 0,
   };
   const addTestItem = () => {
     addFurniture(testItem);
@@ -46,6 +47,7 @@ const Sidebar = ({ addFurniture }) => {
                     id: item.id,
                     model: item.modelRef, // fix to model instead of modelREf
                     position: new Vector3(0, 0, 0),
+                    rotation: 90,
                   };
                   addFurniture(furnitureToAdd);
                 }}
