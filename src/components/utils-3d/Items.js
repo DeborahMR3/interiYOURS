@@ -37,10 +37,13 @@ class Furniture {
         this.scene
       );
 
+      const degConv = 180 / 3.14159;
+
       this.mesh = result.meshes[0];
       //console.log(result.meshes[0]);
       this.mesh.position = this.position;
-      //this.mesh.rotate(new Vector3(0, 1, 0), )
+      this.mesh.rotate(new Vector3(0, 1, 0), -3.14 / 4);
+      console.log(this.mesh.rotationQuaternion.toEulerAngles().y * degConv);
 
       this.mesh.overlayColor = new Color3(0, 0, 1);
       this.mesh.overlayAlpha = 0.8;
