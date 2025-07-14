@@ -14,10 +14,12 @@ import "./styling/SideBar.css";
 //   },
 // ];
 
-const Sidebar = ({ addFurniture, user}) => {
+const Sidebar = ({ addFurniture, packages }) => {
   const [isVisible, setIsVisible] = useState();
   const [activeTab, setActiveTab] = useState("furniture");
   const toggleSidebar = () => setIsVisible(!isVisible);
+
+  console.log(packages);
 
   return (
     <>
@@ -29,7 +31,9 @@ const Sidebar = ({ addFurniture, user}) => {
         <div className="sidebar-header-card">
           <div className="tabs-toggle">
             <button
-              className={`toggle-btn ${activeTab === "furniture" ? "active" : ""}`}
+              className={`toggle-btn ${
+                activeTab === "furniture" ? "active" : ""
+              }`}
               onClick={() => setActiveTab("furniture")}
             >
               Furniture options
@@ -41,7 +45,9 @@ const Sidebar = ({ addFurniture, user}) => {
               Magic Box Plans:
             </button>
           </div>
-          <button className="close-btn" onClick={toggleSidebar}>X</button>
+          <button className="close-btn" onClick={toggleSidebar}>
+            X
+          </button>
         </div>
 
         {/* Tab de móveis */}
@@ -49,21 +55,30 @@ const Sidebar = ({ addFurniture, user}) => {
           <div className="furniture-list">
             {furnitureCatalog.map((item) => (
               <section key={item.id} className="furniture-item">
-                <img className="furniture-img" src={item.imgUrl} alt={item.name} />
+                <img
+                  className="furniture-img"
+                  src={item.imgUrl}
+                  alt={item.name}
+                />
                 <span className="furniture-name">{item.name}</span>
                 <span className="furniture-price">£{item.price}</span>
                 <span className="furniture-dimensions">
                   {item.dimensions.length} x {item.dimensions.width}
                 </span>
-                <button className="add-btn" onClick={() => {
-                  const furnitureToAdd = {
-                    id: item.id,
-                    model: item.modelRef,
-                    position: new Vector3(0, 0, 0),
-                    rotation: 90,
-                  };
-                  addFurniture(furnitureToAdd);
-                }}>Add</button>
+                <button
+                  className="add-btn"
+                  onClick={() => {
+                    const furnitureToAdd = {
+                      id: item.id,
+                      model: item.modelRef,
+                      position: new Vector3(0, 0, 0),
+                      rotation: 90,
+                    };
+                    addFurniture(furnitureToAdd);
+                  }}
+                >
+                  Add
+                </button>
               </section>
             ))}
           </div>
@@ -72,15 +87,22 @@ const Sidebar = ({ addFurniture, user}) => {
         {/* Tab plans */}
         {activeTab === "plans" && (
           <div className="plans-list">
-            {mockPlans.map((plan, index) => (
+            {packages.map((plan, index) => (
               <div key={index} className="plan-card">
                 <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
                   {plan.name}
                 </div>
                 {plan.items.map((item, index) => (
-                  <div key={index} style={{ fontSize: "15px", margin: "4px 0", paddingLeft: "6px" }}>
+                  <div
+                    key={index}
+                    style={{
+                      fontSize: "15px",
+                      margin: "4px 0",
+                      paddingLeft: "6px",
+                    }}
+                  >
                     {item.name} – £{item.price}
-                    <span >
+                    <span>
                       ({item.dimensions.length} x {item.dimensions.width})
                     </span>
                   </div>
