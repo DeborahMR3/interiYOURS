@@ -13,18 +13,24 @@ import {
 import MainCamera from "./utils-3d/MainCamera";
 import { Furniture, Floor } from "./utils-3d/Items";
 
-const Main3dCanvas = ({ currentLayout, setCurrentLayout }) => {
+const Main3dCanvas = ({
+  currentLayout,
+  updateFurniturePosition,
+  isItemAdded,
+  setIsItemAdded,
+}) => {
   const canvasRef = useRef(null);
 
   const [currentScene, setCurrentScene] = useState({});
 
-  const saveFurniturePosition = (furnitureId, meshFile, vector3) => {
-    let newItem = { id: furnitureId, model: meshFile, position: vector3 };
-    console.log(newItem);
-    let oldLayout = [...currentLayout];
-    let filterLayout = oldLayout.filter(({ id }) => id !== furnitureId);
-    let newLayout = [...filterLayout, newItem];
-    setCurrentLayout(newLayout);
+  const saveFurniturePosition = (furnitureId, meshFile, vector3, rotation) => {
+    let newItem = {
+      id: furnitureId,
+      model: meshFile,
+      position: vector3,
+      rotation,
+    };
+    updateFurniturePosition(newItem);
   };
 
   useEffect(() => {
@@ -44,6 +50,7 @@ const Main3dCanvas = ({ currentLayout, setCurrentLayout }) => {
       "bed-malm-white.glb",
       scene,
       new Vector3(1, 0, 1),
+      0,
       saveFurniturePosition
     );
 
@@ -52,6 +59,7 @@ const Main3dCanvas = ({ currentLayout, setCurrentLayout }) => {
       "seat-stockholm-birch.glb",
       scene,
       new Vector3(-1, 0, -1),
+      0,
       saveFurniturePosition
     );
 
@@ -78,15 +86,27 @@ const Main3dCanvas = ({ currentLayout, setCurrentLayout }) => {
   }, []);
 
   useEffect(() => {
-    currentLayout.forEach((furniture) => {
-      const newFurniture = new Furniture(
-        furniture.id,
-        furniture.model,
+    if (isItemAdded) {
+      setIsItemAdded(false);
+      const itemData = currentLayout[currentLayout.length - 1];
+      const newItem = new Furniture(
+        itemData.id,
+        itemData.model,
         currentScene,
-        furniture.position,
+        itemData.position,
+        itemData.rotation,
         saveFurniturePosition
       );
-    });
+    }
+    // currentLayout.forEach((furniture) => {
+    //   const newFurniture = new Furniture(
+    //     furniture.id,
+    //     furniture.model,
+    //     currentScene,
+    //     furniture.position,
+    //     saveFurniturePosition
+    //   );
+    // });
   }, [currentLayout]);
 
   return (

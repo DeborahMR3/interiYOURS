@@ -7,6 +7,7 @@ import { getRoomById } from "./firebase/firebaseStore";
 
 const RoomPage = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
+  const [isItemAdded, setIsItemAdded] = useState(false);
   const [roomData, setRoomData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -34,16 +35,28 @@ const RoomPage = () => {
   }, [roomId]);
 
   const addFurniture = (newItem) => {
+    setIsItemAdded(true);
     setCurrentLayout([...currentLayout, newItem]);
   };
-  console.log(currentLayout);
+
+  const updateFurniturePosition = (updatedItem) => {
+    setCurrentLayout((prev) => {
+      const oldLayout = [...prev];
+      const filterLayout = oldLayout.filter(({ id }) => id !== updatedItem.id);
+      let newLayout = [...filterLayout, updatedItem];
+      //console.log(newLayout);
+      return [...newLayout];
+    });
+  };
 
   return (
     <div className="layout-view">
       <Sidebar addFurniture={addFurniture} />
       <Main3dCanvas
         currentLayout={currentLayout}
-        setCurrentLayout={setCurrentLayout}
+        updateFurniturePosition={updateFurniturePosition}
+        isItemAdded={isItemAdded}
+        setIsItemAdded={setIsItemAdded}
       />
     </div>
   );
