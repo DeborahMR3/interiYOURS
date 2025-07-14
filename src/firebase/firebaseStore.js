@@ -8,7 +8,9 @@ import {
   addDoc,
   getDocs,
   query,
-  where
+  where,
+  deleteField,
+  updateDoc,
 } from "firebase/firestore";
 import app from "./firebase.config";
 
@@ -37,43 +39,57 @@ export const addRoomToFireStore = async (userId, roomData) => {
       userId,
       createdAt: serverTimestamp(),
     });
-    return docRef.id
+    return docRef.id;
   } catch (error) {
-    throw new Error("Failed to add room, please try again")
+    throw new Error("Failed to add room, please try again");
   }
-}
+};
 
 export const getRoomsData = async (uid) => {
   try {
-  const roomQuery = query(
-    collection(db, "rooms"),
-    where("userId", "==", uid)
-  )
-  const querySnapshot = await getDocs(roomQuery)
+    const roomQuery = query(
+      collection(db, "rooms"),
+      where("userId", "==", uid)
+    );
+    const querySnapshot = await getDocs(roomQuery);
 
-  const rooms = querySnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  }))
-  return rooms
-} catch (error) {
-  console.error("Failed to get user rooms", error)
-}
-return []
-}
+    const rooms = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return rooms;
+  } catch (error) {
+    console.error("Failed to get user rooms", error);
+  }
+  return [];
+};
 
 export const getRoomById = async (roomId) => {
   try {
-    const docRef = doc(db,"rooms", roomId)
-    const docSnap = await getDoc(docRef)
+    const docRef = doc(db, "rooms", roomId);
+    const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      return {id: docSnap.id, ...docSnap.data()}
+      return { id: docSnap.id, ...docSnap.data() };
     } else {
-      throw new Error("Room not found")
+      throw new Error("Room not found");
     }
   } catch (error) {
-    console.error("Error whilst fetching Room", error)
-    throw error
+    console.error("Error whilst fetching Room", error);
+    throw error;
   }
-}
+};
+
+export const patchRoomLayout = async (roomId, layout) => {
+  const roomRef = doc(db, "rooms", roomId);
+
+  try {
+    await updateDoc(roomRef, {
+      layout: layout,
+      furniturePositions: deleteField(),
+    });
+    console.log("Room layout updated");
+  } catch (error) {
+    console.error("Failed to update room layout", error);
+  }
+};
