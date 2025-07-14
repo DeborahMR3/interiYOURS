@@ -2,10 +2,9 @@ import {
   Color3,
   CreateGround,
   ImportMeshAsync,
-  Mesh,
-  MeshBuilder,
   PointerDragBehavior,
   StandardMaterial,
+  Texture,
   Vector3,
 } from "@babylonjs/core";
 import "@babylonjs/loaders";
@@ -42,8 +41,12 @@ class Furniture {
       this.mesh = result.meshes[0];
       //console.log(result.meshes[0]);
       this.mesh.position = this.position;
-      this.mesh.rotate(new Vector3(0, 1, 0), -3.14 / 4);
-      console.log(this.mesh.rotationQuaternion.toEulerAngles().y * degConv);
+      this.mesh.rotation = new Vector3(0, 0, 0);
+      this.mesh.rotate(
+        new Vector3(0, 1, 0),
+        (180 + this.rotation) * (1 / degConv)
+      );
+      console.log(this.mesh.rotationQuaternion.toEulerAngles().y);
 
       this.mesh.overlayColor = new Color3(0, 0, 1);
       this.mesh.overlayAlpha = 0.8;
@@ -59,7 +62,7 @@ class Furniture {
 
       pointerDragBehavior.onDragStartObservable.add((event) => {
         //console.log("dragStart");
-        //console.log(event);
+        console.log(event);
       });
       pointerDragBehavior.onDragObservable.add((event) => {
         //console.log("drag");
@@ -87,8 +90,15 @@ class Floor {
       scene
     );
     this.floor.position = new Vector3(0, -0.01, 0);
-    const material = new StandardMaterial("floor", scene);
-    material.diffuseColor = new Color3(0.7, 0.6, 0.7);
+    const material = new StandardMaterial("floor", this.scene);
+    const texture = new Texture(
+      "../../public/textures/laminate_floor.jpg",
+      this.scene
+    );
+    texture.uScale = 2;
+    texture.vScale = 2;
+    //material.diffuseColor = new Color3(0.7, 0.6, 0.7);
+    material.diffuseTexture = texture;
     this.floor.material = material;
   }
 }

@@ -53,6 +53,7 @@ const RoomPage = () => {
     <div className="layout-view">
       <Sidebar addFurniture={addFurniture} />
       <Main3dCanvas
+        roomData={roomData}
         currentLayout={currentLayout}
         updateFurniturePosition={updateFurniturePosition}
         isItemAdded={isItemAdded}
