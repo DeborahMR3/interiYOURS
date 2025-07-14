@@ -16,6 +16,7 @@ const RoomPage = () => {
     setError(null);
     const user = transformRoomData(roomData);
     const output = runMagicBox(user);
+    roomData.packages = output.packages;
 
     console.log(roomData);
 
