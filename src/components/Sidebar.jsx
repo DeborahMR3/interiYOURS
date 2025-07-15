@@ -127,6 +127,11 @@ const Sidebar = ({ addFurniture, packages }) => {
 export default Sidebar;
 
 
+
+
+
+
+
 // import { Vector3 } from "@babylonjs/core";
 // import { useState } from "react";
 // import { furnitureCatalog } from "./magic-box/data/furnitureCatalog";
