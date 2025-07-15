@@ -5,7 +5,7 @@ import { Dropdown } from 'react-bootstrap';
   width: 100vw;
   margin: 0;
   padding: 0;
-  background: #fff;         
+  background: #fff;
   display: flex;
   flex-direction: column;
 }
@@ -43,9 +43,7 @@ import { Dropdown } from 'react-bootstrap';
   cursor: pointer;
   transition: background 0.3s;
 }
-/* .avatar-button:hover {
-  background-color: #e700d0;
-} */
+
 .avatar-button:hover {
   background-color: #74b4eb;
 }
