@@ -6,6 +6,8 @@ import { FaArrowsAlt } from "react-icons/fa";
 import { FaArrowsSpin } from "react-icons/fa6";
 import "./styling/ControlButtons.css";
 
+import AvatarDropdown from "./AvatarDropdown";
+
 export const ControlButtons = ({
   isRotating,
   setIsRotating,
@@ -17,6 +19,7 @@ export const ControlButtons = ({
 
   return (
     <div className="control-button-container">
+       <AvatarDropdown />
       <button className="control-button" onClick={handleSavedPositions}>
         <FaRegSave />
       </button>

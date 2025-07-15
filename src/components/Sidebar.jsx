@@ -24,7 +24,7 @@ const Sidebar = ({ addFurniture, packages }) => {
       {!isSidebarOpen && (
         <div className="sidebar-launcher">
           <button className="sidebar-launch-btn" onClick={openSidebar}>
-            layout plans
+            Layout Plans
           </button>
         </div>
       )}
@@ -37,16 +37,16 @@ const Sidebar = ({ addFurniture, packages }) => {
               className={`sidebar-tab-btn ${activeTab === "plans" ? "active" : ""}`}
               onClick={() => setActiveTab("plans")}
             >
-              suggested plans
+              Suggested Plans
             </button>
             <button
               className={`sidebar-tab-btn ${activeTab === "furniture" ? "active" : ""}`}
               onClick={() => setActiveTab("furniture")}
             >
-              furniture options
+              Furniture Options
             </button>
             <button className="sidebar-close-btn" onClick={closeSidebar}>
-              ×
+              X
             </button>
           </div>
 
@@ -58,7 +58,7 @@ const Sidebar = ({ addFurniture, packages }) => {
                       {/* Plan name/title */}
 
                       <div className="plan-option">
-                        Suggestion {plan.name}
+                        Plan {plan.name}
                       </div>
 
                       {/* Items details (each line: image, name, price) */}

@@ -4,6 +4,173 @@
   left: 0;
   width: 330px;
   height: 100vh;
+  background: #2196e9;   /* azul principal */
+  border-radius: 0 22px 22px 0;
+  box-shadow: 2px 0 20px #0002;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-launcher {
+  position: fixed;
+  top: 32px;
+  left: 0;
+  z-index: 120;
+}
+.sidebar-launch-btn {
+  border-radius: 15px;
+  background: #f7f7f7;
+  border: none;
+  color: #1769aa;        /* azul escuro */
+  font-weight: 600;
+  padding: 16px 32px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.sidebar-launch-btn:hover { background:#e3f1fb;
+ }
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 18px 12px 6px 12px;
+  background: none;
+}
+
+.sidebar-tab-btn {
+  background: #fff;
+  border: none;
+  border-radius: 10px 10px 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  margin-right: 5px;
+  color: #1769aa;
+  transition: background 0.15s, color 0.15s;
+}
+.sidebar-tab-btn.active,
+.sidebar-tab-btn:hover {
+  background: #e3f1fb;
+  color: #2196e9;
+}
+
+.sidebar-close-btn {
+  margin-left: auto;
+  font-size: 1.2rem;
+  background: #e3f1fb;
+  color: #1769aa;
+  border-radius: 50%;
+  border: none;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.sidebar-close-btn:hover {
+  background: #2196e9;
+  color: #fff;            /
+}
+
+.sidebar-content {
+  flex: 1;
+  padding: 14px 10px 10px 10px;
+  overflow-y: auto;
+}
+
+
+.plan-card {
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  padding: 12px 10px;
+  box-shadow: 0 2px 8px #0001;
+}
+.plan-option {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #151716;
+}
+.plan-items-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.plan-item-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  padding: 4px 0;
+}
+.plan-item-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 7px;
+  border: 1px solid #eee;
+  background: #fff;
+}
+.furniture-name, .furniture-price {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #23485a;
+}
+.furniture-price { margin-left: 12px; }
+
+
+.furniture-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+.furniture-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px 6px;
+  width: 94%;
+  box-shadow: 0 1px 5px #0001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.furniture-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #eee;
+  margin-bottom: 5px;
+}
+.furniture-name { font-size: 1rem; font-weight: 500; margin-bottom: 2px;}
+.furniture-price { font-size: 1rem; color: #23485a;}
+.furniture-dimensions { font-size: 0.9rem; color: #666; margin-bottom: 4px; }
+.add-btn {
+  width: 100%;
+  background: #3c9be3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 6px;
+}
+.add-btn:hover { background: #146095;
+ }
+
+
+/* .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 330px;
+  height: 100vh;
   background: #4fa073;
   border-radius: 0 22px 22px 0;
   box-shadow: 2px 0 20px #0002;
@@ -65,7 +232,7 @@
   overflow-y: auto;
 }
 
-/* --- Plan Cards --- */
+
 .plan-card {
   background: #fff;
   border-radius: 12px;
@@ -107,7 +274,7 @@
 }
 .furniture-price { margin-left: 12px; }
 
-/* --- Furniture List --- */
+
 .furniture-list {
   display: flex;
   flex-direction: column;
@@ -148,4 +315,4 @@
   cursor: pointer;
   margin-top: 6px;
 }
-.add-btn:hover { background: #357a57; }
+.add-btn:hover { background: #357a57; } */

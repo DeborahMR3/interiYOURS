@@ -8,7 +8,8 @@
 .layout-view {
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow: visible !important;
+  /* changed this line to try to fix dropdown on controlbuttons */
   margin: 0;
   padding: 0;
 }
