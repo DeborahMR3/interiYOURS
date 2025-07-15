@@ -1,17 +1,16 @@
-/* Sidebar container */
 .sidebar {
-  position: fixed;
+  position: absolute;
+  width: 380px;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 230px;
-  background:  rgb(61, 155, 102) !important;
+  background: rgb(61, 155, 102) !important;
   z-index: 20;
   box-shadow: 2px 0 12px #0002;
-  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;      /* força sempre mostrar a barra */
+  overflow-y: scroll; /* força sempre mostrar a barra */
+  justify-content: safe center;
   scrollbar-color: #6c9bd3 #ececec;
 }
 

@@ -49,9 +49,14 @@ const RoomPage = () => {
     });
   };
 
+  //Appropriate loading logic would be good here
   return (
     <div className="layout-view">
-      <Sidebar addFurniture={addFurniture} />
+      {roomData ? (
+        <Sidebar addFurniture={addFurniture} packages={roomData.packages} />
+      ) : (
+        <p>Loading...</p>
+      )}
       <Main3dCanvas
         roomData={roomData}
         currentLayout={currentLayout}
