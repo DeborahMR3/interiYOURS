@@ -56,8 +56,9 @@ const Sidebar = ({ addFurniture, packages }) => {
                   {packages.map((plan, index) => (
                     <div key={index} className="plan-card">
                       {/* Plan name/title */}
+
                       <div className="plan-option">
-                        PLAN {plan.name}
+                        Suggestion {plan.name}
                       </div>
 
                       {/* Items details (each line: image, name, price) */}
