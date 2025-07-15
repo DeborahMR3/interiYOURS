@@ -1,6 +1,6 @@
 // src/components/magic-box/utils/spatialPlannerConfig.js
 
-export const MIN_CLEARANCE = 40; // cm
+export const MIN_CLEARANCE = 20; // cm
 export const TABLE_CLEARANCE_FRONT = 40; // cm
 export const TABLE_CLEARANCE_SIDE = 5; // cm
 export const SLIDE_STEP = 5; // cm

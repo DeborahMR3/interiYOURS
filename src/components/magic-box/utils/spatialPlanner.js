@@ -1,6 +1,4 @@
-// src/components/magic-box/utils/spatialPlanner.js
-
-console.log("🐛 Loaded spatialPlanner.js v2");
+console.log("🤛 Loaded spatialPlanner.js v3");
 
 /**
  * Spatial Planner Module (Backtracking)
@@ -16,10 +14,6 @@ import {
   WALLS,
 } from "./spatialPlannerConfig.js";
 
-/**
- * Inflate an item's footprint by adding MIN_CLEARANCE around it.
- * Two inflated footprints ensure at least MIN_CLEARANCE clearance between original items.
- */
 function inflate(dim) {
   return {
     width: dim.width + MIN_CLEARANCE,
@@ -27,11 +21,6 @@ function inflate(dim) {
   };
 }
 
-/**
- * Check if two axis-aligned rectangles overlap.
- * @param {Object} a - { x, y, width, length }
- * @param {Object} b - same shape
- */
 function overlaps(a, b) {
   return !(
     a.x + a.width / 2 <= b.x - b.width / 2 ||
@@ -41,15 +30,6 @@ function overlaps(a, b) {
   );
 }
 
-/**
- * Try to place an item at (x,y) with rotation, respecting occupied spaces.
- * @param {Object} item - raw catalog item with dimensions, id, modelRef
- * @param {number} x     - center x
- * @param {number} y     - center y
- * @param {number} rotation - degrees
- * @param {Array} occupied - array of inflated rects
- * @returns {Object|false} placement or false
- */
 export function tryPlace(item, x, y, rotation, occupied) {
   const inflated = inflate(item.dimensions);
   const rect = { x, y, width: inflated.width, length: inflated.length };
@@ -57,7 +37,6 @@ export function tryPlace(item, x, y, rotation, occupied) {
     if (overlaps(occ, rect)) return false;
   }
   occupied.push(rect);
-  // Return both position and original dims:
   return {
     id: item.id,
     x,
@@ -70,10 +49,8 @@ export function tryPlace(item, x, y, rotation, occupied) {
 }
 
 /**
- * Main entry: place all furniture items according to rules via backtracking.
- * @param {Array} items    - Array of raw catalog items
- * @param {Object} roomDims - { width, length } in cm
- * @returns {Array|null} placements or null
+ * Try to place multiple items along walls, allowing reuse of wall space.
+ * This will try alternate walls for any item that doesn't fit along the first chosen wall.
  */
 export function placePackage(items, roomDims) {
   const desk = items.find((i) => i.category === "desk");
@@ -82,7 +59,6 @@ export function placePackage(items, roomDims) {
   const table = items.find((i) => i.category === "side-table");
   const bed = items.find((i) => i.category === "bed");
 
-  // initial state
   const initial = { placements: [], occupied: [] };
 
   // --- Desk + Chair states ---
@@ -95,11 +71,13 @@ export function placePackage(items, roomDims) {
       console.log(
         `🏷️ Trying DESK on wall ${WALLS[w].name} (index ${w}) at rot ${rotD}`
       );
-      const pD = placeAlongWall(desk, roomDims, w, rotD, occ1);
+      const pD = placeAlongWall(desk, roomDims, w, rotD, occ1, {
+        requireFlush: true,
+      });
       console.log(`→ placeAlongWall returned`, pD);
       if (!pD) continue;
       rec1.push(pD);
-      // place chair flush in front
+
       const shift = (desk.dimensions.length + chair.dimensions.length) / 2;
       const wall = WALLS[w];
       const cx = pD.x + wall.normal[0] * shift;
@@ -121,7 +99,6 @@ export function placePackage(items, roomDims) {
   for (const ds of deskStates) {
     const { placements: pDs, occupied: occD, deskWall } = ds;
 
-    // Sofa/Lounge states
     const seatStates = [];
     if (seat) {
       for (let w = 0; w < WALLS.length; w++) {
@@ -130,7 +107,9 @@ export function placePackage(items, roomDims) {
         const occ2 = [...occD];
         const rec2 = [...pDs];
         console.log(`🏷️ Trying SEAT on wall ${WALLS[w].name} at rot ${rotS}`);
-        const pS = placeAlongWall(seat, roomDims, w, rotS, occ2);
+        const pS = placeAlongWall(seat, roomDims, w, rotS, occ2, {
+          requireFlush: false,
+        });
         console.log(`→ placeAlongWall returned`, pS);
         if (!pS) continue;
         rec2.push(pS);
@@ -153,17 +132,14 @@ export function placePackage(items, roomDims) {
       continue;
     }
 
-    // Side-table states
     for (const ss of seatStates) {
       const { placements: pSs, occupied: occS, seatWall, seatPlac } = ss;
       const tableStates = [];
       if (table && seatWall !== null) {
         const wobj = WALLS[seatWall];
         const base = { placements: pSs, occupied: occS };
-        // front
         const tf = attemptTablePlacement(base, table, seatPlac, wobj, "front");
         if (tf) tableStates.push(tf);
-        // side+ and side-
         const ts1 = attemptTablePlacement(base, table, seatPlac, wobj, "side+");
         if (ts1) tableStates.push(ts1);
         const ts2 = attemptTablePlacement(base, table, seatPlac, wobj, "side-");
@@ -179,7 +155,6 @@ export function placePackage(items, roomDims) {
         continue;
       }
 
-      // Bed placement
       for (const ts of tableStates) {
         const { placements: pTs, occupied: occT } = ts;
         if (!bed) return pTs;
@@ -197,7 +172,9 @@ export function placePackage(items, roomDims) {
               `🏷️ Trying BED on wall ${WALLS[w].name}, rot ${rotB}, dims`,
               bed.dimensions
             );
-            const pB = placeAlongWall(bed, roomDims, w, rotB, occ3);
+            const pB = placeAlongWall(bed, roomDims, w, rotB, occ3, {
+              requireFlush: false,
+            });
             console.log(`→ placeAlongWall returned`, pB);
             if (!pB) continue;
             rec3.push(pB);
@@ -210,13 +187,9 @@ export function placePackage(items, roomDims) {
     }
   }
   console.log("❌ Exhausted all bed placements");
-
   return null;
 }
 
-/**
- * Helper to generate a side-table placement given mode ('front', 'side+', 'side-').
- */
 function attemptTablePlacement(state, table, seatPlac, wall, mode) {
   const pList = [...state.placements];
   const occList = [...state.occupied];
