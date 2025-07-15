@@ -19,11 +19,12 @@ const Main3dCanvas = ({
   updateFurniturePosition,
   isItemAdded,
   setIsItemAdded,
+  isRotating,
 }) => {
   const canvasRef = useRef(null);
 
   const [currentScene, setCurrentScene] = useState({});
-
+  const [currentItem, setCurrentItem] = useState(null);
   const [itemsInitialised, setItemsInitialised] = useState(false);
 
   const saveFurniturePosition = (furnitureId, meshFile, vector3, rotation) => {
@@ -34,6 +35,16 @@ const Main3dCanvas = ({
       rotation,
     };
     updateFurniturePosition(newItem);
+  };
+
+  const selectItem = (selectedItem) => {
+    console.log("select item called from" + selectedItem);
+    setCurrentItem((prev) => {
+      if (prev !== selectedItem) {
+        prev.setMoving();
+      }
+      return selectedItem;
+    });
   };
 
   useEffect(() => {
@@ -110,24 +121,34 @@ const Main3dCanvas = ({
         currentScene,
         itemData.position,
         itemData.rotation,
-        saveFurniturePosition
+        saveFurniturePosition,
+        selectItem
       );
       return;
     }
     if (itemsInitialised) return;
-    currentLayout.forEach((furniture) => {
+    currentLayout.forEach((furniture, index) => {
       let individualFurniture = new Furniture(
         furniture.id,
         furniture.model,
         currentScene,
         furniture.position,
         furniture.rotation,
-        saveFurniturePosition
+        saveFurniturePosition,
+        selectItem
       );
+      if (index === currentLayout.length - 1)
+        setCurrentItem(individualFurniture);
     });
     setItemsInitialised(true);
     setIsItemAdded(false);
   }, [currentLayout, currentScene]);
+
+  useEffect(() => {
+    if (isRotating) {
+      currentItem.setRotating();
+    }
+  }, [isRotating]);
 
   return (
     <div className="main-3d-canvas">

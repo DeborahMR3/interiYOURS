@@ -159,6 +159,7 @@ const RoomPage = () => {
         updateFurniturePosition={updateFurniturePosition}
         isItemAdded={isItemAdded}
         setIsItemAdded={setIsItemAdded}
+        isRotating={isRotating}
       />
       <ControlButtons
         isRotating={isRotating}
