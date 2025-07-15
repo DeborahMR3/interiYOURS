@@ -41,7 +41,7 @@ const Sidebar = ({ addFurniture, packages }) => {
               className={`toggle-btn ${activeTab === "plans" ? "active" : ""}`}
               onClick={() => setActiveTab("plans")}
             >
-              Magic Box Plans:
+              Magic Box Plans::
             </button>
           </div>
           <button className="close-btn" onClick={toggleSidebar}>
