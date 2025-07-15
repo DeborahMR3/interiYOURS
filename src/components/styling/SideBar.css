@@ -120,3 +120,103 @@
   box-shadow: 0 1px 6px #0002;
 }
 .nav-button:hover { background: #4d8a64; }
+
+
+
+/* Launcher button before sidebar opens */
+.sidebar-launcher {
+  position: fixed;
+  top: 32px;
+  left: 0;
+  z-index: 100;
+}
+
+.sidebar-launch-btn {
+  border-radius: 15px;
+  background: #f7f7f7;
+  border: none;
+  color: #222;
+  font-weight: 600;
+  padding: 18px 38px;
+  font-size: 1.12rem;
+  box-shadow: 0 2px 12px #0001;
+  cursor: pointer;
+  transition: background 0.16s;
+}
+
+.sidebar-launch-btn:hover {
+  background: #e6e6e6;
+}
+
+/* Sidebar main styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 320px;
+  background: #4fa073;
+  z-index: 110;
+  box-shadow: 2px 0 20px #0002;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0 22px 22px 0;
+  animation: fadeInSidebar 0.2s;
+}
+
+@keyframes fadeInSidebar {
+  from { transform: translateX(-60px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Header: tabs + close button */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 24px 18px 8px 18px;
+  gap: 8px;
+  background: none;
+}
+
+.sidebar-tab-btn {
+  background: #fff;
+  border: none;
+  border-radius: 10px 10px 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-right: 4px;
+  transition: background 0.15s;
+  color: #444;
+}
+
+.sidebar-tab-btn.active,
+.sidebar-tab-btn:hover {
+  background: #ffe09e;
+  color: #2a2a2a;
+}
+
+.sidebar-close-btn {
+  margin-left: auto;
+  font-size: 1.4rem;
+  background: #ffd8d2;
+  color: #a12020;
+  border-radius: 50%;
+  padding: 5px 14px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.sidebar-close-btn:hover {
+  background: #fc6666;
+  color: #fff;
+}
+
+/* Sidebar content area */
+.sidebar-content {
+  flex: 1;
+  padding: 18px 16px 10px 22px;
+  overflow-y: auto;
+}
