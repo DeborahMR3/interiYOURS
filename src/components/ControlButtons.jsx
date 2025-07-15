@@ -6,14 +6,18 @@ import { FaArrowsAlt } from "react-icons/fa";
 import { FaArrowsSpin } from "react-icons/fa6";
 import "./styling/ControlButtons.css";
 
-export const ControlButtons = ({ isRotating, setIsRotating }) => {
+export const ControlButtons = ({
+  isRotating,
+  setIsRotating,
+  handleSavedPositions,
+}) => {
   const toggleRotating = () => {
     setIsRotating(!isRotating);
   };
 
   return (
     <div className="control-button-container">
-      <button className="control-button">
+      <button className="control-button" onClick={handleSavedPositions}>
         <FaRegSave />
       </button>
       <button className="control-button">

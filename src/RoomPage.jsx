@@ -89,7 +89,11 @@ const RoomPage = () => {
         isItemAdded={isItemAdded}
         setIsItemAdded={setIsItemAdded}
       />
-      <ControlButtons isRotating={isRotating} setIsRotating={setIsRotating} />
+      <ControlButtons
+        isRotating={isRotating}
+        setIsRotating={setIsRotating}
+        handleSavedPositions={handleSavedPositions}
+      />
     </div>
   );
 };
