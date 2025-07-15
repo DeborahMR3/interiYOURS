@@ -4,10 +4,12 @@ import Sidebar from "./components/Sidebar";
 import "./components/styling/RoomPage.css";
 import { useParams } from "react-router-dom";
 import { getRoomById } from "./firebase/firebaseStore";
+import { ControlButtons } from "./components/ControlButtons";
 
 const RoomPage = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
   const [isItemAdded, setIsItemAdded] = useState(false);
+  const [isRotating, setIsRotating] = useState(false);
   const [roomData, setRoomData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -59,6 +61,7 @@ const RoomPage = () => {
         isItemAdded={isItemAdded}
         setIsItemAdded={setIsItemAdded}
       />
+      <ControlButtons isRotating={isRotating} setIsRotating={setIsRotating} />
     </div>
   );
 };
