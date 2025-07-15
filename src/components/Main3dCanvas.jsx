@@ -24,6 +24,8 @@ const Main3dCanvas = ({
 
   const [currentScene, setCurrentScene] = useState({});
 
+  const [itemsInitialised, setItemsInitialised] = useState(false);
+
   const saveFurniturePosition = (furnitureId, meshFile, vector3, rotation) => {
     let newItem = {
       id: furnitureId,
@@ -99,19 +101,20 @@ const Main3dCanvas = ({
   useEffect(() => {
     if (currentLayout.length === 0 || Object.keys(currentScene).length === 0)
       return;
-    // if (isItemAdded) {
-    //   setIsItemAdded(false);
-    //   const itemData = currentLayout[currentLayout.length - 1];
-    //   const newItem = new Furniture(
-    //     itemData.id,
-    //     itemData.model,
-    //     currentScene,
-    //     itemData.position,
-    //     itemData.rotation,
-    //     saveFurniturePosition
-    //   );
-    //   return;
-    // }
+    if (isItemAdded && itemsInitialised) {
+      setIsItemAdded(false);
+      const itemData = currentLayout[currentLayout.length - 1];
+      const newItem = new Furniture(
+        itemData.id,
+        itemData.model,
+        currentScene,
+        itemData.position,
+        itemData.rotation,
+        saveFurniturePosition
+      );
+      return;
+    }
+    if (itemsInitialised) return;
     currentLayout.forEach((furniture) => {
       let individualFurniture = new Furniture(
         furniture.id,
@@ -122,6 +125,8 @@ const Main3dCanvas = ({
         saveFurniturePosition
       );
     });
+    setItemsInitialised(true);
+    setIsItemAdded(false);
   }, [currentLayout, currentScene]);
 
   return (
