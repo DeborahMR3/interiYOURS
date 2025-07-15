@@ -49,7 +49,7 @@ const Main3dCanvas = ({
 
     const camera = new MainCamera(canvasRef, scene);
     let floor = new Floor(
-      new Vector2(roomLength * metresConv, roomWidth * metresConv),
+      new Vector2(roomWidth * metresConv, roomLength * metresConv),
       scene
     );
 
@@ -99,19 +99,19 @@ const Main3dCanvas = ({
   useEffect(() => {
     if (currentLayout.length === 0 || Object.keys(currentScene).length === 0)
       return;
-    if (isItemAdded) {
-      setIsItemAdded(false);
-      const itemData = currentLayout[currentLayout.length - 1];
-      const newItem = new Furniture(
-        itemData.id,
-        itemData.model,
-        currentScene,
-        itemData.position,
-        itemData.rotation,
-        saveFurniturePosition
-      );
-      return;
-    }
+    // if (isItemAdded) {
+    //   setIsItemAdded(false);
+    //   const itemData = currentLayout[currentLayout.length - 1];
+    //   const newItem = new Furniture(
+    //     itemData.id,
+    //     itemData.model,
+    //     currentScene,
+    //     itemData.position,
+    //     itemData.rotation,
+    //     saveFurniturePosition
+    //   );
+    //   return;
+    // }
     currentLayout.forEach((furniture) => {
       let individualFurniture = new Furniture(
         furniture.id,

@@ -39,9 +39,79 @@ const RoomPage = () => {
     }
   }, [roomId]);
 
+  // x y z of magic output is in cm, perhaps introduce a utility fn that considers handling zero position
+  // possible roatation + 180?
+  useEffect(() => {
+    if (roomData === null) return;
+    const halfW = roomData.roomWidth * 0.5;
+    const halfL = roomData.roomLength * 0.5;
+    if (
+      roomData.packages[0].name === "A" &&
+      roomData.packages[0].placements.length !== 0
+    ) {
+      roomData.packages[0].placements.forEach((item) => {
+        console.log(`rendering ${item.modelRef} form package A`);
+        let newItem = {
+          id: item.id,
+          model: item.modelRef,
+          position: {
+            x: (item.x - halfW) / 100,
+            z: (item.y - halfL) / 100,
+            y: 0,
+          },
+          rotation: item.rotation,
+        };
+        console.log("newItem >>>", newItem);
+        addFurniture(newItem);
+      });
+    } else if (
+      roomData.packages[1].name === "B" &&
+      roomData.packages[1].placements.length !== 0
+    ) {
+      roomData.packages[1].placements.forEach((item) => {
+        console.log(`rendering ${item.modelRef} form package B`);
+        let newItem = {
+          id: item.id,
+          model: item.modelRef,
+          position: {
+            x: (item.x - halfW) / 100,
+            z: (item.y - halfL) / 100,
+            y: 0,
+          },
+          rotation: item.rotation,
+        };
+        addFurniture(newItem);
+      });
+    } else if (
+      roomData.packages[2].name === "C" &&
+      roomData.packages[2].placements.length !== 0
+    ) {
+      roomData.packages[2].placements.forEach((item) => {
+        console.log(`rendering ${item.modelRef} form package C`);
+        let newItem = {
+          id: item.id,
+          model: item.modelRef,
+          position: {
+            x: (item.x - halfW) / 100,
+            z: (item.y - halfL) / 100,
+            y: 0,
+          },
+          rotation: item.rotation,
+        };
+        addFurniture(newItem);
+      });
+    } else {
+      console.warn(
+        "Couldn't place package items!, you can still add them yourself if you like"
+      );
+    }
+  }, [roomData]);
+
   const addFurniture = (newItem) => {
     setIsItemAdded(true);
-    setCurrentLayout([...currentLayout, newItem]);
+    setCurrentLayout((prev) => [...prev, newItem]);
+
+    console.log("addFurniture called >>>", newItem);
   };
 
   const updateFurniturePosition = (updatedItem) => {
