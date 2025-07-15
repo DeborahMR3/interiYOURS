@@ -31,8 +31,8 @@ import { Dropdown } from 'react-bootstrap';
 
 /* AVATAR */
 .avatar-button {
-  width: 52px !important;
-  height: 52px !important;
+  width: 55px !important;
+  height: 55px !important;
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -49,8 +49,8 @@ import { Dropdown } from 'react-bootstrap';
 }
 
 .avatar-img {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   display: block;
   pointer-events: none;
