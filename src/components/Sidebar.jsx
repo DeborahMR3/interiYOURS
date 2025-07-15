@@ -3,16 +3,6 @@ import { useState } from "react";
 import { furnitureCatalog } from "./magic-box/data/furnitureCatalog";
 import "./styling/SideBar.css";
 
-// // Só para demo
-// const mockPlans = [
-//   {
-//     name: "Plan A",
-//     items: [
-//       { name: "Bed", price: 200, dimensions: { length: 200, width: 160 } },
-//       { name: "Chair", price: 70, dimensions: { length: 64, width: 64 } },
-//     ],
-//   },
-// ];
 
 const Sidebar = ({ addFurniture, packages }) => {
   const [isVisible, setIsVisible] = useState();
@@ -44,7 +34,7 @@ const Sidebar = ({ addFurniture, packages }) => {
               Magic Box Plans::
             </button>
           </div>
-          
+
           <button className="close-btn" onClick={toggleSidebar}>
             X
           </button>
@@ -113,43 +103,6 @@ const Sidebar = ({ addFurniture, packages }) => {
           </div>
         )}
 
-//         <div className="furniture-list">
-//           {furnitureCatalog.map((item) => (
-//             <section key={item.id} className="furniture-item">
-//               {/* item IMG */}
-//               <img
-//                 className="furniture-img"
-//                 src={item.imgUrl}
-//                 alt={item.name}
-//               />
-//               {/* name*/}
-//               <span className="furniture-name">{item.name}</span>
-//               {/* price */}
-//               <span className="furniture-price">£{item.price}</span>
-//               {/* dimensions */}
-//               <span className="furniture-dimensions">
-//                 {" "}
-//                 {item.dimensions.length} x {item.dimensions.width}{" "}
-//               </span>
-
-//               {/* Button to add furniture*/}
-//               <button
-//                 className="add-btn"
-//                 onClick={() => {
-//                   const furnitureToAdd = {
-//                     id: item.id,
-//                     model: item.modelRef, // fix to model instead of modelREf
-//                     position: new Vector3(0, 0, 0),
-//                     rotation: 0,
-//                   };
-//                   addFurniture(furnitureToAdd);
-//                 }}
-//               >
-//                 Add to your project
-//               </button>
-//             </section>
-//           ))}
-//         </div>
 
       </section>
     </>
