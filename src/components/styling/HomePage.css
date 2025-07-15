@@ -101,3 +101,12 @@ import { Dropdown } from 'react-bootstrap';
   background-color: #0059c7;
   color: #fff;
 }
+
+.delete-icon {
+  color: black;
+  margin-left: 1rem;
+}
+
+.delete-icon:hover {
+  color: red;
+}
