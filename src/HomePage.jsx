@@ -7,7 +7,12 @@ import { deleteDoc, doc } from "firebase/firestore";
 import { auth } from "./firebase/firebaseAuth";
 // import "./HomePage.css";
 import "./components/styling/HomePage.css";
-import { getUserData, getRoomsData } from "./firebase/firebaseStore";
+import {
+  getUserData,
+  getRoomsData,
+  deleteRoomById,
+} from "./firebase/firebaseStore";
+import { FaTrash } from "react-icons/fa";
 
 const HomePage = () => {
   const location = useLocation();
@@ -17,8 +22,8 @@ const HomePage = () => {
   const [user, setUser] = useState(auth.currentUser);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [userData, setUserData] = useState(null)
-  const [rooms, setRooms] = useState([])
+  const [userData, setUserData] = useState(null);
+  const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -31,26 +36,30 @@ const HomePage = () => {
 
   useEffect(() => {
     if (user) {
-      getUserData(user.uid).then(data => {
-        setUserData(data)
-      }).catch(() => {
-        setUserData(null)
-      })
+      getUserData(user.uid)
+        .then((data) => {
+          setUserData(data);
+        })
+        .catch(() => {
+          setUserData(null);
+        });
 
-      getRoomsData(user.uid).then(data => {
-        setRooms(data)
-      }).catch(() => {
-        setRooms([])
-      })
+      getRoomsData(user.uid)
+        .then((data) => {
+          setRooms(data);
+        })
+        .catch(() => {
+          setRooms([]);
+        });
     } else {
-      setUserData(null)
-      setRooms([])
+      setUserData(null);
+      setRooms([]);
     }
-  }, [user])
+  }, [user]);
 
   const handleRoomSelect = (roomId) => {
-    navigate(`/room/${roomId}`)
-  }
+    navigate(`/room/${roomId}`);
+  };
 
   const handleSignOut = async () => {
     setLoading(true);
@@ -69,6 +78,8 @@ const HomePage = () => {
     setLoading(true);
     setError(null);
     try {
+      const userRooms = await getRoomsData(user.uid);
+      await Promise.all(userRooms.map((room) => deleteRoomById(room.id)));
       await deleteDoc(doc(db, "users", user.uid));
       await deleteUser(user);
       console.log("Account has been deleted");
@@ -76,6 +87,22 @@ const HomePage = () => {
       navigate("/");
     } catch (error) {
       setError("Failed to delete account. Please try again");
+    }
+  };
+
+  const handleDeleteRoom = async (roomId) => {
+    console.log(roomId);
+    setLoading(true);
+    setError(null);
+
+    try {
+      await deleteRoomById(roomId);
+      setRooms((prev) => prev.filter((room) => room.id !== roomId));
+      console.log("Room has been deleted");
+    } catch (error) {
+      setError("Failed to delete room");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -97,11 +124,29 @@ const HomePage = () => {
         </div>
         <div className="cards-container">
           {rooms.map((room) => (
-            <button key={room.id} className="room-button secondary" onClick={() => handleRoomSelect(room.id)}>
-              {room.roomName}
-            </button>
+            <div key={room.id}>
+              <button
+                className="room-button secondary"
+                onClick={() => handleRoomSelect(room.id)}
+              >
+                {room.roomName}
+                <FaTrash
+                  className="delete-icon"
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    handleDeleteRoom(room.id);
+                  }}
+                  aria-label="Delete room"
+                />
+              </button>
+            </div>
           ))}
-          <button onClick={() => navigate("/create-room")} className="room-button primary">Create a new room</button>
+          <button
+            onClick={() => navigate("/create-room")}
+            className="room-button primary"
+          >
+            Create a new room
+          </button>
         </div>
       </div>
     </section>

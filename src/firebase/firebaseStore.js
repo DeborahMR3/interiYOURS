@@ -11,6 +11,7 @@ import {
   where,
   deleteField,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import app from "./firebase.config";
 
@@ -91,5 +92,14 @@ export const patchRoomLayout = async (roomId, layout) => {
     console.log("Room layout updated");
   } catch (error) {
     console.error("Failed to update room layout", error);
+  }
+};
+
+export const deleteRoomById = async (roomId) => {
+  try {
+    await deleteDoc(doc(db, "rooms", roomId));
+  } catch (error) {
+    console.error("Error whilst deleting room", error);
+    throw error;
   }
 };
