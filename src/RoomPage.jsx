@@ -43,6 +43,7 @@ const RoomPage = () => {
   // possible roatation + 180?
   useEffect(() => {
     if (roomData === null) return;
+    if (roomData.layout.length !== 0) return;
     const halfW = roomData.roomWidth * 0.5;
     const halfL = roomData.roomLength * 0.5;
     if (
@@ -158,6 +159,7 @@ const RoomPage = () => {
         updateFurniturePosition={updateFurniturePosition}
         isItemAdded={isItemAdded}
         setIsItemAdded={setIsItemAdded}
+        isRotating={isRotating}
       />
       <ControlButtons
         isRotating={isRotating}
