@@ -18,8 +18,6 @@ const RoomPage = () => {
     const output = runMagicBox(user);
     roomData.packages = output.packages;
 
-    console.log(roomData);
-
     try {
       const user = auth.currentUser;
 
@@ -27,7 +25,6 @@ const RoomPage = () => {
 
       console.log("magic box output >>>>", output);
 
-      console.log("Room added with ID", roomId);
       navigate(`/room/${roomId}`);
     } catch (error) {
       setError("Failed to submit room, please try again");

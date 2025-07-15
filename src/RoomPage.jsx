@@ -60,7 +60,6 @@ const RoomPage = () => {
     });
   };
 
-<<<<<<< HEAD
   const handleSavedPositions = async () => {
     if (!roomId) return;
 
@@ -73,9 +72,7 @@ const RoomPage = () => {
     }
   };
 
-=======
   //Appropriate loading logic would be good here
->>>>>>> main
   return (
     <div className="layout-view">
       {roomData ? (
