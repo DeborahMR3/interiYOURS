@@ -97,7 +97,8 @@ const Main3dCanvas = ({
   }, [roomData]);
 
   useEffect(() => {
-    if (currentLayout.length === 0) return;
+    if (currentLayout.length === 0 || Object.keys(currentScene).length === 0)
+      return;
     if (isItemAdded) {
       setIsItemAdded(false);
       const itemData = currentLayout[currentLayout.length - 1];
@@ -117,10 +118,11 @@ const Main3dCanvas = ({
         furniture.model,
         currentScene,
         furniture.position,
+        furniture.rotation,
         saveFurniturePosition
       );
     });
-  }, [currentLayout]);
+  }, [currentLayout, currentScene]);
 
   return (
     <div className="main-3d-canvas">
