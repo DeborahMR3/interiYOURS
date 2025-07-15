@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css"; //
 
-import "./components/styling/global.css";
+import "./components/styling/Global.css";
 
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
