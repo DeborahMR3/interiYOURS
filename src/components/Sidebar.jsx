@@ -7,6 +7,8 @@ const Sidebar = ({ addFurniture, packages }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("plans");
 
+  // const [currentPlanIndex, setCurrentPlanIndex] = useState(0);  // for arrow on navigation
+
   function openSidebar() {
     setIsSidebarOpen(true);
     setActiveTab("plans");
@@ -18,7 +20,7 @@ const Sidebar = ({ addFurniture, packages }) => {
 
   return (
     <>
-      {/* Initial state: only the launcher button, like Excalidraw wireframe */}
+      {/* Initial state */}
       {!isSidebarOpen && (
         <div className="sidebar-launcher">
           <button className="sidebar-launch-btn" onClick={openSidebar}>
@@ -49,32 +51,39 @@ const Sidebar = ({ addFurniture, packages }) => {
           </div>
 
           <div className="sidebar-content">
-            {activeTab === "plans" && (
-              <div className="plans-list">
-                {packages.map((plan, index) => (
-                  <div key={index} className="plan-card">
-                    <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
-                      {plan.name}
-                    </div>
-                    {plan.items.map((item, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          fontSize: "15px",
-                          margin: "4px 0",
-                          paddingLeft: "6px",
-                        }}
-                      >
-                        {item.name} – £{item.price}
-                        <span>
-                          ({item.dimensions.length} x {item.dimensions.width})
-                        </span>
+             {activeTab === "plans" && (
+                <div className="plans-list">
+                  {packages.map((plan, index) => (
+                    <div key={index} className="plan-card">
+                      {/* Plan name/title */}
+
+                      <div className="plan-option">
+                        Suggestion {plan.name}
                       </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            )}
+
+                      {/* Items details (each line: image, name, price) */}
+                      <div className="plan-items-details">
+                        {plan.items.map((item, index) => {
+                          const furniture = furnitureCatalog.find(f => f.name === item.name);
+                          return (
+                            <div key={index} className="plan-item-detail">
+                              {furniture && (
+                                <img
+                                  src={furniture.imgUrl}
+                                  alt={item.name}
+                                  className="plan-item-img"
+                                />
+                              )}
+                              <span className="furniture-name">{item.name}</span>
+                              <span className="furniture-price">£{item.price}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
 
             {activeTab === "furniture" && (
               <div className="furniture-list">
@@ -116,6 +125,11 @@ const Sidebar = ({ addFurniture, packages }) => {
 };
 
 export default Sidebar;
+
+
+
+
+
 
 
 // import { Vector3 } from "@babylonjs/core";
