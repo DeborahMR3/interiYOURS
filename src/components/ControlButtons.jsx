@@ -18,8 +18,8 @@ export const ControlButtons = ({
   };
 
   return (
-    <div className="control-button-container">
-       <AvatarDropdown />
+    <div className="control-buttons-container">
+      <AvatarDropdown className="avatar-button" align="end" />
       <button className="control-button" onClick={handleSavedPositions}>
         <FaRegSave />
       </button>
