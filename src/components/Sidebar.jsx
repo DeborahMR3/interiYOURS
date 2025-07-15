@@ -49,7 +49,7 @@ const Sidebar = ({ addFurniture, packages }) => {
           </button>
         </div>
 
-        {/* Tab de móveis */}
+        {/* furniture tab*/}
         {activeTab === "furniture" && (
           <div className="furniture-list">
             {furnitureCatalog.map((item) => (
@@ -83,7 +83,7 @@ const Sidebar = ({ addFurniture, packages }) => {
           </div>
         )}
 
-        {/* Tab plans */}
+        {/* plans tab*/}
         {activeTab === "plans" && (
           <div className="plans-list">
             {packages.map((plan, index) => (
