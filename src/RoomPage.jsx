@@ -8,8 +8,6 @@ import { getRoomById, patchRoomLayout } from "./firebase/firebaseStore";
 const RoomPage = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
   const [isItemAdded, setIsItemAdded] = useState(false);
-  const [isRotating, setIsRotating] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const [roomData, setRoomData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -88,13 +86,6 @@ const RoomPage = () => {
         updateFurniturePosition={updateFurniturePosition}
         isItemAdded={isItemAdded}
         setIsItemAdded={setIsItemAdded}
-        isDeleting={isDeleting}
-      />
-      <ControlButtons
-        isRotating={isRotating}
-        setIsRotating={setIsRotating}
-        handleSavedPositions={handleSavedPositions}
-        setIsDeleting={setIsDeleting}
       />
     </div>
   );

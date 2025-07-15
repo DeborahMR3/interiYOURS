@@ -17,43 +17,29 @@ class Furniture {
     this.position = position;
     this.rotation = rotation;
     this.saveFurniturePosition = saveFurniturePosition;
-    this.meshes;
-    this.mesh;
     this.setupMesh();
   }
 
   updatePosition() {
-    let formattedItem = {
-      id: this.id,
-      model: this.meshFile,
-      position: {
-        x: this.mesh.position.x,
-        y: this.mesh.position.y,
-        z: this.mesh.position.z,
-      },
-      rotation: this.rotation,
-    };
-    this.saveFurniturePosition(this, formattedItem);
-  }
-
-  remove() {
-    this.meshes.meshes.forEach((mesh) => {
-      mesh.dispose();
-    });
-
-    console.log(this);
+    this.saveFurniturePosition(
+      this.id,
+      this.meshFile,
+      new Vector3(this.mesh.position.x, 0, this.mesh.position.z),
+      this.mesh.rotation.y
+    );
   }
 
   async setupMesh() {
     try {
-      this.meshes = await ImportMeshAsync(
+      const result = await ImportMeshAsync(
         `../../public/models/${this.meshFile}`, //Check path! Sometimes works with relative path only?
         this.scene
       );
 
       const degConv = 180 / 3.14159;
 
-      this.mesh = this.meshes.meshes[0];
+      this.mesh = result.meshes[0];
+      //console.log(result.meshes[0]);
       this.mesh.position = new Vector3(
         this.position.x,
         this.position.y,
@@ -64,7 +50,7 @@ class Furniture {
         new Vector3(0, 1, 0),
         (180 + this.rotation) * (1 / degConv)
       );
-      //console.log(this.mesh.rotationQuaternion.toEulerAngles().y);
+      console.log(this.mesh.rotationQuaternion.toEulerAngles().y);
 
       this.mesh.overlayColor = new Color3(0, 0, 1);
       this.mesh.overlayAlpha = 0.8;

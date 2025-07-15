@@ -19,25 +19,20 @@ const Main3dCanvas = ({
   updateFurniturePosition,
   isItemAdded,
   setIsItemAdded,
-  isDeleting,
 }) => {
   const canvasRef = useRef(null);
 
   const [currentScene, setCurrentScene] = useState({});
-  const [selectedFurniture, setSelectedFurniture] = useState(null);
 
-  const saveFurniturePosition = (itemInstance, itemData) => {
-    setSelectedFurniture(itemInstance);
-    console.log(itemInstance);
-    updateFurniturePosition(itemData);
+  const saveFurniturePosition = (furnitureId, meshFile, vector3, rotation) => {
+    let newItem = {
+      id: furnitureId,
+      model: meshFile,
+      position: vector3,
+      rotation,
+    };
+    updateFurniturePosition(newItem);
   };
-
-  useEffect(() => {
-    if (isDeleting && selectedFurniture !== null) {
-      console.log(isDeleting);
-      selectedFurniture.remove();
-    }
-  }, [isDeleting]);
 
   useEffect(() => {
     if (!roomData) {
