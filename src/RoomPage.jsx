@@ -73,18 +73,15 @@ const RoomPage = () => {
   };
 
   return (
-    <div className="save-Button">
-      <button onClick={handleSavedPositions}>Save room layout </button>
-
-      <div className="layout-view">
-        <Sidebar addFurniture={addFurniture} />
-        <Main3dCanvas
-          currentLayout={currentLayout}
-          updateFurniturePosition={updateFurniturePosition}
-          isItemAdded={isItemAdded}
-          setIsItemAdded={setIsItemAdded}
-        />
-      </div>
+    <div className="layout-view">
+      <Sidebar addFurniture={addFurniture} />
+      <Main3dCanvas
+        roomData={roomData}
+        currentLayout={currentLayout}
+        updateFurniturePosition={updateFurniturePosition}
+        isItemAdded={isItemAdded}
+        setIsItemAdded={setIsItemAdded}
+      />
     </div>
   );
 };

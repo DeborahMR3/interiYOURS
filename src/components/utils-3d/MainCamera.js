@@ -1,14 +1,16 @@
 import { ArcRotateCamera, Vector3 } from "@babylonjs/core";
 
+const degConv = 180 / 3.14159;
+
 class MainCamera {
   constructor(canvas, scene) {
     this.canvas = canvas;
     this.scene = scene;
     this.camera = new ArcRotateCamera(
       "camera",
-      0,
-      5,
-      10,
+      125 / degConv,
+      67.5 / degConv,
+      12.5,
       Vector3.Zero(),
       scene
     );
