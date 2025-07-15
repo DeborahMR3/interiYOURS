@@ -44,10 +44,12 @@ const Sidebar = ({ addFurniture, packages }) => {
               Magic Box Plans::
             </button>
           </div>
+          
           <button className="close-btn" onClick={toggleSidebar}>
             X
           </button>
         </div>
+
 
         {/* furniture tab*/}
         {activeTab === "furniture" && (
@@ -110,6 +112,45 @@ const Sidebar = ({ addFurniture, packages }) => {
             ))}
           </div>
         )}
+
+//         <div className="furniture-list">
+//           {furnitureCatalog.map((item) => (
+//             <section key={item.id} className="furniture-item">
+//               {/* item IMG */}
+//               <img
+//                 className="furniture-img"
+//                 src={item.imgUrl}
+//                 alt={item.name}
+//               />
+//               {/* name*/}
+//               <span className="furniture-name">{item.name}</span>
+//               {/* price */}
+//               <span className="furniture-price">£{item.price}</span>
+//               {/* dimensions */}
+//               <span className="furniture-dimensions">
+//                 {" "}
+//                 {item.dimensions.length} x {item.dimensions.width}{" "}
+//               </span>
+
+//               {/* Button to add furniture*/}
+//               <button
+//                 className="add-btn"
+//                 onClick={() => {
+//                   const furnitureToAdd = {
+//                     id: item.id,
+//                     model: item.modelRef, // fix to model instead of modelREf
+//                     position: new Vector3(0, 0, 0),
+//                     rotation: 0,
+//                   };
+//                   addFurniture(furnitureToAdd);
+//                 }}
+//               >
+//                 Add to your project
+//               </button>
+//             </section>
+//           ))}
+//         </div>
+
       </section>
     </>
   );

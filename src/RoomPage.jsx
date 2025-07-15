@@ -58,6 +58,7 @@ const RoomPage = () => {
         <p>Loading...</p>
       )}
       <Main3dCanvas
+        roomData={roomData}
         currentLayout={currentLayout}
         updateFurniturePosition={updateFurniturePosition}
         isItemAdded={isItemAdded}
