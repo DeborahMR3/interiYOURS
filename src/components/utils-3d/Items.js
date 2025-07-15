@@ -40,7 +40,11 @@ class Furniture {
 
       this.mesh = result.meshes[0];
       //console.log(result.meshes[0]);
-      this.mesh.position = this.position;
+      this.mesh.position = new Vector3(
+        this.position.x,
+        this.position.y,
+        this.position.z
+      );
       this.mesh.rotation = new Vector3(0, 0, 0);
       this.mesh.rotate(
         new Vector3(0, 1, 0),
