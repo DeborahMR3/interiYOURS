@@ -24,6 +24,10 @@ const RoomPage = () => {
       const roomId = await addRoomToFireStore(user.uid, roomData);
 
       console.log("magic box output >>>>", output);
+      console.log(
+        "magic box output snapshot:",
+        JSON.stringify(output, null, 2)
+      );
 
       navigate(`/room/${roomId}`);
     } catch (error) {

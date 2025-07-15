@@ -21,7 +21,7 @@ export function runMagicBox(user) {
   // 3. Generate A/B/C packages
   let packages = generateValidPackages(scoredByNeed, context);
   if (packages.length === 0) {
-    console.log(`No valid packages for ${user.name}`);
+    console.warn(`No valid packages for ${user.name}`);
   }
 
   // 4. Attach spatial placements
@@ -33,16 +33,25 @@ export function runMagicBox(user) {
   const outputPackages = packages.map((pkg) => {
     // Prepare minimal shape for spatial planner
     const spatialItems = pkg.items.map(({ item }) => ({
-      item: {
-        id: item.id,
-        dimensions: item.dimensions,
-        category: item.category,
-        modelRef: item.modelRef,
-      },
+      id: item.id,
+      dimensions: item.dimensions,
+      category: item.category,
+      modelRef: item.modelRef,
     }));
 
     // Run placement
-    const placements = placePackage(spatialItems, roomDims) || [];
+    const placementsRaw = placePackage(spatialItems, roomDims);
+    console.log("🏗️ [runMagicBox] raw spatial return:", placementsRaw);
+    const placements = placementsRaw || [];
+
+    console.log(
+      `🏷️ [runMagicBox] Final placements for package ${pkg.name}:`,
+      placements
+    );
+    +console.log(
+      `🏷️ [runMagicBox] Snapshot for ${pkg.name}:`,
+      JSON.stringify(placements, null, 2)
+    );
 
     return {
       name: pkg.name,

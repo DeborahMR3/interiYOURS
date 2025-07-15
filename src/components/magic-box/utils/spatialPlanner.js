@@ -1,132 +1,233 @@
-// utils/spatialPlanner.js
+console.log("🤛 Loaded spatialPlanner.js v3");
 
-/*
- Spatial planning module for furniture placement in a rectangular room.
- Enforces category-specific placement rules and a 40cm clearance between items.
- Exports a single function `placePackage` that returns placements for each item.
+/**
+ * Spatial Planner Module (Backtracking)
+ * Places furniture items flush against walls, sliding them along walls if needed,
+ * enforces clearance rules, and handles exhaustive side-table placement.
  */
 
-const CLEARANCE = 40; // 40cm buffer around each piece
+import { placeAlongWall } from "./placeAlongWall.js";
+import {
+  MIN_CLEARANCE,
+  TABLE_CLEARANCE_FRONT,
+  TABLE_CLEARANCE_SIDE,
+  WALLS,
+} from "./spatialPlannerConfig.js";
 
-// Inflate an item's footprint by the clearance on all sides
 function inflate(dim) {
   return {
-    W: dim.width + 2 * CLEARANCE,
-    L: dim.length + 2 * CLEARANCE,
+    width: dim.width + MIN_CLEARANCE,
+    length: dim.length + MIN_CLEARANCE,
   };
 }
 
-/** Check whether two inflated rectangles overlap */
 function overlaps(a, b) {
   return !(
-    a.x + a.W / 2 <= b.x - b.W / 2 ||
-    b.x + b.W / 2 <= a.x - a.W / 2 ||
-    a.y + a.L / 2 <= b.y - b.L / 2 ||
-    b.y + b.L / 2 <= a.y - a.L / 2
+    a.x + a.width / 2 <= b.x - b.width / 2 ||
+    b.x + b.width / 2 <= a.x - a.width / 2 ||
+    a.y + a.length / 2 <= b.y - b.length / 2 ||
+    b.y + b.length / 2 <= a.y - a.length / 2
   );
 }
 
-/*
- Try to place an item at (x, y) with rotation, respecting occupied inflated rectangles.
- item: { item: { dimensions: { width, length }, category, id }, ... }
- occupied: array of inflated rects { x, y, W, L }
- */
-function tryPlace(item, x, y, rotation, occupied) {
-  const dim = inflate(item.item.dimensions);
-  const rect = { x, y, W: dim.W, L: dim.L };
-
-  // Check collisions
+export function tryPlace(item, x, y, rotation, occupied) {
+  const inflated = inflate(item.dimensions);
+  const rect = { x, y, width: inflated.width, length: inflated.length };
   for (const occ of occupied) {
-    if (overlaps(occ, rect)) {
-      return false;
-    }
+    if (overlaps(occ, rect)) return false;
   }
-
-  // Place
   occupied.push(rect);
-  return { id: item.item.id, x, y, rotation, modelRef: item.item.modelRef };
+  return {
+    id: item.id,
+    x,
+    y,
+    rotation,
+    modelRef: item.modelRef,
+    width: item.dimensions.width,
+    length: item.dimensions.length,
+  };
 }
 
-/*
- Main entry: place all furniture items according to rules.
- @param {Array} items - array of { item, score } objects
- item.item.category must be one of: 'desk', 'desk-chair', 'sofa', 'lounge-chair', 'side-table', 'bed'
- @param {Object} roomDims - { width, length } in cm
- @returns {Array|null} placements or null if placement fails
+/**
+ * Try to place multiple items along walls, allowing reuse of wall space.
+ * This will try alternate walls for any item that doesn't fit along the first chosen wall.
  */
 export function placePackage(items, roomDims) {
-  const occupied = [];
-  const placements = [];
+  const desk = items.find((i) => i.category === "desk");
+  const chair = items.find((i) => i.category === "desk-chair");
+  const seat = items.find((i) => ["sofa", "lounge-chair"].includes(i.category));
+  const table = items.find((i) => i.category === "side-table");
+  const bed = items.find((i) => i.category === "bed");
 
-  // Helper to attempt placement and record the returned placement
-  function place(item, x, y, rotation) {
-    const pl = tryPlace(item, x, y, rotation, occupied);
-    if (!pl) return null;
-    placements.push(pl);
-    return pl;
-  }
+  const initial = { placements: [], occupied: [] };
 
-  // 1. Place desk + chair
-  const desk = items.find((i) => i.item.category === "desk");
-  const chair = items.find((i) => i.item.category === "desk-chair");
+  // --- Desk + Chair states ---
+  const deskStates = [];
   if (desk && chair) {
-    // Place desk against north wall, centered
-    const deskX = roomDims.width / 2;
-    const deskY = CLEARANCE + desk.item.dimensions.length / 2;
-    const deskRot = 180; // facing south
-    if (!place(desk, deskX, deskY, deskRot)) return null;
+    for (let w = 0; w < WALLS.length; w++) {
+      const rotD = (180 + w * 90) % 360;
+      const occ1 = [...initial.occupied];
+      const rec1 = [];
+      console.log(
+        `🏷️ Trying DESK on wall ${WALLS[w].name} (index ${w}) at rot ${rotD}`
+      );
+      const pD = placeAlongWall(desk, roomDims, w, rotD, occ1, {
+        requireFlush: true,
+      });
+      console.log(`→ placeAlongWall returned`, pD);
+      if (!pD) continue;
+      rec1.push(pD);
 
-    // Place chair in front of desk (south side)
-    const chairY =
-      deskY +
-      desk.item.dimensions.length / 2 +
-      CLEARANCE +
-      chair.item.dimensions.length / 2;
-    if (!place(chair, deskX, chairY, deskRot)) return null;
+      const shift = (desk.dimensions.length + chair.dimensions.length) / 2;
+      const wall = WALLS[w];
+      const cx = pD.x + wall.normal[0] * shift;
+      const cy = pD.y + wall.normal[1] * shift;
+      const pC = tryPlace(chair, cx, cy, rotD, occ1);
+      if (!pC) continue;
+      rec1.push(pC);
+      deskStates.push({ placements: rec1, occupied: occ1, deskWall: w });
+    }
+  } else {
+    deskStates.push({ ...initial, deskWall: null });
+  }
+  if (deskStates.length === 0) {
+    console.log("❌ No desk+chair state — perhaps no desk or chair fits?");
+    return null;
   }
 
-  // 2. Place sofa/lounge + side-table
-  const seat = items.find((i) =>
-    ["sofa", "lounge-chair"].includes(i.item.category)
-  );
-  const table = items.find((i) => i.item.category === "side-table");
-  if (seat) {
-    // Place seat against east wall, centered
-    const seatX = roomDims.width - CLEARANCE - seat.item.dimensions.width / 2;
-    const seatY = roomDims.length / 2;
-    const seatRot = 270; // facing west
-    if (!place(seat, seatX, seatY, seatRot)) return null;
+  // --- Sofa/Lounge + Table + Bed backtracking ---
+  for (const ds of deskStates) {
+    const { placements: pDs, occupied: occD, deskWall } = ds;
 
-    // Place side-table 40cm to the right of seat
-    if (table) {
-      const tableX =
-        seatX -
-        seat.item.dimensions.width / 2 -
-        CLEARANCE -
-        table.item.dimensions.width / 2;
-      const tableY = seatY;
-      if (!place(table, tableX, tableY, seatRot)) {
-        // fallback: place to the left
-        const altX =
-          seatX +
-          seat.item.dimensions.width / 2 +
-          CLEARANCE +
-          table.item.dimensions.width / 2;
-        if (!place(table, altX, tableY, seatRot)) return null;
+    const seatStates = [];
+    if (seat) {
+      for (let w = 0; w < WALLS.length; w++) {
+        if (w === deskWall) continue;
+        const rotS = (270 + w * 90) % 360;
+        const occ2 = [...occD];
+        const rec2 = [...pDs];
+        console.log(`🏷️ Trying SEAT on wall ${WALLS[w].name} at rot ${rotS}`);
+        const pS = placeAlongWall(seat, roomDims, w, rotS, occ2, {
+          requireFlush: false,
+        });
+        console.log(`→ placeAlongWall returned`, pS);
+        if (!pS) continue;
+        rec2.push(pS);
+        seatStates.push({
+          placements: rec2,
+          occupied: occ2,
+          seatWall: w,
+          seatPlac: pS,
+        });
+      }
+    } else {
+      seatStates.push({
+        placements: [...pDs],
+        occupied: [...occD],
+        seatWall: null,
+      });
+    }
+    if (seatStates.length === 0) {
+      console.log("❌ No seat state for deskWall", deskWall);
+      continue;
+    }
+
+    for (const ss of seatStates) {
+      const { placements: pSs, occupied: occS, seatWall, seatPlac } = ss;
+      const tableStates = [];
+      if (table && seatWall !== null) {
+        const wobj = WALLS[seatWall];
+        const base = { placements: pSs, occupied: occS };
+        const tf = attemptTablePlacement(base, table, seatPlac, wobj, "front");
+        if (tf) tableStates.push(tf);
+        const ts1 = attemptTablePlacement(base, table, seatPlac, wobj, "side+");
+        if (ts1) tableStates.push(ts1);
+        const ts2 = attemptTablePlacement(base, table, seatPlac, wobj, "side-");
+        if (ts2) tableStates.push(ts2);
+      } else {
+        tableStates.push({ placements: [...pSs], occupied: [...occS] });
+      }
+      if (table && tableStates.length === 0) {
+        console.log(
+          "❌ Failed all side‑table placements for seatWall",
+          seatWall
+        );
+        continue;
+      }
+
+      for (const ts of tableStates) {
+        const { placements: pTs, occupied: occT } = ts;
+        if (!bed) return pTs;
+        const origDim = { ...bed.dimensions };
+        for (const rotB of [0, 90]) {
+          bed.dimensions =
+            rotB === 90
+              ? { width: origDim.length, length: origDim.width }
+              : origDim;
+          for (let w = 0; w < WALLS.length; w++) {
+            if ([deskWall, ss.seatWall].includes(w)) continue;
+            const occ3 = [...occT];
+            const rec3 = [...pTs];
+            console.log(
+              `🏷️ Trying BED on wall ${WALLS[w].name}, rot ${rotB}, dims`,
+              bed.dimensions
+            );
+            const pB = placeAlongWall(bed, roomDims, w, rotB, occ3, {
+              requireFlush: false,
+            });
+            console.log(`→ placeAlongWall returned`, pB);
+            if (!pB) continue;
+            rec3.push(pB);
+            bed.dimensions = origDim;
+            return rec3;
+          }
+        }
+        bed.dimensions = origDim;
       }
     }
   }
+  console.log("❌ Exhausted all bed placements");
+  return null;
+}
 
-  // 3. Place bed
-  const bed = items.find((i) => i.item.category === "bed");
-  if (bed) {
-    // Place bed against south wall, centered
-    const bedX = roomDims.width / 2;
-    const bedY = roomDims.length - CLEARANCE - bed.item.dimensions.length / 2;
-    const bedRot = 0; // facing north
-    if (!place(bed, bedX, bedY, bedRot)) return null;
+function attemptTablePlacement(state, table, seatPlac, wall, mode) {
+  const pList = [...state.placements];
+  const occList = [...state.occupied];
+  const baseRot = (270 + WALLS.indexOf(wall) * 90) % 360;
+  let tx, ty;
+  if (mode === "front") {
+    tx =
+      seatPlac.x +
+      wall.normal[0] *
+        (seatPlac.length / 2 +
+          TABLE_CLEARANCE_FRONT +
+          table.dimensions.width / 2);
+    ty =
+      seatPlac.y +
+      wall.normal[1] *
+        (seatPlac.width / 2 +
+          TABLE_CLEARANCE_FRONT +
+          table.dimensions.length / 2);
+  } else {
+    const tangent = [-wall.normal[1], wall.normal[0]];
+    const sign = mode === "side+" ? 1 : -1;
+    tx =
+      seatPlac.x +
+      tangent[0] *
+        (seatPlac.length / 2 +
+          TABLE_CLEARANCE_SIDE +
+          table.dimensions.length / 2) *
+        sign;
+    ty =
+      seatPlac.y +
+      tangent[1] *
+        (seatPlac.width / 2 +
+          TABLE_CLEARANCE_SIDE +
+          table.dimensions.width / 2) *
+        sign;
   }
-
-  // Successful placement
-  return placements;
+  const pt = tryPlace(table, tx, ty, baseRot, occList);
+  if (!pt) return null;
+  pList.push(pt);
+  return { placements: pList, occupied: occList };
 }
