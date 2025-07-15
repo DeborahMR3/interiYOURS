@@ -26,7 +26,6 @@ const Sidebar = ({ addFurniture, packages }) => {
       <button className="nav-button" onClick={toggleSidebar}>
         All furniture:
       </button>
-
       <section className={"sidebar " + (isVisible ? "visible" : "hidden")}>
         <div className="sidebar-header-card">
           <div className="tabs-toggle">
@@ -120,7 +119,6 @@ export default Sidebar;
 
 // import { Vector3 } from "@babylonjs/core";
 // import { useState } from "react";
-
 // import { furnitureCatalog } from "./magic-box/data/furnitureCatalog";
 // import "./styling/SideBar.css";
 
