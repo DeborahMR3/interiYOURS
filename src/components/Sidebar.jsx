@@ -3,10 +3,31 @@ import { useState } from "react";
 import { furnitureCatalog } from "./magic-box/data/furnitureCatalog";
 import "./styling/SideBar.css";
 
-const Sidebar = ({ addFurniture, packages }) => {
+const Sidebar = ({ addFurniture, packages, roomData }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("plans");
 
+  const handleLoadPackage = (plan, roomData) => {
+    if (plan.placements.length !== 0) {
+      const halfW = roomData.roomWidth * 0.5;
+      const halfL = roomData.roomLength * 0.5;
+      plan.placements.forEach((item) => {
+        let packageItem = {
+          id: item.id,
+          model: item.modelRef,
+          position: {
+            x: (item.x - halfW) / 100,
+            z: (item.y - halfL) / 100,
+            y: 0,
+          },
+          rotation: item.rotation,
+        };
+        addFurniture(packageItem);
+      });
+    } else {
+      console.warn("Sorry, no placements available for this package!");
+    }
+  };
   // const [currentPlanIndex, setCurrentPlanIndex] = useState(0);  // for arrow on navigation
 
   function openSidebar() {
@@ -34,13 +55,17 @@ const Sidebar = ({ addFurniture, packages }) => {
         <aside className="sidebar">
           <div className="sidebar-header">
             <button
-              className={`sidebar-tab-btn ${activeTab === "plans" ? "active" : ""}`}
+              className={`sidebar-tab-btn ${
+                activeTab === "plans" ? "active" : ""
+              }`}
               onClick={() => setActiveTab("plans")}
             >
               Suggested Plans
             </button>
             <button
-              className={`sidebar-tab-btn ${activeTab === "furniture" ? "active" : ""}`}
+              className={`sidebar-tab-btn ${
+                activeTab === "furniture" ? "active" : ""
+              }`}
               onClick={() => setActiveTab("furniture")}
             >
               Furniture Options
@@ -51,39 +76,49 @@ const Sidebar = ({ addFurniture, packages }) => {
           </div>
 
           <div className="sidebar-content">
-             {activeTab === "plans" && (
-                <div className="plans-list">
-                  {packages.map((plan, index) => (
-                    <div key={index} className="plan-card">
-                      {/* Plan name/title */}
+            {activeTab === "plans" && (
+              <div className="plans-list">
+                {packages.map((plan, index) => (
+                  <div key={index} className="plan-card">
+                    {/* Plan name/title */}
 
-                      <div className="plan-option">
-                        Plan {plan.name}
-                      </div>
-
-                      {/* Items details (each line: image, name, price) */}
-                      <div className="plan-items-details">
-                        {plan.items.map((item, index) => {
-                          const furniture = furnitureCatalog.find(f => f.name === item.name);
-                          return (
-                            <div key={index} className="plan-item-detail">
-                              {furniture && (
-                                <img
-                                  src={furniture.imgUrl}
-                                  alt={item.name}
-                                  className="plan-item-img"
-                                />
-                              )}
-                              <span className="furniture-name">{item.name}</span>
-                              <span className="furniture-price">£{item.price}</span>
-                            </div>
-                          );
-                        })}
-                      </div>
+                    <div className="plan-option">
+                      Plan {plan.name}
+                      <button
+                        className="view-package-button"
+                        onClick={() => handleLoadPackage(plan, roomData)}
+                      >
+                        View
+                      </button>
                     </div>
-                  ))}
-                </div>
-              )}
+
+                    {/* Items details (each line: image, name, price) */}
+                    <div className="plan-items-details">
+                      {plan.items.map((item, index) => {
+                        const furniture = furnitureCatalog.find(
+                          (f) => f.name === item.name
+                        );
+                        return (
+                          <div key={index} className="plan-item-detail">
+                            {furniture && (
+                              <img
+                                src={furniture.imgUrl}
+                                alt={item.name}
+                                className="plan-item-img"
+                              />
+                            )}
+                            <span className="furniture-name">{item.name}</span>
+                            <span className="furniture-price">
+                              £{item.price}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {activeTab === "furniture" && (
               <div className="furniture-list">
@@ -126,17 +161,10 @@ const Sidebar = ({ addFurniture, packages }) => {
 
 export default Sidebar;
 
-
-
-
-
-
-
 // import { Vector3 } from "@babylonjs/core";
 // import { useState } from "react";
 // import { furnitureCatalog } from "./magic-box/data/furnitureCatalog";
 // import "./styling/SideBar.css";
-
 
 // const Sidebar = ({ addFurniture, packages }) => {
 //   const [isVisible, setIsVisible] = useState();
@@ -144,7 +172,6 @@ export default Sidebar;
 //   const toggleSidebar = () => setIsVisible(!isVisible);
 
 //   console.log(packages);
-
 
 //   return (
 //     <>
@@ -175,7 +202,6 @@ export default Sidebar;
 //             X
 //           </button>
 //         </div>
-
 
 //         {/* furniture tab*/}
 //         {activeTab === "furniture" && (
@@ -238,7 +264,6 @@ export default Sidebar;
 //             ))}
 //           </div>
 //         )}
-
 
 //       </section>
 //     </>
