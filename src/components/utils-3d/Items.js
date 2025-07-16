@@ -2,10 +2,12 @@ import {
   Color3,
   CreateGround,
   ImportMeshAsync,
+  MeshBuilder,
   PointerDragBehavior,
   StandardMaterial,
   Texture,
   Vector3,
+  CSG,
 } from "@babylonjs/core";
 import "@babylonjs/loaders";
 
@@ -104,6 +106,127 @@ class Floor {
     //material.diffuseColor = new Color3(0.7, 0.6, 0.7);
     material.diffuseTexture = texture;
     this.floor.material = material;
+
+    const wallHeight = 2.5;
+    //const wallThickness = 0.1;
+    const width = dimensions.x;
+    const depth = dimensions.y;
+
+    const wallMaterial = new StandardMaterial("wallMat", this.scene);
+    wallMaterial.diffuseColor = new Color3(0.8, 0.8, 0.8);
+    wallMaterial.backFaceCulling = true;
+    wallMaterial.alpha = 1;
+
+    /*this.backWall = MeshBuilder.CreateBox(
+      "backWall",
+      {
+        width: width,
+        height: wallHeight,
+        depth: wallThickness,
+      },
+      this.scene
+    );
+    this.backWall.position = new Vector3(0, wallHeight / 2, -depth / 2);
+    this.backWall.material = wallMaterial;
+    const hole = MeshBuilder.CreateBox(
+      "hole",
+      {
+        width: 0.5,
+        height: 0.5,
+        depth: wallThickness + 0.01,
+      },
+      this.scene
+    );
+    hole.position = new Vector3(0, 0.5, -depth / 2);
+
+    const wallCSG = CSG.FromMesh(this.backWall);
+    const holeCSG = CSG.FromMesh(hole);
+
+    const wallWithHoleCSG = wallCSG.subtract(holeCSG);
+    const wallWithHoleMesh = wallWithHoleCSG.toMesh(
+      "backWallWithHole",
+      wallMaterial,
+      this.scene
+    );
+
+    this.backWall.dispose();
+    hole.dispose();
+
+    this.backWall = wallWithHoleMesh;
+
+    this.frontWall = MeshBuilder.CreateBox(
+      "frontWall",
+      {
+        width: width,
+        height: wallHeight,
+        depth: wallThickness,
+      },
+      this.scene
+    );
+    this.frontWall.position = new Vector3(0, wallHeight / 2, depth / 2);
+    this.frontWall.material = wallMaterial;
+
+    this.leftWall = MeshBuilder.CreateBox(
+      "leftWall",
+      {
+        width: depth + wallThickness,
+        height: wallHeight,
+        depth: wallThickness,
+      },
+      this.scene
+    );
+    this.leftWall.rotation.y = Math.PI / 2;
+    this.leftWall.position = new Vector3(-width / 2, wallHeight / 2, 0);
+    this.leftWall.material = wallMaterial;
+
+    this.rightWall = MeshBuilder.CreateBox(
+      "rightWall",
+      {
+        width: depth + wallThickness,
+        height: wallHeight,
+        depth: wallThickness,
+      },
+      this.scene
+    );
+    this.rightWall.rotation.y = Math.PI / 2;
+    this.rightWall.position = new Vector3(width / 2, wallHeight / 2, 0);
+    this.rightWall.material = wallMaterial;*/
+
+    this.backWall = MeshBuilder.CreatePlane(
+      "backWall",
+      { width: width, height: wallHeight },
+      this.scene
+    );
+    this.backWall.rotation = new Vector3(0, Math.PI, 0);
+    this.backWall.position = new Vector3(0, wallHeight / 2, -depth / 2);
+    this.backWall.material = wallMaterial;
+
+    this.frontWall = MeshBuilder.CreatePlane(
+      "frontWall",
+      { width: width, height: wallHeight },
+      this.scene
+    );
+    this.frontWall.rotation = new Vector3(0, 0, 0);
+    this.frontWall.position = new Vector3(0, wallHeight / 2, depth / 2);
+    this.frontWall.material = wallMaterial;
+
+    this.leftWall = MeshBuilder.CreatePlane(
+      "leftWall",
+      { width: depth, height: wallHeight },
+      this.scene
+    );
+    this.leftWall.rotation = new Vector3(0, -Math.PI / 2, 0);
+    this.leftWall.position = new Vector3(-width / 2, wallHeight / 2, 0);
+    this.leftWall.material = wallMaterial;
+
+    this.rightWall = MeshBuilder.CreatePlane(
+      "rightWall",
+      { width: depth, height: wallHeight },
+      this.scene
+    );
+    this.rightWall.rotation = new Vector3(0, Math.PI / 2, 0);
+    this.rightWall.position = new Vector3(width / 2, wallHeight / 2, 0);
+    this.rightWall.material = wallMaterial;
   }
 }
 
