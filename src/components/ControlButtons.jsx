@@ -14,6 +14,8 @@ import { useState } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { auth } from "../firebase/firebaseAuth";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
+import { db, getRoomsData, deleteRoomById } from "../firebase/firebaseStore";
+import { FaSpinner } from "react-icons/fa";
 
 import AvatarDropdown from "./AvatarDropdown";
 
@@ -49,11 +51,36 @@ export const ControlButtons = ({
     setLoading(false);
   };
 
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete your account?"
+    );
+
+    if (!confirmDelete) return;
+
+    setLoading(true);
+    setError(null);
+    try {
+      const userRooms = await getRoomsData(user.uid);
+      await Promise.all(userRooms.map((room) => deleteRoomById(room.id)));
+      await deleteDoc(doc(db, "users", user.uid));
+      await deleteUser(user);
+      console.log("Account has been deleted");
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      setError("Failed to delete account. Please try again");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="control-buttons-container">
       <AvatarDropdown
         user={user}
         onSignOut={handleSignOut}
+        onDelete={handleDeleteAccount}
         className="avatar-button"
         align="end"
       />

@@ -11,6 +11,7 @@ import {
   getUserData,
   getRoomsData,
   deleteRoomById,
+  db,
 } from "./firebase/firebaseStore";
 import { FaTrash } from "react-icons/fa";
 
@@ -75,6 +76,12 @@ const HomePage = () => {
   };
 
   const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete your account?"
+    );
+
+    if (!confirmDelete) return;
+
     setLoading(true);
     setError(null);
     try {
@@ -87,6 +94,8 @@ const HomePage = () => {
       navigate("/");
     } catch (error) {
       setError("Failed to delete account. Please try again");
+    } finally {
+      setLoading(false);
     }
   };
 
