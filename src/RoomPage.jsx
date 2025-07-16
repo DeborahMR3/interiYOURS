@@ -47,12 +47,13 @@ const RoomPage = () => {
     if (roomData.layout.length !== 0) return;
     const halfW = roomData.roomWidth * 0.5;
     const halfL = roomData.roomLength * 0.5;
+    let selectedLayout = [];
     if (
       roomData.packages[0].name === "A" &&
       roomData.packages[0].placements.length !== 0
     ) {
       setCurrentPackage("A");
-      roomData.packages[0].placements.forEach((item) => {
+      selectedLayout = roomData.packages[0].placements.map((item) => {
         console.log(`rendering ${item.modelRef} form package A`);
         let newItem = {
           id: item.id,
@@ -64,15 +65,17 @@ const RoomPage = () => {
           },
           rotation: item.rotation,
         };
-        console.log("newItem >>>", newItem);
-        addFurniture(newItem);
+        return newItem;
+        //console.log("newItem >>>", newItem);
+        //addFurniture(newItem);
       });
+      setCurrentLayout(selectedLayout);
     } else if (
       roomData.packages[1].name === "B" &&
       roomData.packages[1].placements.length !== 0
     ) {
       setCurrentPackage("B");
-      roomData.packages[1].placements.forEach((item) => {
+      selectedLayout = roomData.packages[1].placements.forEach((item) => {
         console.log(`rendering ${item.modelRef} form package B`);
         let newItem = {
           id: item.id,
@@ -84,14 +87,15 @@ const RoomPage = () => {
           },
           rotation: item.rotation,
         };
-        addFurniture(newItem);
+        //addFurniture(newItem);
       });
+      setCurrentLayout(selectedLayout);
     } else if (
       roomData.packages[2].name === "C" &&
       roomData.packages[2].placements.length !== 0
     ) {
       setCurrentPackage("C");
-      roomData.packages[2].placements.forEach((item) => {
+      selectedLayout = roomData.packages[2].placements.forEach((item) => {
         console.log(`rendering ${item.modelRef} form package C`);
         let newItem = {
           id: item.id,
@@ -103,8 +107,9 @@ const RoomPage = () => {
           },
           rotation: item.rotation,
         };
-        addFurniture(newItem);
+        //addFurniture(newItem);
       });
+      setCurrentLayout(selectedLayout);
     } else {
       console.warn(
         "Couldn't place package items!, you can still add them yourself if you like"
@@ -171,6 +176,7 @@ const RoomPage = () => {
           packages={roomData.packages}
           roomData={roomData}
           setCurrentPackage={setCurrentPackage}
+          setCurrentLayout={setCurrentLayout}
         />
       ) : (
         <p>Loading...</p>

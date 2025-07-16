@@ -3,7 +3,13 @@ import { useState } from "react";
 import { furnitureCatalog } from "./magic-box/data/furnitureCatalog";
 import "./styling/SideBar.css";
 
-const Sidebar = ({ addFurniture, packages, roomData, setCurrentPackage }) => {
+const Sidebar = ({
+  addFurniture,
+  packages,
+  roomData,
+  setCurrentPackage,
+  setCurrentLayout,
+}) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("plans");
 
@@ -12,7 +18,7 @@ const Sidebar = ({ addFurniture, packages, roomData, setCurrentPackage }) => {
       setCurrentPackage(plan.name);
       const halfW = roomData.roomWidth * 0.5;
       const halfL = roomData.roomLength * 0.5;
-      plan.placements.forEach((item) => {
+      let newLayout = plan.placements.map((item) => {
         let packageItem = {
           id: item.id,
           model: item.modelRef,
@@ -23,8 +29,10 @@ const Sidebar = ({ addFurniture, packages, roomData, setCurrentPackage }) => {
           },
           rotation: item.rotation,
         };
-        addFurniture(packageItem);
+        return packageItem;
+        // addFurniture(packageItem);
       });
+      setCurrentLayout(newLayout);
     } else {
       console.warn("Sorry, no placements available for this package!");
     }

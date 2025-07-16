@@ -35,10 +35,10 @@ const Main3dCanvas = ({
   const [current3dLayout, setCurrent3dLayout] = useState([]);
 
   const clearAllFurniture = () => {
+    console.log("current3dLayout from clearAllFurniture >>", current3dLayout);
     current3dLayout.forEach((item) => {
       item.setDeleting();
     });
-    console.log("current3dLayout from clearAllFurniture >>", current3dLayout);
     setCurrent3dLayout([]);
     // deleteAllItems();
 
@@ -114,8 +114,10 @@ const Main3dCanvas = ({
       setCurrent3dLayout((prev) => [...prev, newItem]);
       return;
     }
+    console.log("CurrentLayout updated!");
     if (itemsInitialised) return;
     clearAllFurniture();
+    setItemsInitialised(true);
     const furnitureArray = currentLayout.map((furniture, index) => {
       let individualFurniture = new Furniture(
         furniture.id,
@@ -131,11 +133,11 @@ const Main3dCanvas = ({
         setCurrentItem(individualFurniture);
       return individualFurniture;
     });
-    console.log("furnitureArray >>>", furnitureArray);
-    setCurrent3dLayout((prev) => [...prev, furnitureArray]);
-    setItemsInitialised(true);
+    setCurrent3dLayout(() => {
+      return [...furnitureArray];
+    });
     setIsItemAdded(false);
-  }, [currentLayout, currentScene]);
+  }, [currentLayout, currentScene, itemsInitialised]);
 
   useEffect(() => {
     if (!itemsInitialised) return;
@@ -153,14 +155,21 @@ const Main3dCanvas = ({
   }, [isRotating]);
 
   useEffect(() => {
+    console.log(current3dLayout);
+  }, [current3dLayout]);
+
+  useEffect(() => {
     if (!isDeleting) return;
     currentItem.setDeleting();
     deleteItem(currentItem);
   }, [isDeleting]);
 
   useEffect(() => {
+    if (!itemsInitialised) return;
     console.log("currentPackage from useEffect >>>", currentPackage);
+    console.log("Current3dLayout from useEffect>>>", current3dLayout);
     clearAllFurniture();
+    setItemsInitialised(false);
   }, [currentPackage]);
 
   return (
