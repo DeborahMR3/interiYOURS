@@ -20,12 +20,30 @@ const Main3dCanvas = ({
   isItemAdded,
   setIsItemAdded,
   isRotating,
+  setIsRotating,
+  isDeleting,
+  setIsDeleting,
+  deleteItem,
+  deleteAllItems,
+  currentPackage,
 }) => {
   const canvasRef = useRef(null);
 
   const [currentScene, setCurrentScene] = useState({});
   const [currentItem, setCurrentItem] = useState(null);
   const [itemsInitialised, setItemsInitialised] = useState(false);
+  const [current3dLayout, setCurrent3dLayout] = useState([]);
+
+  const clearAllFurniture = () => {
+    console.log("current3dLayout from clearAllFurniture >>", current3dLayout);
+    current3dLayout.forEach((item) => {
+      item.setDeleting();
+    });
+    setCurrent3dLayout([]);
+    // deleteAllItems();
+
+    // reset other states too!
+  };
 
   const saveFurniturePosition = (furnitureId, meshFile, vector3, rotation) => {
     let newItem = {
@@ -38,10 +56,10 @@ const Main3dCanvas = ({
   };
 
   const selectItem = (selectedItem) => {
-    console.log("select item called from" + selectedItem);
     setCurrentItem((prev) => {
       if (prev !== selectedItem) {
         prev.setMoving();
+        setIsRotating(false);
       }
       return selectedItem;
     });
@@ -66,40 +84,9 @@ const Main3dCanvas = ({
       scene
     );
 
-    /// /// /// TEST BOX /// /// ///
-    // const testBed = new Furniture(
-    //   "id1",
-    //   "bed-malm-white.glb",
-    //   scene,
-    //   new Vector3(1, 0, 1),
-    //   0,
-    //   saveFurniturePosition
-    // );
-
-    // const testSeat = new Furniture(
-    //   "id2",
-    //   "seat-stockholm-birch.glb",
-    //   scene,
-    //   new Vector3(-1, 0, -1),
-    //   0,
-    //   saveFurniturePosition
-    // );
-
     const light = new HemisphericLight("light", new Vector3(0.5, 1, 0), scene);
     light.intensity = 1;
     light.specular = new Color3(0.35, 0.35, 0.33);
-    // const material = new StandardMaterial("material", scene);
-    // material.diffuseColor = new Color3(1, 0, 0);
-    // const ground = MeshBuilder.CreateBox(
-    //   "ground",
-    //   { width: 1, height: 2, depth: 1, subdivisions: 2 },
-    //   scene
-    // );
-    // ground.position = new Vector3(2, 1, 2);
-    // ground.material = material;
-    // ground.checkCollisions = true;
-    // ground.ellipsoid = new Vector3(10, 1, 10);
-    /// /// /// TEST BOX /// /// ///
 
     engine.runRenderLoop(() => {
       scene.render();
@@ -124,10 +111,14 @@ const Main3dCanvas = ({
         saveFurniturePosition,
         selectItem
       );
+      setCurrent3dLayout((prev) => [...prev, newItem]);
       return;
     }
+    console.log("CurrentLayout updated!");
     if (itemsInitialised) return;
-    currentLayout.forEach((furniture, index) => {
+    clearAllFurniture();
+    setItemsInitialised(true);
+    const furnitureArray = currentLayout.map((furniture, index) => {
       let individualFurniture = new Furniture(
         furniture.id,
         furniture.model,
@@ -137,18 +128,49 @@ const Main3dCanvas = ({
         saveFurniturePosition,
         selectItem
       );
+
       if (index === currentLayout.length - 1)
         setCurrentItem(individualFurniture);
+      return individualFurniture;
     });
-    setItemsInitialised(true);
+    setCurrent3dLayout(() => {
+      return [...furnitureArray];
+    });
     setIsItemAdded(false);
-  }, [currentLayout, currentScene]);
+  }, [currentLayout, currentScene, itemsInitialised]);
+
+  useEffect(() => {
+    if (!itemsInitialised) return;
+    if (isRotating) {
+      currentItem.setRotating();
+    } else {
+      currentItem.setMoving();
+    }
+  }, [isRotating]);
 
   useEffect(() => {
     if (isRotating) {
       currentItem.setRotating();
     }
   }, [isRotating]);
+
+  useEffect(() => {
+    console.log(current3dLayout);
+  }, [current3dLayout]);
+
+  useEffect(() => {
+    if (!isDeleting) return;
+    currentItem.setDeleting();
+    deleteItem(currentItem);
+  }, [isDeleting]);
+
+  useEffect(() => {
+    if (!itemsInitialised) return;
+    console.log("currentPackage from useEffect >>>", currentPackage);
+    console.log("Current3dLayout from useEffect>>>", current3dLayout);
+    clearAllFurniture();
+    setItemsInitialised(false);
+  }, [currentPackage]);
 
   return (
     <div className="main-3d-canvas">

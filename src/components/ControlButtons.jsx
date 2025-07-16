@@ -24,6 +24,7 @@ export const ControlButtons = ({
   setIsRotating,
   handleSavedPositions,
   canEdit,
+  setIsDeleting,
 }) => {
   const navigate = useNavigate();
   const { roomId } = useParams();
@@ -127,7 +128,13 @@ export const ControlButtons = ({
       <button className="control-button" disabled={!canEdit}>
         <FaUndo />
       </button>
-      <button className="control-button" disabled={!canEdit}>
+      <button
+        className="control-button"
+        disabled={!canEdit}
+        onClick={() => {
+          setIsDeleting(true);
+        }}
+      >
         <FaRegTrashAlt />
       </button>
       <button

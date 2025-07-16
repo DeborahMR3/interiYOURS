@@ -11,7 +11,7 @@ import {
 } from "@babylonjs/core";
 import "@babylonjs/loaders";
 
-const degConv = 180 / 3.14159;
+const degConv = 180 / Math.PI;
 
 class Furniture {
   constructor(
@@ -21,7 +21,8 @@ class Furniture {
     position,
     rotation,
     saveFurniturePosition,
-    selectItem
+    selectItem,
+    deleteItem
   ) {
     this.meshFile = meshFile;
     this.id = id;
@@ -39,15 +40,15 @@ class Furniture {
       this.id,
       this.meshFile,
       new Vector3(this.mesh.position.x, 0, this.mesh.position.z),
-      this.mesh.rotation.y
+      this.mesh.rotationQuaternion.toEulerAngles().y * degConv
     );
   }
 
   setRotating() {
     console.log("setRotating called");
     this._isRotating = true;
-    this.meshes.meshes[1].overlayColor = new Color3(0, 0, 1);
-    this.meshes.meshes[1].overlayAlpha = 0.8;
+    this.meshes.meshes[1].overlayColor = new Color3(0.9, 1, 1);
+    this.meshes.meshes[1].overlayAlpha = 0.4;
     this.meshes.meshes[1].renderOverlay = true;
   }
 
@@ -56,11 +57,19 @@ class Furniture {
     this.meshes.meshes[1].renderOverlay = false;
   }
 
+  setDeleting() {
+    console.log("deleting " + this.meshFile);
+    this.meshes.meshes.forEach((mesh) => {
+      mesh.dispose();
+    });
+  }
+
   setDragBehaviour() {
     let initialX;
+    let offsetX = 0;
     this.pointerDragBehavior.onDragStartObservable.add((event) => {
       //console.log("dragStart");
-      console.log(event);
+      //console.log(event);
       this.selectItem(this);
       if (!this._isRotating) {
         this.pointerDragBehavior.moveAttached = true;
@@ -72,8 +81,8 @@ class Furniture {
     this.pointerDragBehavior.onDragObservable.add((event) => {
       //console.log(event);
       if (!this._isRotating) return;
-      console.log(event.delta._x);
-      let offsetX = event.delta._x;
+      offsetX = event.delta._x;
+      //console.log(event.delta._x);
       this.mesh.rotate(new Vector3(0, 1, 0), offsetX);
     });
     this.pointerDragBehavior.onDragEndObservable.add((event) => {
@@ -101,7 +110,7 @@ class Furniture {
       );
       this.mesh.rotation = new Vector3(0, 0, 0);
       this.mesh.rotate(new Vector3(0, 1, 0), this.rotation * (1 / degConv));
-      console.log(this.mesh.rotationQuaternion.toEulerAngles().y);
+      //console.log(this.mesh.rotationQuaternion.toEulerAngles().y);
 
       // this.mesh.overlayColor = new Color3(0, 0, 1);
       // this.mesh.overlayAlpha = 0.8;
@@ -147,7 +156,7 @@ class Floor {
     const depth = dimensions.y;
 
     const wallMaterial = new StandardMaterial("wallMat", this.scene);
-    wallMaterial.diffuseColor = new Color3(0.8, 0.8, 0.8);
+    wallMaterial.diffuseColor = new Color3(1, 1, 1);
     wallMaterial.backFaceCulling = true;
     wallMaterial.alpha = 1;
 
@@ -234,6 +243,7 @@ class Floor {
     this.backWall.rotation = new Vector3(0, Math.PI, 0);
     this.backWall.position = new Vector3(0, wallHeight / 2, -depth / 2);
     this.backWall.material = wallMaterial;
+    this.backWall.isPickable = false;
 
     this.frontWall = MeshBuilder.CreatePlane(
       "frontWall",
@@ -243,6 +253,7 @@ class Floor {
     this.frontWall.rotation = new Vector3(0, 0, 0);
     this.frontWall.position = new Vector3(0, wallHeight / 2, depth / 2);
     this.frontWall.material = wallMaterial;
+    this.frontWall.isPickable = false;
 
     this.leftWall = MeshBuilder.CreatePlane(
       "leftWall",
@@ -252,6 +263,7 @@ class Floor {
     this.leftWall.rotation = new Vector3(0, -Math.PI / 2, 0);
     this.leftWall.position = new Vector3(-width / 2, wallHeight / 2, 0);
     this.leftWall.material = wallMaterial;
+    this.leftWall.isPickable = false;
 
     this.rightWall = MeshBuilder.CreatePlane(
       "rightWall",
@@ -261,6 +273,7 @@ class Floor {
     this.rightWall.rotation = new Vector3(0, Math.PI / 2, 0);
     this.rightWall.position = new Vector3(width / 2, wallHeight / 2, 0);
     this.rightWall.material = wallMaterial;
+    this.rightWall.isPickable = false;
   }
 }
 

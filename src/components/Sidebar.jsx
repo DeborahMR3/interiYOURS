@@ -3,10 +3,41 @@ import { useState } from "react";
 import { furnitureCatalog } from "./magic-box/data/furnitureCatalog";
 import "./styling/SideBar.css";
 
-const Sidebar = ({ addFurniture, packages, canEdit }) => {
+const Sidebar = ({
+  addFurniture,
+  packages,
+  canEdit,
+  roomData,
+  setCurrentPackage,
+  setCurrentLayout,
+}) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("plans");
 
+  const handleLoadPackage = (plan, roomData) => {
+    if (plan.placements.length !== 0) {
+      setCurrentPackage(plan.name);
+      const halfW = roomData.roomWidth * 0.5;
+      const halfL = roomData.roomLength * 0.5;
+      let newLayout = plan.placements.map((item) => {
+        let packageItem = {
+          id: item.id,
+          model: item.modelRef,
+          position: {
+            x: (item.x - halfW) / 100,
+            z: (item.y - halfL) / 100,
+            y: 0,
+          },
+          rotation: item.rotation,
+        };
+        return packageItem;
+        // addFurniture(packageItem);
+      });
+      setCurrentLayout(newLayout);
+    } else {
+      console.warn("Sorry, no placements available for this package!");
+    }
+  };
   // const [currentPlanIndex, setCurrentPlanIndex] = useState(0);  // for arrow on navigation
 
   function openSidebar() {
@@ -65,7 +96,15 @@ const Sidebar = ({ addFurniture, packages, canEdit }) => {
                   <div key={index} className="plan-card">
                     {/* Plan name/title */}
 
-                    <div className="plan-option">Plan {plan.name}</div>
+                    <div className="plan-option">
+                      Plan {plan.name}
+                      <button
+                        className="view-package-button"
+                        onClick={() => handleLoadPackage(plan, roomData)}
+                      >
+                        View
+                      </button>
+                    </div>
 
                     {/* Items details (each line: image, name, price) */}
                     <div className="plan-items-details">

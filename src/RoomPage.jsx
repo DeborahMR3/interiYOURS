@@ -12,6 +12,7 @@ const RoomPage = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
   const [isItemAdded, setIsItemAdded] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [roomData, setRoomData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -35,7 +36,7 @@ const RoomPage = () => {
       setCanEdit(false);
     }
   }, [user, roomData]);
-
+  const [currentPackage, setCurrentPackage] = useState(null);
   useEffect(() => {
     const fetchRoom = async () => {
       try {
@@ -44,7 +45,7 @@ const RoomPage = () => {
         const room = await getRoomById(roomId);
         setRoomData(room);
 
-        if (room.layout) {
+        if (room.layout.length !== 0) {
           console.log(room.layout);
           setCurrentLayout(room.layout);
         }
@@ -67,11 +68,13 @@ const RoomPage = () => {
     if (roomData.layout.length !== 0) return;
     const halfW = roomData.roomWidth * 0.5;
     const halfL = roomData.roomLength * 0.5;
+    let selectedLayout = [];
     if (
       roomData.packages[0].name === "A" &&
       roomData.packages[0].placements.length !== 0
     ) {
-      roomData.packages[0].placements.forEach((item) => {
+      setCurrentPackage("A");
+      selectedLayout = roomData.packages[0].placements.map((item) => {
         console.log(`rendering ${item.modelRef} form package A`);
         let newItem = {
           id: item.id,
@@ -83,14 +86,17 @@ const RoomPage = () => {
           },
           rotation: item.rotation,
         };
-        console.log("newItem >>>", newItem);
-        addFurniture(newItem);
+        return newItem;
+        //console.log("newItem >>>", newItem);
+        //addFurniture(newItem);
       });
+      setCurrentLayout(selectedLayout);
     } else if (
       roomData.packages[1].name === "B" &&
       roomData.packages[1].placements.length !== 0
     ) {
-      roomData.packages[1].placements.forEach((item) => {
+      setCurrentPackage("B");
+      selectedLayout = roomData.packages[1].placements.forEach((item) => {
         console.log(`rendering ${item.modelRef} form package B`);
         let newItem = {
           id: item.id,
@@ -102,13 +108,15 @@ const RoomPage = () => {
           },
           rotation: item.rotation,
         };
-        addFurniture(newItem);
+        //addFurniture(newItem);
       });
+      setCurrentLayout(selectedLayout);
     } else if (
       roomData.packages[2].name === "C" &&
       roomData.packages[2].placements.length !== 0
     ) {
-      roomData.packages[2].placements.forEach((item) => {
+      setCurrentPackage("C");
+      selectedLayout = roomData.packages[2].placements.forEach((item) => {
         console.log(`rendering ${item.modelRef} form package C`);
         let newItem = {
           id: item.id,
@@ -120,8 +128,9 @@ const RoomPage = () => {
           },
           rotation: item.rotation,
         };
-        addFurniture(newItem);
+        //addFurniture(newItem);
       });
+      setCurrentLayout(selectedLayout);
     } else {
       console.warn(
         "Couldn't place package items!, you can still add them yourself if you like"
@@ -136,8 +145,21 @@ const RoomPage = () => {
     console.log("addFurniture called >>>", newItem);
   };
 
+  const deleteItem = (deletedItem) => {
+    setCurrentLayout((prev) => {
+      console.log(deletedItem);
+      const filteredLayout = prev.filter((item) => item.id !== deletedItem.id);
+      console.log(filteredLayout);
+      setIsDeleting(false);
+      return filteredLayout;
+    });
+  };
+  const deleteAllItems = () => {
+    setCurrentLayout([]);
+  };
+
   const updateFurniturePosition = (updatedItem) => {
-    console.log("Position received:", updatedItem.position);
+    //console.log("Position received:", updatedItem.position);
     const { x, y, z } = updatedItem.position;
     setCurrentLayout((prev) => {
       const oldLayout = [...prev];
@@ -173,6 +195,9 @@ const RoomPage = () => {
           addFurniture={addFurniture}
           packages={roomData.packages}
           canEdit={canEdit}
+          roomData={roomData}
+          setCurrentPackage={setCurrentPackage}
+          setCurrentLayout={setCurrentLayout}
         />
       ) : (
         <p>Loading...</p>
@@ -184,12 +209,19 @@ const RoomPage = () => {
         isItemAdded={isItemAdded}
         setIsItemAdded={setIsItemAdded}
         isRotating={isRotating}
+        setIsRotating={setIsRotating}
+        isDeleting={isDeleting}
+        setIsDeleting={setIsDeleting}
+        deleteItem={deleteItem}
+        deleteAllItems={deleteAllItems}
+        currentPackage={currentPackage}
       />
       <ControlButtons
         isRotating={isRotating}
         setIsRotating={setIsRotating}
         handleSavedPositions={handleSavedPositions}
         canEdit={canEdit}
+        setIsDeleting={setIsDeleting}
       />
     </div>
   );
