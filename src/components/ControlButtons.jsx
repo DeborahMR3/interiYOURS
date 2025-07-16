@@ -9,6 +9,11 @@ import { FaArrowsSpin } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import "./styling/ControlButtons.css";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { deleteDoc, doc } from "firebase/firestore";
+import { auth } from "../firebase/firebaseAuth";
+import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
 
 import AvatarDropdown from "./AvatarDropdown";
 
@@ -17,17 +22,45 @@ export const ControlButtons = ({
   setIsRotating,
   handleSavedPositions,
 }) => {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState(auth.currentUser);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const toggleRotating = () => {
     setIsRotating(!isRotating);
   };
 
+  const handleGoHome = () => {
+    navigate("/home");
+  };
+
+  const handleSignOut = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await signOut(auth);
+      console.log("Signed out");
+      navigate("/");
+    } catch (error) {
+      setError("failed to sign out, Please try again");
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="control-buttons-container">
-      <AvatarDropdown className="avatar-button" align="end" />
+      <AvatarDropdown
+        user={user}
+        onSignOut={handleSignOut}
+        className="avatar-button"
+        align="end"
+      />
       <button className="control-button" onClick={handleSavedPositions}>
         <FaRegSave />
       </button>
-      <button className="control-button">
+      <button className="control-button" onClick={handleGoHome}>
         <IoHomeOutline />
       </button>
       <button className="control-button">
