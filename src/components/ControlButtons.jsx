@@ -9,8 +9,8 @@ import { FaArrowsSpin } from "react-icons/fa6";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
 import "./styling/ControlButtons.css";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { deleteDoc, doc } from "firebase/firestore";
 import { auth } from "../firebase/firebaseAuth";
 import { onAuthStateChanged, signOut, deleteUser } from "firebase/auth";
@@ -23,12 +23,24 @@ export const ControlButtons = ({
   isRotating,
   setIsRotating,
   handleSavedPositions,
+  canEdit,
 }) => {
   const navigate = useNavigate();
+  const { roomId } = useParams();
 
-  const [user, setUser] = useState(auth.currentUser);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [copySuccessMessage, setCopySuccessMessage] = useState("");
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   const toggleRotating = () => {
     setIsRotating(!isRotating);
@@ -75,6 +87,19 @@ export const ControlButtons = ({
     }
   };
 
+  const handleShareRoom = async () => {
+    try {
+      const shareUrl = `${window.location.origin}/room/${roomId}`;
+      await navigator.clipboard.writeText(shareUrl);
+      setCopySuccessMessage("Room URL copied!");
+      setTimeout(() => setCopySuccessMessage(""), 3000);
+    } catch (error) {
+      setCopySuccessMessage(
+        "Failed to copy URL. Please copy manually from the URL tab"
+      );
+    }
+  };
+
   return (
     <div className="control-buttons-container">
       <AvatarDropdown
@@ -83,23 +108,33 @@ export const ControlButtons = ({
         onDelete={handleDeleteAccount}
         className="avatar-button"
         align="end"
+        disabled={!canEdit}
       />
-      <button className="control-button" onClick={handleSavedPositions}>
+      <button
+        className="control-button"
+        onClick={handleSavedPositions}
+        disabled={!canEdit}
+      >
         <FaRegSave />
       </button>
       <button className="control-button" onClick={handleGoHome}>
         <IoHomeOutline />
       </button>
-      <button className="control-button">
+      <button className="control-button" onClick={handleShareRoom}>
         <IoShareSocialOutline />
       </button>
-      <button className="control-button">
+      {copySuccessMessage && <div>{copySuccessMessage}</div>}
+      <button className="control-button" disabled={!canEdit}>
         <FaUndo />
       </button>
-      <button className="control-button">
+      <button className="control-button" disabled={!canEdit}>
         <FaRegTrashAlt />
       </button>
-      <button className="control-button" onClick={toggleRotating}>
+      <button
+        className="control-button"
+        onClick={toggleRotating}
+        disabled={!canEdit}
+      >
         {isRotating ? <FaArrowsSpin /> : <FaArrowsAlt />}
       </button>
     </div>

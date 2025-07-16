@@ -38,6 +38,7 @@ export const addRoomToFireStore = async (userId, roomData) => {
     const docRef = await addDoc(collection(db, "rooms"), {
       ...roomData,
       ownerId: userId,
+      shared: true,
       createdAt: serverTimestamp(),
     });
     return docRef.id;

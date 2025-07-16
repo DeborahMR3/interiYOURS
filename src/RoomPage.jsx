@@ -5,6 +5,8 @@ import "./components/styling/RoomPage.css";
 import { useParams } from "react-router-dom";
 import { getRoomById, patchRoomLayout } from "./firebase/firebaseStore";
 import { ControlButtons } from "./components/ControlButtons";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/firebaseAuth";
 
 const RoomPage = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
@@ -13,7 +15,26 @@ const RoomPage = () => {
   const [roomData, setRoomData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
+  const [canEdit, setCanEdit] = useState(false);
   const { roomId } = useParams();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (user && roomData) {
+      setCanEdit(user.uid === roomData.ownerId);
+    } else {
+      setCanEdit(false);
+    }
+  }, [user, roomData]);
 
   useEffect(() => {
     const fetchRoom = async () => {
@@ -145,11 +166,14 @@ const RoomPage = () => {
     }
   };
 
-  //Appropriate loading logic would be good here
   return (
     <div className="layout-view">
       {roomData ? (
-        <Sidebar addFurniture={addFurniture} packages={roomData.packages} />
+        <Sidebar
+          addFurniture={addFurniture}
+          packages={roomData.packages}
+          canEdit={canEdit}
+        />
       ) : (
         <p>Loading...</p>
       )}
@@ -165,6 +189,7 @@ const RoomPage = () => {
         isRotating={isRotating}
         setIsRotating={setIsRotating}
         handleSavedPositions={handleSavedPositions}
+        canEdit={canEdit}
       />
     </div>
   );
