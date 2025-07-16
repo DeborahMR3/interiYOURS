@@ -6,6 +6,7 @@ import "./styling/SideBar.css";
 const Sidebar = ({
   addFurniture,
   packages,
+  canEdit,
   roomData,
   setCurrentPackage,
   setCurrentLayout,
@@ -53,7 +54,11 @@ const Sidebar = ({
       {/* Initial state */}
       {!isSidebarOpen && (
         <div className="sidebar-launcher">
-          <button className="sidebar-launch-btn" onClick={openSidebar}>
+          <button
+            className="sidebar-launch-btn"
+            onClick={openSidebar}
+            disabled={!canEdit}
+          >
             Layout Plans
           </button>
         </div>
