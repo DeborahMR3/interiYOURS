@@ -121,6 +121,7 @@ const RoomPage = () => {
       console.log(deletedItem);
       const filteredLayout = prev.filter((item) => item.id !== deletedItem.id);
       console.log(filteredLayout);
+      setIsDeleting(false);
       return filteredLayout;
     });
   };
