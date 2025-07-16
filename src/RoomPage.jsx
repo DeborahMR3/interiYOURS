@@ -10,6 +10,7 @@ const RoomPage = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
   const [isItemAdded, setIsItemAdded] = useState(false);
   const [isRotating, setIsRotating] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [roomData, setRoomData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -115,6 +116,15 @@ const RoomPage = () => {
     console.log("addFurniture called >>>", newItem);
   };
 
+  const deleteItem = (deletedItem) => {
+    setCurrentLayout((prev) => {
+      console.log(deletedItem);
+      const filteredLayout = prev.filter((item) => item.id !== deletedItem.id);
+      console.log(filteredLayout);
+      return filteredLayout;
+    });
+  };
+
   const updateFurniturePosition = (updatedItem) => {
     console.log("Position received:", updatedItem.position);
     const { x, y, z } = updatedItem.position;
@@ -160,11 +170,16 @@ const RoomPage = () => {
         isItemAdded={isItemAdded}
         setIsItemAdded={setIsItemAdded}
         isRotating={isRotating}
+        setIsRotating={setIsRotating}
+        isDeleting={isDeleting}
+        setIsDeleting={setIsDeleting}
+        deleteItem={deleteItem}
       />
       <ControlButtons
         isRotating={isRotating}
         setIsRotating={setIsRotating}
         handleSavedPositions={handleSavedPositions}
+        setIsDeleting={setIsDeleting}
       />
     </div>
   );

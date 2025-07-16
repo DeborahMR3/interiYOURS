@@ -20,6 +20,10 @@ const Main3dCanvas = ({
   isItemAdded,
   setIsItemAdded,
   isRotating,
+  setIsRotating,
+  isDeleting,
+  setIsDeleting,
+  deleteItem,
 }) => {
   const canvasRef = useRef(null);
 
@@ -38,10 +42,10 @@ const Main3dCanvas = ({
   };
 
   const selectItem = (selectedItem) => {
-    console.log("select item called from" + selectedItem);
     setCurrentItem((prev) => {
       if (prev !== selectedItem) {
         prev.setMoving();
+        setIsRotating(false);
       }
       return selectedItem;
     });
@@ -66,40 +70,9 @@ const Main3dCanvas = ({
       scene
     );
 
-    /// /// /// TEST BOX /// /// ///
-    // const testBed = new Furniture(
-    //   "id1",
-    //   "bed-malm-white.glb",
-    //   scene,
-    //   new Vector3(1, 0, 1),
-    //   0,
-    //   saveFurniturePosition
-    // );
-
-    // const testSeat = new Furniture(
-    //   "id2",
-    //   "seat-stockholm-birch.glb",
-    //   scene,
-    //   new Vector3(-1, 0, -1),
-    //   0,
-    //   saveFurniturePosition
-    // );
-
     const light = new HemisphericLight("light", new Vector3(0.5, 1, 0), scene);
     light.intensity = 1;
     light.specular = new Color3(0.35, 0.35, 0.33);
-    // const material = new StandardMaterial("material", scene);
-    // material.diffuseColor = new Color3(1, 0, 0);
-    // const ground = MeshBuilder.CreateBox(
-    //   "ground",
-    //   { width: 1, height: 2, depth: 1, subdivisions: 2 },
-    //   scene
-    // );
-    // ground.position = new Vector3(2, 1, 2);
-    // ground.material = material;
-    // ground.checkCollisions = true;
-    // ground.ellipsoid = new Vector3(10, 1, 10);
-    /// /// /// TEST BOX /// /// ///
 
     engine.runRenderLoop(() => {
       scene.render();
@@ -145,10 +118,25 @@ const Main3dCanvas = ({
   }, [currentLayout, currentScene]);
 
   useEffect(() => {
+    if (!itemsInitialised) return;
+    if (isRotating) {
+      currentItem.setRotating();
+    } else {
+      currentItem.setMoving();
+    }
+  }, [isRotating]);
+
+  useEffect(() => {
     if (isRotating) {
       currentItem.setRotating();
     }
   }, [isRotating]);
+
+  useEffect(() => {
+    if (!isDeleting) return;
+    currentItem.setDeleting();
+    deleteItem(currentItem);
+  }, [isDeleting]);
 
   return (
     <div className="main-3d-canvas">

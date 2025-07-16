@@ -21,6 +21,7 @@ export const ControlButtons = ({
   isRotating,
   setIsRotating,
   handleSavedPositions,
+  setIsDeleting,
 }) => {
   const navigate = useNavigate();
 
@@ -69,7 +70,12 @@ export const ControlButtons = ({
       <button className="control-button">
         <FaUndo />
       </button>
-      <button className="control-button">
+      <button
+        className="control-button"
+        onClick={() => {
+          setIsDeleting(true);
+        }}
+      >
         <FaRegTrashAlt />
       </button>
       <button className="control-button" onClick={toggleRotating}>
