@@ -17,6 +17,7 @@ const RoomPage = () => {
     const user = transformRoomData(roomData);
     const output = runMagicBox(user);
     roomData.packages = output.packages;
+    roomData.layout = [];
 
     try {
       const user = auth.currentUser;
