@@ -135,8 +135,8 @@ class Floor {
       "../../public/textures/laminate_floor.jpg",
       this.scene
     );
-    texture.uScale = 2;
-    texture.vScale = 2;
+    texture.uScale = Math.floor(dimensions.x / 2);
+    texture.vScale = Math.floor(dimensions.y / 2);
     //material.diffuseColor = new Color3(0.7, 0.6, 0.7);
     material.diffuseTexture = texture;
     this.floor.material = material;
