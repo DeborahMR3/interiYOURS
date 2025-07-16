@@ -149,7 +149,11 @@ const RoomPage = () => {
   return (
     <div className="layout-view">
       {roomData ? (
-        <Sidebar addFurniture={addFurniture} packages={roomData.packages} />
+        <Sidebar
+          addFurniture={addFurniture}
+          packages={roomData.packages}
+          roomData={roomData}
+        />
       ) : (
         <p>Loading...</p>
       )}
