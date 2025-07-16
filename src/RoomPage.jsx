@@ -126,7 +126,7 @@ const RoomPage = () => {
   };
 
   const updateFurniturePosition = (updatedItem) => {
-    console.log("Position received:", updatedItem.position);
+    //console.log("Position received:", updatedItem.position);
     const { x, y, z } = updatedItem.position;
     setCurrentLayout((prev) => {
       const oldLayout = [...prev];

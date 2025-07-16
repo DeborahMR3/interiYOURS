@@ -69,7 +69,7 @@ class Furniture {
     let offsetX = 0;
     this.pointerDragBehavior.onDragStartObservable.add((event) => {
       //console.log("dragStart");
-      console.log(event);
+      //console.log(event);
       this.selectItem(this);
       if (!this._isRotating) {
         this.pointerDragBehavior.moveAttached = true;
