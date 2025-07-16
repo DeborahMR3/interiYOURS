@@ -3,12 +3,13 @@ import { useState } from "react";
 import { furnitureCatalog } from "./magic-box/data/furnitureCatalog";
 import "./styling/SideBar.css";
 
-const Sidebar = ({ addFurniture, packages, roomData }) => {
+const Sidebar = ({ addFurniture, packages, roomData, setCurrentPackage }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("plans");
 
   const handleLoadPackage = (plan, roomData) => {
     if (plan.placements.length !== 0) {
+      setCurrentPackage(plan.name);
       const halfW = roomData.roomWidth * 0.5;
       const halfL = roomData.roomLength * 0.5;
       plan.placements.forEach((item) => {

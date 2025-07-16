@@ -24,12 +24,26 @@ const Main3dCanvas = ({
   isDeleting,
   setIsDeleting,
   deleteItem,
+  deleteAllItems,
+  currentPackage,
 }) => {
   const canvasRef = useRef(null);
 
   const [currentScene, setCurrentScene] = useState({});
   const [currentItem, setCurrentItem] = useState(null);
   const [itemsInitialised, setItemsInitialised] = useState(false);
+  const [current3dLayout, setCurrent3dLayout] = useState([]);
+
+  const clearAllFurniture = () => {
+    current3dLayout.forEach((item) => {
+      item.setDeleting();
+    });
+    console.log("current3dLayout from clearAllFurniture >>", current3dLayout);
+    setCurrent3dLayout([]);
+    // deleteAllItems();
+
+    // reset other states too!
+  };
 
   const saveFurniturePosition = (furnitureId, meshFile, vector3, rotation) => {
     let newItem = {
@@ -97,10 +111,12 @@ const Main3dCanvas = ({
         saveFurniturePosition,
         selectItem
       );
+      setCurrent3dLayout((prev) => [...prev, newItem]);
       return;
     }
     if (itemsInitialised) return;
-    currentLayout.forEach((furniture, index) => {
+    clearAllFurniture();
+    const furnitureArray = currentLayout.map((furniture, index) => {
       let individualFurniture = new Furniture(
         furniture.id,
         furniture.model,
@@ -110,9 +126,13 @@ const Main3dCanvas = ({
         saveFurniturePosition,
         selectItem
       );
+
       if (index === currentLayout.length - 1)
         setCurrentItem(individualFurniture);
+      return individualFurniture;
     });
+    console.log("furnitureArray >>>", furnitureArray);
+    setCurrent3dLayout((prev) => [...prev, furnitureArray]);
     setItemsInitialised(true);
     setIsItemAdded(false);
   }, [currentLayout, currentScene]);
@@ -137,6 +157,11 @@ const Main3dCanvas = ({
     currentItem.setDeleting();
     deleteItem(currentItem);
   }, [isDeleting]);
+
+  useEffect(() => {
+    console.log("currentPackage from useEffect >>>", currentPackage);
+    clearAllFurniture();
+  }, [currentPackage]);
 
   return (
     <div className="main-3d-canvas">
