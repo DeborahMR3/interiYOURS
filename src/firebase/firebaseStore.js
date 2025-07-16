@@ -37,7 +37,7 @@ export const addRoomToFireStore = async (userId, roomData) => {
   try {
     const docRef = await addDoc(collection(db, "rooms"), {
       ...roomData,
-      userId,
+      ownerId: userId,
       createdAt: serverTimestamp(),
     });
     return docRef.id;
@@ -50,7 +50,7 @@ export const getRoomsData = async (uid) => {
   try {
     const roomQuery = query(
       collection(db, "rooms"),
-      where("userId", "==", uid)
+      where("ownerId", "==", uid)
     );
     const querySnapshot = await getDocs(roomQuery);
 
