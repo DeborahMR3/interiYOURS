@@ -94,10 +94,12 @@ class Furniture {
     });
   }
 
+
+
   async setupMesh() {
     try {
       this.meshes = await ImportMeshAsync(
-        `../../public/models/${this.meshFile}`, //Check path! Sometimes works with relative path only?
+        `${import.meta.env.BASE_URL}models/${this.meshFile}`, //Check path! Sometimes works with relative path only?
         this.scene
       );
 
@@ -141,7 +143,7 @@ class Floor {
     this.floor.position = new Vector3(0, -0.01, 0);
     const material = new StandardMaterial("floor", this.scene);
     const texture = new Texture(
-      "../../public/textures/laminate_floor.jpg",
+      `${import.meta.env.BASE_URL}textures/laminate_floor.jpg`,
       this.scene
     );
     texture.uScale = 2;
