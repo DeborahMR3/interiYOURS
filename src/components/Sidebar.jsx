@@ -31,14 +31,12 @@ const Sidebar = ({
           rotation: item.rotation,
         };
         return packageItem;
-        // addFurniture(packageItem);
       });
       setCurrentLayout(newLayout);
     } else {
       console.warn("Sorry, no placements available for this package!");
     }
   };
-  // const [currentPlanIndex, setCurrentPlanIndex] = useState(0);  // for arrow on navigation
 
   function openSidebar() {
     setIsSidebarOpen(true);
@@ -129,8 +127,12 @@ const Sidebar = ({
                         );
                       })}
                     </div>
-                    <button className="view-package-button" onClick={() => handleLoadPackage(plan, roomData)}
-                    >View</button>
+                    <button
+                      className="view-package-button"
+                      onClick={() => handleLoadPackage(plan, roomData)}
+                    >
+                      View
+                    </button>
                   </div>
                 ))}
               </div>

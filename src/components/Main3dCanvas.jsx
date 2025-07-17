@@ -37,14 +37,10 @@ const Main3dCanvas = ({
   const [current3dLayout, setCurrent3dLayout] = useState([]);
 
   const clearAllFurniture = () => {
-    console.log("current3dLayout from clearAllFurniture >>", current3dLayout);
     current3dLayout.forEach((item) => {
       item.setDeleting();
     });
     setCurrent3dLayout([]);
-    // deleteAllItems();
-
-    // reset other states too!
   };
 
   const saveFurniturePosition = (furnitureId, meshFile, vector3, rotation) => {
@@ -81,11 +77,6 @@ const Main3dCanvas = ({
     setCurrentScene(scene);
     scene.collisionsEnabled = true;
     scene.clearColor = new Color3(0.9804, 0.949, 0.9412);
-
-    // const pointer = new Pointer();
-    // pointer.onDragObservable.add((event) => {
-    //   console.log(event);
-    // });
 
     scene.onPointerDown = (event) => {
       let pickResult = scene.pick(scene.pointerX, scene.pointerY);
@@ -130,7 +121,6 @@ const Main3dCanvas = ({
       setCurrent3dLayout((prev) => [...prev, newItem]);
       return;
     }
-    console.log("CurrentLayout updated!");
     if (itemsInitialised) return;
     clearAllFurniture();
     setItemsInitialised(true);
@@ -169,16 +159,7 @@ const Main3dCanvas = ({
     }
   }, [isRotating]);
 
-  // useEffect(() => {
-  //   if (!currentItem) return;
-  //   if (isRotating) {
-  //     currentItem.setRotating();
-  //   }
-  // }, [isRotating]);
-
-  useEffect(() => {
-    console.log(current3dLayout);
-  }, [current3dLayout]);
+  useEffect(() => {}, [current3dLayout]);
 
   useEffect(() => {
     if (!isDeleting) return;
@@ -189,8 +170,6 @@ const Main3dCanvas = ({
 
   useEffect(() => {
     if (!itemsInitialised) return;
-    console.log("currentPackage from useEffect >>>", currentPackage);
-    console.log("Current3dLayout from useEffect>>>", current3dLayout);
     clearAllFurniture();
     setItemsInitialised(false);
   }, [currentPackage]);
