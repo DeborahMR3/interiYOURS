@@ -94,8 +94,12 @@ const LoginForm = () => {
     }
   };
   return (
-    <section  className="login-page">
-      <span className="login-avatar"></span>
+    <section className="login-page">
+      <h1>
+        <span class="logo-text1">interi</span>
+        <span class="logo-text2">yours</span>
+      </h1>
+
       {loading && <p>Loading, please wait ...</p>}
       {error && <p>{error}</p>}
       <form className="login-form" onSubmit={handleSubmit}>
