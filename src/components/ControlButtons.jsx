@@ -111,6 +111,18 @@ export const ControlButtons = ({
         align="end"
         disabled={!canEdit}
       />
+      {/* <button
+        className="control-button"
+        onClick={handleSavedPositions}
+        disabled={!canEdit}
+      >
+        <FaRegSave />
+      </button> */}
+
+      <button className="control-button" onClick={handleGoHome}>
+        <IoHomeOutline />
+      </button>
+
       <button
         className="control-button"
         onClick={handleSavedPositions}
@@ -118,16 +130,16 @@ export const ControlButtons = ({
       >
         <FaRegSave />
       </button>
-      <button className="control-button" onClick={handleGoHome}>
-        <IoHomeOutline />
-      </button>
+
       <button className="control-button" onClick={handleShareRoom}>
         <IoShareSocialOutline />
       </button>
-      {copySuccessMessage && <div>{copySuccessMessage}</div>}
+
+      {/* {copySuccessMessage && <div>{copySuccessMessage}</div>}
       <button className="control-button" disabled={!canEdit}>
         <FaUndo />
-      </button>
+      </button> */}
+
       <button
         className="control-button"
         disabled={!canEdit}
@@ -137,6 +149,7 @@ export const ControlButtons = ({
       >
         <FaRegTrashAlt />
       </button>
+
       <button
         className="control-button"
         onClick={toggleRotating}
