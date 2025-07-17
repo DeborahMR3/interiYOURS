@@ -18,6 +18,8 @@ const RoomPage = () => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
   const [canEdit, setCanEdit] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [currentPackage, setCurrentPackage] = useState(null);
   const { roomId } = useParams();
 
   useEffect(() => {
@@ -36,7 +38,6 @@ const RoomPage = () => {
       setCanEdit(false);
     }
   }, [user, roomData]);
-  const [currentPackage, setCurrentPackage] = useState(null);
   useEffect(() => {
     const fetchRoom = async () => {
       try {
@@ -216,12 +217,16 @@ const RoomPage = () => {
         deleteAllItems={deleteAllItems}
         currentPackage={currentPackage}
       />
+      <div className="notification-area">
+        <p>{notificationMessage}</p>
+      </div>
       <ControlButtons
         isRotating={isRotating}
         setIsRotating={setIsRotating}
         handleSavedPositions={handleSavedPositions}
         canEdit={canEdit}
         setIsDeleting={setIsDeleting}
+        setNotificationMessage={setNotificationMessage}
       />
     </div>
   );

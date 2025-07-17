@@ -1,10 +1,10 @@
 .control-buttons-container {
   position: fixed;
-  top: 90px;              /* Distance from the top */
-  right: 36px;            /* Distance from the right edge */
+  top: 90px; /* Distance from the top */
+  right: 36px; /* Distance from the right edge */
   display: flex;
   flex-direction: column;
-  gap: 18px;              /* Space between buttons */
+  gap: 18px; /* Space between buttons */
   z-index: 200;
 }
 

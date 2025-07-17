@@ -25,13 +25,13 @@ export const ControlButtons = ({
   handleSavedPositions,
   canEdit,
   setIsDeleting,
+  setNotificationMessage,
 }) => {
   const navigate = useNavigate();
   const { roomId } = useParams();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [copySuccessMessage, setCopySuccessMessage] = useState("");
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -88,14 +88,24 @@ export const ControlButtons = ({
     }
   };
 
+  const handleSaveRoom = async () => {
+    try {
+      handleSavedPositions();
+      setNotificationMessage("Room Saved!");
+      setTimeout(() => setNotificationMessage(""), 3000);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleShareRoom = async () => {
     try {
       const shareUrl = `${window.location.origin}/room/${roomId}`;
       await navigator.clipboard.writeText(shareUrl);
-      setCopySuccessMessage("Room URL copied!");
-      setTimeout(() => setCopySuccessMessage(""), 3000);
+      setNotificationMessage("Room URL copied!");
+      setTimeout(() => setNotificationMessage(""), 3000);
     } catch (error) {
-      setCopySuccessMessage(
+      setNotificationMessage(
         "Failed to copy URL. Please copy manually from the URL tab"
       );
     }
@@ -125,7 +135,7 @@ export const ControlButtons = ({
 
       <button
         className="control-button"
-        onClick={handleSavedPositions}
+        onClick={handleSaveRoom}
         disabled={!canEdit}
       >
         <FaRegSave />
@@ -135,8 +145,7 @@ export const ControlButtons = ({
         <IoShareSocialOutline />
       </button>
 
-      {/* {copySuccessMessage && <div>{copySuccessMessage}</div>}
-      <button className="control-button" disabled={!canEdit}>
+      {/*<button className="control-button" disabled={!canEdit}>
         <FaUndo />
       </button> */}
 
