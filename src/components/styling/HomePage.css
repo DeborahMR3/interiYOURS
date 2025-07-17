@@ -23,6 +23,8 @@ import { Dropdown } from 'react-bootstrap';
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  padding-bottom: 3px;
+  padding-top: 3px;
 }
 
 .header-section {
@@ -162,4 +164,22 @@ import { Dropdown } from 'react-bootstrap';
   font-weight: 500;
   text-align: left;
   padding-top: 6px;
+}
+
+/* interiyours */
+h1 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.logo-text1 {
+  font-family: "MyFontRegular", sans-serif;
+  font-size: larger;
+  color: #3a3335;
+}
+
+.logo-text2 {
+  font-family: "MyFontBold", sans-serif;
+  font-size: larger;
+  color: #2d728f;
 }
