@@ -127,7 +127,6 @@ const RoomPage = () => {
     ) {
       setCurrentPackage("C");
       selectedLayout = roomData.packages[2].placements.forEach((item) => {
-        console.log(`rendering ${item.modelRef} form package C`);
         let newItem = {
           id: item.id,
           model: item.modelRef,
@@ -150,8 +149,6 @@ const RoomPage = () => {
   const addFurniture = (newItem) => {
     setIsItemAdded(true);
     setCurrentLayout((prev) => [...prev, newItem]);
-
-    console.log("addFurniture called >>>", newItem);
   };
 
   const deleteItem = (deletedItem) => {
@@ -188,7 +185,6 @@ const RoomPage = () => {
     if (!roomId) return;
 
     try {
-      console.log("current layout >>>", currentLayout);
       await patchRoomLayout(roomId, currentLayout);
       console.log("Positions saved");
     } catch (error) {

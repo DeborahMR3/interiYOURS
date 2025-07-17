@@ -1,14 +1,13 @@
 .control-buttons-container {
   position: fixed;
-  top: 90px; /* Distance from the top */
-  right: 36px; /* Distance from the right edge */
+  top: 90px;
+  right: 36px;
   display: flex;
   flex-direction: column;
-  gap: 18px; /* Space between buttons */
+  gap: 18px;
   z-index: 200;
 }
 
-/* All circular buttons (controls + avatar dropdown) */
 .control-button,
 .avatar-button,
 .avatar-button.dropdown-toggle {
@@ -29,7 +28,6 @@
   cursor: pointer !important;
 }
 
-/* Hover style for all buttons */
 .control-button:hover,
 .avatar-button:hover,
 .avatar-button.dropdown-toggle:hover {
@@ -38,7 +36,6 @@
   box-shadow: 0 2px 12px #2196e960 !important;
 }
 
-/* Remove extra Bootstrap padding/margin/border from dropdown button */
 .avatar-button,
 .avatar-button.dropdown-toggle {
   min-width: 48px !important;
@@ -49,7 +46,6 @@
   border: none !important;
 }
 
-/* Avatar image always centered and proportional */
 .avatar-img,
 .avatar-button img {
   width: 32px !important;
@@ -61,7 +57,6 @@
   padding: 0 !important;
 }
 
-/* Optional: Responsive adjustment for mobile */
 @media (max-width: 600px) {
   .control-buttons-container {
     top: 16px;
