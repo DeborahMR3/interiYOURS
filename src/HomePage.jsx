@@ -67,7 +67,6 @@ const HomePage = () => {
     setError(null);
     try {
       await signOut(auth);
-      console.log("Signed out");
       navigate("/");
     } catch (error) {
       setError("failed to sign out, Please try again");
@@ -89,7 +88,6 @@ const HomePage = () => {
       await Promise.all(userRooms.map((room) => deleteRoomById(room.id)));
       await deleteDoc(doc(db, "users", user.uid));
       await deleteUser(user);
-      console.log("Account has been deleted");
       setLoading(false);
       navigate("/");
     } catch (error) {
@@ -107,7 +105,6 @@ const HomePage = () => {
     try {
       await deleteRoomById(roomId);
       setRooms((prev) => prev.filter((room) => room.id !== roomId));
-      console.log("Room has been deleted");
     } catch (error) {
       setError("Failed to delete room");
     } finally {

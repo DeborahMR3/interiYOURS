@@ -32,7 +32,6 @@ const LoginForm = () => {
     setError(null);
     try {
       await signInAnonymously(auth);
-      console.log("Logged in as guest!");
       navigate("/home", {
         state: { typeOfUser: "guest", message: "Welcome Guest!" },
       });
@@ -54,7 +53,6 @@ const LoginForm = () => {
           password
         );
         const user = userCredentials.user;
-        console.log("Account created!");
         await addUserToFirestore(user);
         setIsRegistering(false);
         setEmail("");
@@ -62,7 +60,6 @@ const LoginForm = () => {
         navigate("/home");
       } else {
         await signInWithEmailAndPassword(auth, email, password);
-        console.log("Logged in!");
         setEmail("");
         setPassword("");
         navigate("/home");
