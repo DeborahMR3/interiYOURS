@@ -177,6 +177,7 @@ const Main3dCanvas = ({
 
   useEffect(() => {
     if (!isDeleting) return;
+    if (!currentItem) return;
     currentItem.setDeleting();
     deleteItem(currentItem);
   }, [isDeleting]);
