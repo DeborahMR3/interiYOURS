@@ -15,6 +15,8 @@ import {
 } from "./firebase/firebaseStore";
 import { FaTrash } from "react-icons/fa";
 
+import Footer from "./components/Footer";
+
 const HomePage = () => {
   const location = useLocation();
   const { message } = location.state || {};
@@ -159,7 +161,14 @@ const HomePage = () => {
             Create a new room
           </button>
         </div>
+
+
+
       </div>
+      <div className="footer">
+        <Footer  />
+      </div>
+
     </section>
   );
 };
