@@ -1,5 +1,4 @@
 import { Dropdown } from 'react-bootstrap';
-
 .home-page {
   height: 98vh;
   width: 100vw;
@@ -30,14 +29,18 @@ import { Dropdown } from 'react-bootstrap';
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  margin-bottom: 1.2rem;
+  align-items: baseline;   /* ESSENCIAL: baseline para alinhar Home e Avatar */
   justify-content: space-between;
+  margin-bottom: 1.2rem;
   gap: 1rem;
-  margin-top: ;
 }
 
-/* AVATAR */
+.home-message {
+  font-size: 40px;
+  margin: 0;
+  line-height: 1.1;
+}
+
 .avatar-button {
   width: 55px !important;
   height: 55px !important;
@@ -64,11 +67,9 @@ import { Dropdown } from 'react-bootstrap';
   pointer-events: none;
 }
 
-
 .avatar-button.dropdown-toggle::after {
   display: none !important;
 }
-
 
 .cards-container {
   width: 100%;
@@ -82,7 +83,6 @@ import { Dropdown } from 'react-bootstrap';
   grid-column: span 2;
   justify-self: center;
 }
-
 
 .room-button {
   padding: 0.85rem;
@@ -99,12 +99,6 @@ import { Dropdown } from 'react-bootstrap';
   height: 64px;
 }
 
-.room-button.secondary:hover,
-.room-button.secondary:focus {
-  background-color: #e1e6ea;
-  color: #1976ff;
-}
-
 .room-button.primary {
   background-color: #007bff;
   color: white;
@@ -116,6 +110,12 @@ import { Dropdown } from 'react-bootstrap';
   color: #fff;
 }
 
+.room-button.secondary:hover,
+.room-button.secondary:focus {
+  background-color: #e1e6ea;
+  color: #1976ff;
+}
+
 .delete-icon {
   color: black;
   margin-left: 1rem;
@@ -123,10 +123,6 @@ import { Dropdown } from 'react-bootstrap';
 
 .delete-icon:hover {
   color: red;
-}
-
-.home-message {
-  font-size: 40px;
 }
 
 /* MOBILE */
