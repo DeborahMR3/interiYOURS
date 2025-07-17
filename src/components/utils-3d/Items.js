@@ -45,7 +45,6 @@ class Furniture {
   }
 
   setRotating() {
-    console.log("setRotating called");
     this._isRotating = true;
     this.meshes.meshes[1].overlayColor = new Color3(0.2, 0.2, 0.9);
     this.meshes.meshes[1].overlayAlpha = 0.4;
@@ -58,7 +57,6 @@ class Furniture {
   }
 
   setDeleting() {
-    console.log("deleting " + this.meshFile);
     this.meshes.meshes.forEach((mesh) => {
       mesh.dispose();
     });
@@ -92,17 +90,13 @@ class Furniture {
       }
     });
     this.pointerDragBehavior.onDragObservable.add((event) => {
-      //console.log(event);
       if (!this._isRotating) return;
       offsetX = event.delta._x;
-      //console.log(event.delta._x);
       this.mesh.rotate(new Vector3(0, 1, 0), offsetX);
     });
     this.pointerDragBehavior.onDragEndObservable.add((event) => {
-      //console.log("dragEnd");
       this.mesh.renderOverlay = false;
 
-      //console.log(event);
       this.updatePosition();
     });
   }
@@ -115,7 +109,6 @@ class Furniture {
       );
 
       this.mesh = this.meshes.meshes[0];
-      //console.log(result.meshes[0]);
       this.mesh.position = new Vector3(
         this.position.x,
         this.position.y,
@@ -123,11 +116,6 @@ class Furniture {
       );
       this.mesh.rotation = new Vector3(0, 0, 0);
       this.mesh.rotate(new Vector3(0, 1, 0), this.rotation * (1 / degConv));
-      //console.log(this.mesh.rotationQuaternion.toEulerAngles().y);
-
-      // this.mesh.overlayColor = new Color3(0, 0, 1);
-      // this.mesh.overlayAlpha = 0.8;
-      // this.mesh.renderOverlay = true;
 
       this.mesh.checkCollisions = true;
 
@@ -159,7 +147,6 @@ class Floor {
     );
     texture.uScale = 2;
     texture.vScale = 2;
-    //material.diffuseColor = new Color3(0.7, 0.6, 0.7);
     material.diffuseTexture = texture;
     this.floor.material = material;
 

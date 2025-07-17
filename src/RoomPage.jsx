@@ -89,7 +89,6 @@ const RoomPage = () => {
     ) {
       setCurrentPackage("A");
       selectedLayout = roomData.packages[0].placements.map((item) => {
-        console.log(`rendering ${item.modelRef} form package A`);
         let newItem = {
           id: item.id,
           model: item.modelRef,
@@ -101,8 +100,6 @@ const RoomPage = () => {
           rotation: item.rotation,
         };
         return newItem;
-        //console.log("newItem >>>", newItem);
-        //addFurniture(newItem);
       });
       setCurrentLayout(selectedLayout);
     } else if (
@@ -122,7 +119,6 @@ const RoomPage = () => {
           },
           rotation: item.rotation,
         };
-        //addFurniture(newItem);
       });
       setCurrentLayout(selectedLayout);
     } else if (
@@ -142,7 +138,6 @@ const RoomPage = () => {
           },
           rotation: item.rotation,
         };
-        //addFurniture(newItem);
       });
       setCurrentLayout(selectedLayout);
     } else {
@@ -173,7 +168,6 @@ const RoomPage = () => {
   };
 
   const updateFurniturePosition = (updatedItem) => {
-    //console.log("Position received:", updatedItem.position);
     const { x, y, z } = updatedItem.position;
     setCurrentLayout((prev) => {
       const oldLayout = [...prev];
