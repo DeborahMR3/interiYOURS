@@ -7,6 +7,8 @@ import { getRoomById, patchRoomLayout } from "./firebase/firebaseStore";
 import { ControlButtons } from "./components/ControlButtons";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseAuth";
+import NotFound from "./NotFound";
+import { useNavigate } from "react-router-dom";
 
 const RoomPage = () => {
   const [currentLayout, setCurrentLayout] = useState([]);
@@ -18,7 +20,10 @@ const RoomPage = () => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(null);
   const [canEdit, setCanEdit] = useState(false);
+  const [hasFetchedRoom, setHasFetchedRoom] = useState(false);
   const { roomId } = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -43,6 +48,13 @@ const RoomPage = () => {
         setLoading(true);
         setError(null);
         const room = await getRoomById(roomId);
+
+        setHasFetchedRoom(true);
+
+        if (!room) {
+          navigate("/*");
+          return;
+        }
         setRoomData(room);
 
         if (room.layout.length !== 0) {
@@ -52,6 +64,7 @@ const RoomPage = () => {
       } catch (error) {
         setError("Failed to load room");
         setRoomData(null);
+        setHasFetchedRoom(true);
       } finally {
         setLoading(false);
       }
@@ -59,7 +72,7 @@ const RoomPage = () => {
     if (roomId) {
       fetchRoom();
     }
-  }, [roomId]);
+  }, [roomId, user]);
 
   // x y z of magic output is in cm, perhaps introduce a utility fn that considers handling zero position
   // possible roatation + 180?
@@ -188,20 +201,32 @@ const RoomPage = () => {
     }
   };
 
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (hasFetchedRoom && !roomData) {
+    return <NotFound />;
+  }
+
+  if (!roomData && !loading) {
+    return <p>No room data found</p>;
+  }
+
   return (
     <div className="layout-view">
-      {roomData ? (
-        <Sidebar
-          addFurniture={addFurniture}
-          packages={roomData.packages}
-          canEdit={canEdit}
-          roomData={roomData}
-          setCurrentPackage={setCurrentPackage}
-          setCurrentLayout={setCurrentLayout}
-        />
-      ) : (
-        <p>Loading...</p>
-      )}
+      <Sidebar
+        addFurniture={addFurniture}
+        packages={roomData.packages}
+        canEdit={canEdit}
+        roomData={roomData}
+        setCurrentPackage={setCurrentPackage}
+        setCurrentLayout={setCurrentLayout}
+      />
       <Main3dCanvas
         roomData={roomData}
         currentLayout={currentLayout}

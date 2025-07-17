@@ -74,10 +74,13 @@ export const getRoomById = async (roomId) => {
     if (docSnap.exists()) {
       return { id: docSnap.id, ...docSnap.data() };
     } else {
-      throw new Error("Room not found");
+      return null;
     }
   } catch (error) {
     console.error("Error whilst fetching Room", error);
+    if (error.code === "permission-denied") {
+      return null;
+    }
     throw error;
   }
 };
