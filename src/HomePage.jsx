@@ -117,6 +117,10 @@ const HomePage = () => {
 
   return (
     <section className="home-page">
+      {/* <h1>
+        <span class="logo-text1">interi</span>
+        <span class="logo-text2">yours</span>
+      </h1> */}
       <div className="main-card">
         <div className="header-section">
           <div>
