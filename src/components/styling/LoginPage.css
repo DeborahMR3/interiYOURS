@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "logoText";
+  src: url(`${import.meta.env.BASE_URL}fonts/utendo/Utendo-Light.ttf`)
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 section {
   width: 98vw;
   max-width: 400px;
@@ -17,6 +25,23 @@ section {
     box-shadow: 0 4px 16px #eff2f5cc;
     border-radius: 16px;
   }
+}
+
+h1 {
+  padding-top: 2rem;
+  padding-bottom: 5rem;
+}
+
+.logo-text1 {
+  font-family: "MyFontRegular", sans-serif;
+  font-size: larger;
+  color: #3a3335;
+}
+
+.logo-text2 {
+  font-family: "MyFontBold", sans-serif;
+  font-size: larger;
+  color: #2d728f;
 }
 
 .login-avatar {
