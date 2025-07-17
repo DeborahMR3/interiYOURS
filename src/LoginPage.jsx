@@ -10,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 // import "./LoginPage.css";
 import { addUserToFirestore } from "./firebase/firebaseStore";
 
+import Footer from "./components/Footer";
+
 const LoginForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -135,6 +137,9 @@ const LoginForm = () => {
           Login as Guest
         </button>
       </form>
+      <div className="footer">
+
+      </div>
     </section>
   );
 };

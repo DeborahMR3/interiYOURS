@@ -98,3 +98,15 @@ button:disabled {
   color: #aaa;
   cursor: not-allowed;
 }
+
+
+.footer {
+  width: 100%;
+  background: #f7f7f7;
+  color: #767676;
+  font-size: 1rem;
+  text-align: center;
+  padding: 16px 0 10px 0;
+  letter-spacing: 0.02em;
+  margin-bottom: 0;
+}
