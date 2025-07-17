@@ -122,6 +122,7 @@ const HomePage = () => {
           <div>
             <h1 className="home-message">Home</h1>
             {message && <p>{message}</p>}
+            {!message && <p>Welcome back!</p>}
             {loading && <p>Loading, please wait...</p>}
             {error && <p>{error}</p>}
           </div>
