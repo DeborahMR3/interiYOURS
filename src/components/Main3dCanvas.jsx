@@ -76,7 +76,7 @@ const Main3dCanvas = ({
     const scene = new Scene(engine);
     setCurrentScene(scene);
     scene.collisionsEnabled = true;
-    scene.clearColor = new Color3(0.98, 0.93, 0.91);
+    scene.clearColor = new Color3(0.9804, 0.949, 0.9412);
 
     const camera = new MainCamera(canvasRef, scene);
     let floor = new Floor(
