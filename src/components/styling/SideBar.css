@@ -166,3 +166,19 @@
 }
 .add-btn:hover { background: #146095;
  }
+
+.view-package-button {
+    width: 100%;
+  background: #3c9be3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 6px;
+ }
+ .view-package-button:hover {
+   background: #146095;
+ }
