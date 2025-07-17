@@ -157,6 +157,10 @@ const Main3dCanvas = ({
 
   useEffect(() => {
     if (!itemsInitialised) return;
+    if (!currentItem) {
+      setIsRotating(false);
+      return;
+    }
     if (isRotating) {
       currentItem.setRotating();
     } else {
@@ -165,11 +169,12 @@ const Main3dCanvas = ({
     }
   }, [isRotating]);
 
-  useEffect(() => {
-    if (isRotating) {
-      currentItem.setRotating();
-    }
-  }, [isRotating]);
+  // useEffect(() => {
+  //   if (!currentItem) return;
+  //   if (isRotating) {
+  //     currentItem.setRotating();
+  //   }
+  // }, [isRotating]);
 
   useEffect(() => {
     console.log(current3dLayout);
