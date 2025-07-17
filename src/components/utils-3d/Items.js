@@ -47,7 +47,7 @@ class Furniture {
   setRotating() {
     console.log("setRotating called");
     this._isRotating = true;
-    this.meshes.meshes[1].overlayColor = new Color3(0.9, 1, 1);
+    this.meshes.meshes[1].overlayColor = new Color3(0.2, 0.2, 0.9);
     this.meshes.meshes[1].overlayAlpha = 0.4;
     this.meshes.meshes[1].renderOverlay = true;
   }
@@ -64,6 +64,18 @@ class Furniture {
     });
   }
 
+  enableSelected() {
+    this.meshes.meshes[1].overlayColor = new Color3(0.9, 1, 1);
+    this.meshes.meshes[1].overlayAlpha = 0.4;
+    this.meshes.meshes[1].renderOverlay = true;
+  }
+
+  disableSelected() {
+    this.meshes.meshes[1].overlayColor = new Color3(0.9, 1, 1);
+    this.meshes.meshes[1].overlayAlpha = 0.4;
+    this.meshes.meshes[1].renderOverlay = false;
+  }
+
   setDragBehaviour() {
     let initialX;
     let offsetX = 0;
@@ -71,6 +83,7 @@ class Furniture {
       //console.log("dragStart");
       //console.log(event);
       this.selectItem(this);
+      if (!this._isRotating) this.enableSelected();
       if (!this._isRotating) {
         this.pointerDragBehavior.moveAttached = true;
       } else {
@@ -93,8 +106,6 @@ class Furniture {
       this.updatePosition();
     });
   }
-
-
 
   async setupMesh() {
     try {

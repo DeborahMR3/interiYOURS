@@ -9,6 +9,8 @@ import {
   HemisphericLight,
   CubeTexture,
   Vector2,
+  PointerInput,
+  PointerDragBehavior,
 } from "@babylonjs/core";
 import MainCamera from "./utils-3d/MainCamera";
 import { Furniture, Floor } from "./utils-3d/Items";
@@ -57,8 +59,10 @@ const Main3dCanvas = ({
 
   const selectItem = (selectedItem) => {
     setCurrentItem((prev) => {
-      if (prev !== selectedItem) {
+      if (prev === null) {
+      } else if (prev !== selectedItem) {
         prev.setMoving();
+        prev.disableSelected();
         setIsRotating(false);
       }
       return selectedItem;
@@ -77,6 +81,18 @@ const Main3dCanvas = ({
     setCurrentScene(scene);
     scene.collisionsEnabled = true;
     scene.clearColor = new Color3(0.9804, 0.949, 0.9412);
+
+    // const pointer = new Pointer();
+    // pointer.onDragObservable.add((event) => {
+    //   console.log(event);
+    // });
+
+    scene.onPointerDown = (event) => {
+      let pickResult = scene.pick(scene.pointerX, scene.pointerY);
+      if (!pickResult.hit) {
+        selectItem(null);
+      }
+    };
 
     const camera = new MainCamera(canvasRef, scene);
     let floor = new Floor(
@@ -145,6 +161,7 @@ const Main3dCanvas = ({
       currentItem.setRotating();
     } else {
       currentItem.setMoving();
+      currentItem.enableSelected();
     }
   }, [isRotating]);
 
