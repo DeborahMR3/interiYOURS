@@ -13,8 +13,8 @@
 
 .sidebar-launcher {
   position: fixed;
-  top: 0px;
-  left: 0;
+  top: 16px;
+  left: 6px;
   z-index: 120;
 }
 .sidebar-launch-btn {
