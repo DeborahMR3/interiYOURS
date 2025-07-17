@@ -98,12 +98,12 @@ const Sidebar = ({
 
                     <div className="plan-option">
                       Plan {plan.name}
-                      <button
+                      {/* <button
                         className="view-package-button"
                         onClick={() => handleLoadPackage(plan, roomData)}
                       >
                         View
-                      </button>
+                      </button> */}
                     </div>
 
                     {/* Items details (each line: image, name, price) */}
@@ -129,6 +129,8 @@ const Sidebar = ({
                         );
                       })}
                     </div>
+                    <button className="view-package-button" onClick={() => handleLoadPackage(plan, roomData)}
+                    >View</button>
                   </div>
                 ))}
               </div>
