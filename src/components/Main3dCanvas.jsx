@@ -48,6 +48,7 @@ const Main3dCanvas = ({
   };
 
   const saveFurniturePosition = (furnitureId, meshFile, vector3, rotation) => {
+    if (!itemsInitialised) return;
     let newItem = {
       id: furnitureId,
       model: meshFile,

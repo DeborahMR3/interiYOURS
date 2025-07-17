@@ -85,7 +85,7 @@ class Furniture {
       this.selectItem(this);
       if (!this._isRotating) this.enableSelected();
       if (!this._isRotating) {
-        this.pointerDragBehavior.moveAttached = true;
+        this.pointerDragBehavior.moveAttached = false;
       } else {
         initialX = event.pointerInfo.event.offsetX;
         this.pointerDragBehavior.moveAttached = false;
@@ -93,6 +93,9 @@ class Furniture {
     });
     this.pointerDragBehavior.onDragObservable.add((event) => {
       //console.log(event);
+      this.mesh.moveWithCollisions(
+        new Vector3(event.delta._x, 0, event.delta._z)
+      );
       if (!this._isRotating) return;
       offsetX = event.delta._x;
       //console.log(event.delta._x);
@@ -129,7 +132,9 @@ class Furniture {
       // this.mesh.overlayAlpha = 0.8;
       // this.mesh.renderOverlay = true;
 
-      this.mesh.checkCollisions = true;
+      this.mesh.checkCollisions = false;
+      this.meshes.meshes[1].checkCollisions = true;
+      //this.meshes.meshes[1].ellipsoid = new Vector3(0.01, 0.01, 0.01);
 
       this.pointerDragBehavior = new PointerDragBehavior({
         dragPlaneNormal: new Vector3(0, 1, 0),
