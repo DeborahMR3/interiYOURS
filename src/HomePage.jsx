@@ -120,7 +120,7 @@ const HomePage = () => {
       <div className="main-card">
         <div className="header-section">
           <div>
-            <h1>HOME PAGE!</h1>
+            <h1 className="home-message">Home</h1>
             {message && <p>{message}</p>}
             {loading && <p>Loading, please wait...</p>}
             {error && <p>{error}</p>}
@@ -161,5 +161,55 @@ const HomePage = () => {
     </section>
   );
 };
+
+
+
+
+//   return (
+//     <section className="home-page">
+//       <div className="main-card">
+//         <div className="header-section">
+//           <div>
+//             <h1 className="home-message">Home</h1>
+//             {message && <p>{message}</p>}
+//             {loading && <p>Loading, please wait...</p>}
+//             {error && <p>{error}</p>}
+//           </div>
+//           <AvatarDropdown
+//             user={user}
+//             onSignOut={handleSignOut}
+//             onDelete={handleDeleteAccount}
+//           />
+//         </div>
+//         <div className="cards-container">
+//           {rooms.map((room) => (
+//             <div key={room.id}>
+//               <button
+//                 className="room-button secondary"
+//                 onClick={() => handleRoomSelect(room.id)}
+//               >
+//                 {room.roomName}
+//                 <FaTrash
+//                   className="delete-icon"
+//                   onClick={(event) => {
+//                     event.stopPropagation();
+//                     handleDeleteRoom(room.id);
+//                   }}
+//                   aria-label="Delete room"
+//                 />
+//               </button>
+//             </div>
+//           ))}
+//           <button
+//             onClick={() => navigate("/create-room")}
+//             className="room-button primary"
+//           >
+//             Create a new room
+//           </button>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
 
 export default HomePage;
