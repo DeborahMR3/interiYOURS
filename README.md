@@ -1,12 +1,43 @@
-# React + Vite
+# InteriYOURS
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Live Demo (hosted on Netlify)](https://interiyours-project.netlify.app/)
 
-Currently, two official plugins are available:
+InteriYOURS is a React Single Page Application that lets you design 3D rooms with virtual furniture. Create, edit, and delete rooms, then add and arrange furniture in an interactive 3D environment powered by Babylon.js.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js v16+
+- npm v8+
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Installation
+
+git clone https://github.com/DeborahMR3/interiYOURS.git
+cd interiYOURS
+npm install
+npm run dev  # to run locally
+Usage
+Sign up, log in, or continue as a guest
+
+Create a new room and enter your requirements:
+
+Room dimensions
+
+Budget
+
+Preferred functional needs
+
+In the 3D editor:
+
+Add, position, rotate, and scale furniture items
+
+Browse through the furniture catalog and layout plans designed for you
+
+Save your project at any time; it will persist under your account or in guest mode
+
+Share your design by copying and sending the project link
+
+Delete rooms from the dashboard as needed
+
+Technologies: React, React Router, Babylon.js, Firebase (Auth & Firestore)
+
+This portfolio project was created as part of a Digital Skills Bootcamp in Software Engineering provided by Northcoders
