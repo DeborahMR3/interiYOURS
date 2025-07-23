@@ -32,6 +32,7 @@ class Furniture {
     this._isRotating = false;
     this.selectItem = selectItem;
     this.saveFurniturePosition = saveFurniturePosition;
+    this.initialised = false;
     this.setupMesh();
   }
 
@@ -125,6 +126,7 @@ class Furniture {
 
       this.mesh.addBehavior(this.pointerDragBehavior);
       this.setDragBehaviour();
+      this.initialised = true;
     } catch (err) {
       console.log(err);
     }

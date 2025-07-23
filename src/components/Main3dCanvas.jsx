@@ -55,7 +55,7 @@ const Main3dCanvas = ({
 
   const selectItem = (selectedItem) => {
     setCurrentItem((prev) => {
-      if (prev === null) {
+      if (prev === null || !prev.initialised) {
       } else if (prev !== selectedItem) {
         prev.setMoving();
         prev.disableSelected();
