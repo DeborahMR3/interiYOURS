@@ -77,6 +77,7 @@ const HomePage = () => {
   };
 
   const handleDeleteAccount = async () => {
+    console.log("delete account triggered");
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your account?"
     );
@@ -87,12 +88,16 @@ const HomePage = () => {
     setError(null);
     try {
       const userRooms = await getRoomsData(user.uid);
+      console.log("fetch rooms");
       await Promise.all(userRooms.map((room) => deleteRoomById(room.id)));
       await deleteDoc(doc(db, "users", user.uid));
+      console.log("delete firebase auth user");
       await deleteUser(user);
+      console.log("room deleted");
       setLoading(false);
       navigate("/");
     } catch (error) {
+      console.log("account delete failed", error);
       setError("Failed to delete account. Please try again");
     } finally {
       setLoading(false);
